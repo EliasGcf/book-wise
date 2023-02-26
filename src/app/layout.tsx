@@ -1,3 +1,13 @@
+import { Nunito_Sans } from 'next/font/google';
+
+import '@shared/global.css';
+
+const nunito = Nunito_Sans({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--nunito-sans',
+});
+
 export const metadata = {
   title: 'RocketBooks',
   icons: [{ type: 'image/png', url: '/favicon.png' }],
@@ -5,7 +15,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={nunito.variable}>
       <body>{children}</body>
     </html>
   );
