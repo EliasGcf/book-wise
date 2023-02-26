@@ -1,6 +1,6 @@
 import { Nunito_Sans } from 'next/font/google';
 
-import '@shared/global.css';
+import '@shared/styles/global.css';
 
 const nunito = Nunito_Sans({
   weight: ['400', '700'],
@@ -16,7 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={nunito.variable}>
-      <body>{children}</body>
+      <body className="bg-gray-08 text-gray-03 antialiased">{children}</body>
     </html>
   );
 }
