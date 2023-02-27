@@ -1,3 +1,4 @@
+import { Link } from '@ui/Link';
 import { exhaustive } from 'exhaustive';
 import Image from 'next/image';
 
@@ -17,10 +18,12 @@ export function SigninButton({ provider }: Props) {
   return (
     <button
       type="button"
-      className="flex w-full items-center gap-5 rounded-lg bg-gray-06 py-5 px-6 text-lg font-bold leading-[160%] transition-colors hover:bg-gray-05"
+      className="flex w-full items-center gap-5 rounded-lg bg-gray-06 py-5 px-6 transition-colors hover:bg-gray-05"
     >
       <Image src={iconUrl} alt="" width={32} height={32} />
-      {text}
+      <Link size="lg" as="span">
+        {text}
+      </Link>
     </button>
   );
 }

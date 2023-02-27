@@ -1,9 +1,7 @@
 {
   "root": true,
   "extends": ["@eliasgcf/eslint-config-next", "plugin:tailwindcss/recommended"],
-  "settings": {
-    "tailwindcss": {
-      "callees": ["cva"]
-    }
+  "rules": {
+    "jsx-a11y/anchor-is-valid": "off"
   }
 }

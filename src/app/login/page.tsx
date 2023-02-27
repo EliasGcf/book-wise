@@ -1,3 +1,5 @@
+import { Text } from '@ui/Text';
+import { Title } from '@ui/Title';
 import Image from 'next/image';
 
 import { SigninButton } from '@components/SigninButton';
@@ -17,13 +19,11 @@ export default function Login() {
 
         <aside className="flex w-full items-center justify-center">
           <div className="w-full max-w-[372px]">
-            <h1 className="text-2xl font-bold leading-[140%] text-gray-01">
+            <Title className="text-2xl" size="lg">
               Boas vindas!
-            </h1>
+            </Title>
 
-            <span className="text-base font-normal leading-[160%]">
-              Faça seu login ou acesse como visitante.
-            </span>
+            <Text as="span">Faça seu login ou acesse como visitante.</Text>
 
             <div className="mt-10 flex flex-col gap-4">
               <SigninButton provider="google" />
