@@ -1,8 +1,6 @@
 import { exhaustive } from 'exhaustive';
 import Image from 'next/image';
 
-import { styles } from '@shared/styles';
-
 type Provider = 'google' | 'github' | 'visitor';
 
 type Props = {
@@ -19,10 +17,7 @@ export function SigninButton({ provider }: Props) {
   return (
     <button
       type="button"
-      className={styles.link({
-        size: 'lg',
-        className: `flex w-full items-center gap-5 rounded-lg bg-gray-06 py-5 px-6 transition-colors hover:bg-gray-05`,
-      })}
+      className="flex w-full items-center gap-5 rounded-lg bg-gray-06 py-5 px-6 text-lg font-bold leading-[160%] transition-colors hover:bg-gray-05"
     >
       <Image src={iconUrl} alt="" width={32} height={32} />
       {text}

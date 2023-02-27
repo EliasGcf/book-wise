@@ -10,7 +10,6 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "class-variance-authority": "^0.4.0",
     "exhaustive": "^1.1.1",
     "next": "13.2.1",
     "react": "18.2.0",
