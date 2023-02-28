@@ -13,8 +13,7 @@ export default function Login() {
           alt=""
           width={598}
           height={912}
-          quality={100}
-          className="my-auto hidden max-h-[912px] lg:block"
+          className="my-auto hidden h-full max-h-[912px] w-auto lg:block"
         />
 
         <aside className="flex w-full items-center justify-center">
