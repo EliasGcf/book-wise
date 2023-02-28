@@ -1,7 +1,9 @@
 import { Link } from '@ui/Link';
-import { LineChart, LogIn } from 'lucide-react';
+import { LineChart, LogIn, Search, User } from 'lucide-react';
 import Image from 'next/image';
 import NextLink from 'next/link';
+
+import { NavLink } from '@components/NavLink';
 
 export function Sidebar() {
   return (
@@ -10,15 +12,21 @@ export function Sidebar() {
         <Image src="/svg/logo-with-name.svg" alt="" width={149} height={32} />
       </header>
 
-      <nav className="mt-16">
-        <Link
-          href="/"
-          as={NextLink}
-          className="flex w-fit cursor-pointer items-center gap-3 text-gray-04 transition-colors hover:text-gray-01"
-        >
+      <nav className="mt-16 flex flex-col gap-4">
+        <NavLink href="/" as={NextLink}>
           <LineChart size={18} />
           Início
-        </Link>
+        </NavLink>
+
+        <NavLink href="/" as={NextLink}>
+          <Search size={18} />
+          Explorar
+        </NavLink>
+
+        <NavLink href="/" as={NextLink}>
+          <User size={18} />
+          Perfil
+        </NavLink>
       </nav>
 
       <footer className="mt-auto">
