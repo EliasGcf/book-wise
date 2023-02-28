@@ -13,11 +13,12 @@ export default function Login() {
           alt=""
           width={598}
           height={912}
-          className="my-auto hidden h-full max-h-[912px] w-auto lg:block"
+          quality={100}
+          className="my-auto hidden h-full max-h-[912px] w-auto animate-in fade-in duration-500 lg:block"
         />
 
         <aside className="flex w-full items-center justify-center">
-          <div className="w-full max-w-[372px]">
+          <div className="w-full max-w-[372px] animate-in fade-in slide-in-from-right duration-500">
             <Title className="text-2xl" size="lg">
               Boas vindas!
             </Title>
