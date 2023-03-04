@@ -1,7 +1,6 @@
 import { Link } from '@ui/Link';
 import { LineChart, LogIn, Search, User } from 'lucide-react';
 import Image from 'next/image';
-import NextLink from 'next/link';
 
 import { NavLink } from '@components/NavLink';
 
@@ -13,20 +12,9 @@ export function Sidebar() {
       </header>
 
       <nav className="mt-16 flex flex-col gap-4">
-        <NavLink href="/" as={NextLink}>
-          <LineChart size={18} />
-          Início
-        </NavLink>
-
-        <NavLink href="/" as={NextLink}>
-          <Search size={18} />
-          Explorar
-        </NavLink>
-
-        <NavLink href="/" as={NextLink}>
-          <User size={18} />
-          Perfil
-        </NavLink>
+        <NavLink href="/" icon={<LineChart size={18} />} title="Início" />
+        <NavLink href="/search" icon={<Search size={18} />} title="Explorar" />
+        <NavLink href="/profile" icon={<User size={18} />} title="Perfil" />
       </nav>
 
       <footer className="mt-auto">
