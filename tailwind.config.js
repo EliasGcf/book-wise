@@ -24,6 +24,10 @@ module.exports = {
         '07': '#181C2A',
         '08': '#0E1116',
       },
+
+      danger: {
+        light: '#F75A68',
+      },
     },
 
     extend: {

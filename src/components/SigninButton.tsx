@@ -1,5 +1,8 @@
+'use client';
+
 import { Link } from '@ui/Link';
 import { exhaustive } from 'exhaustive';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 
 type Provider = 'google' | 'github' | 'visitor';
@@ -9,16 +12,30 @@ type Props = {
 };
 
 export function SigninButton({ provider }: Props) {
-  const { text, iconUrl } = exhaustive(provider, {
-    github: () => ({ iconUrl: '/svg/github.svg', text: 'Entrar com GitHub' }),
-    google: () => ({ iconUrl: '/svg/google.svg', text: 'Entrar com Google' }),
-    visitor: () => ({ iconUrl: '/svg/logo.svg', text: 'Acessar como visitante' }),
+  const { text, iconUrl, onClick } = exhaustive(provider, {
+    github: () => ({
+      iconUrl: '/svg/github.svg',
+      text: 'Entrar com GitHub',
+      onClick: () => signIn('github'),
+    }),
+    google: () => ({
+      iconUrl: '/svg/google.svg',
+      text: 'Entrar com Google',
+      onClick: false as const,
+    }),
+    visitor: () => ({
+      iconUrl: '/svg/logo.svg',
+      text: 'Acessar como visitante',
+      onClick: false as const,
+    }),
   });
 
   return (
     <button
       type="button"
-      className="flex w-full items-center gap-5 rounded-lg bg-gray-06 py-5 px-6 transition-colors hover:bg-gray-05"
+      disabled={onClick === false}
+      className="flex w-full items-center gap-5 rounded-lg bg-gray-06 py-5 px-6 transition-colors enabled:hover:bg-gray-05 disabled:cursor-not-allowed disabled:opacity-50"
+      onClick={onClick === false ? undefined : onClick}
     >
       <Image src={iconUrl} alt="" width={32} height={32} />
       <Link size="lg" as="span">
