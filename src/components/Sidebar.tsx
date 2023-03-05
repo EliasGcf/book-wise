@@ -21,7 +21,7 @@ async function BaseSidebar() {
       <nav className="mt-16 flex flex-col gap-4">
         <NavLink href="/" icon={<LineChart size={18} />} title="Início" />
         <NavLink href="/search" icon={<Search size={18} />} title="Explorar" />
-        <NavLink href="/profile" icon={<User size={18} />} title="Perfil" />
+        {session && <NavLink href="/profile" icon={<User size={18} />} title="Perfil" />}
       </nav>
 
       <footer className="mt-auto flex items-center gap-3">
