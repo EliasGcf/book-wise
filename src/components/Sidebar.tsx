@@ -14,7 +14,7 @@ async function BaseSidebar() {
   const session = await getServerSession();
 
   return (
-    <aside className="m-5 flex w-fit flex-col rounded-xl bg-[url('/svg/sidebar-background.svg')] p-10 pb-6">
+    <aside className="m-5 flex w-fit flex-col rounded-xl bg-[url('/svg/sidebar-background.svg')] bg-cover p-10 pb-6">
       <header>
         <Image
           src="/svg/logo-with-name.svg"
