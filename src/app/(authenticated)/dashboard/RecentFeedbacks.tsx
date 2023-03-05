@@ -24,6 +24,7 @@ export function RecentFeedbacks() {
             book={{
               imageUrl: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
               title: 'O Hobbit',
+              author: 'J.R.R. Tolkien',
             }}
             createdAt={new Date()}
             feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
@@ -38,6 +39,7 @@ export function RecentFeedbacks() {
             book={{
               imageUrl: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
               title: 'O Hobbit',
+              author: 'J.R.R. Tolkien',
             }}
             createdAt={new Date()}
             feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
@@ -52,6 +54,7 @@ export function RecentFeedbacks() {
             book={{
               imageUrl: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
               title: 'O Hobbit',
+              author: 'J.R.R. Tolkien',
             }}
             createdAt={new Date()}
             feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
@@ -70,6 +73,7 @@ type FeedbackCardProps = {
   book: {
     title: string;
     imageUrl: string;
+    author: string;
   };
   feedback: string;
   createdAt: Date;
@@ -101,12 +105,15 @@ function FeedbackCard({ author, book, feedback, createdAt }: FeedbackCardProps) 
           className="max-h-[152px] min-w-[108px] rounded object-cover"
         />
 
-        <div>
+        <div className="flex flex-col">
           <Title as="h3" size="xs" className="text-gray-01">
             {book.title}
           </Title>
+          <Text size="sm" className="text-gray-04">
+            {book.author}
+          </Text>
 
-          <Text size="sm" className="text-gray-04 line-clamp-4">
+          <Text size="sm" className="mt-auto text-gray-04 line-clamp-4">
             {feedback}
           </Text>
         </div>
