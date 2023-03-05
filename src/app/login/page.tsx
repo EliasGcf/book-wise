@@ -1,10 +1,18 @@
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
+import { getServerSession } from 'next-auth';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 import { SigninButton } from '@components/SigninButton';
 
-export default function Login() {
+export default async function Login() {
+  const session = await getServerSession();
+
+  if (session) {
+    redirect('/');
+  }
+
   return (
     <main className="flex h-screen p-5">
       <div className="mx-auto flex w-full max-w-[1440px]">
