@@ -13,6 +13,7 @@
     "exhaustive": "^1.1.1",
     "lucide-react": "^0.118.0",
     "next": "13.2.3",
+    "next-auth": "0.0.0-pr.6777.c5550344",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss-animate": "^1.0.5",
