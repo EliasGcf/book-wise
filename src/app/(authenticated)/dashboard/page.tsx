@@ -1,13 +1,16 @@
 import { ChartLineUp } from '@ui/icons';
 import { Title } from '@ui/Title';
+import { getServerSession } from 'next-auth';
 
 import { LastRead } from '@app/(authenticated)/dashboard/LastRead';
 import { PopularBooks } from '@app/(authenticated)/dashboard/PopularBooks';
 import { RecentFeedbacks } from '@app/(authenticated)/dashboard/RecentFeedbacks';
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const session = await getServerSession();
+
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col px-4 pt-14 pb-5">
+    <div className="flex flex-col overflow-hidden">
       <header className="flex items-center gap-3">
         <ChartLineUp size={32} className="text-green-01" />
         <Title size="lg" className="text-gray-01">
@@ -17,7 +20,7 @@ export default function Dashboard() {
 
       <div className="mt-10 flex flex-col-reverse gap-10 overflow-y-auto xl:flex-row xl:justify-between xl:gap-0">
         <div className="flex max-w-[608px] flex-col gap-10">
-          <LastRead />
+          {session && <LastRead />}
           <RecentFeedbacks />
         </div>
 

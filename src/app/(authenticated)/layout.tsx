@@ -4,9 +4,11 @@ import { Sidebar } from '@components/Sidebar';
 
 export default function AuthenticatedLayout({ children }: PropsWithChildren) {
   return (
-    <main className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden">
       <Sidebar />
-      {children}
-    </main>
+      <main className="mx-auto flex w-full max-w-5xl flex-col px-4 pt-14 pb-5">
+        {children}
+      </main>
+    </div>
   );
 }
