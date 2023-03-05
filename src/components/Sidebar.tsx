@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
+import { Avatar } from '@components/Avatar';
 import { NavLink } from '@components/NavLink';
 
 import { asyncComponent } from '@utils/async-component';
@@ -33,15 +34,7 @@ async function BaseSidebar() {
       <footer className="mt-auto flex items-center justify-center gap-3 whitespace-nowrap">
         {session && session.user ? (
           <>
-            {session.user.image && (
-              <Image
-                src={session.user.image}
-                width={32}
-                height={32}
-                alt={session.user.name ?? ''}
-                className="rounded-full"
-              />
-            )}
+            {session.user.image && <Avatar imageUrl={session.user.image} />}
             <Text size="sm" className="text-gray-02">
               {session.user.name}
             </Text>
