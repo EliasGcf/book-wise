@@ -21,7 +21,11 @@ function BookCardFull({
 }: BookCardFullProps) {
   return (
     <div className="flex h-[192px] gap-6 rounded-lg border-2 border-gray-06 bg-gray-06 px-6 py-5 transition-colors hover:border-gray-05">
-      <img src={imageUrl} alt="" className="h-[152px] w-[108px] rounded" />
+      <img
+        src={imageUrl}
+        alt=""
+        className="max-h-[152px] min-w-[108px] rounded object-cover"
+      />
 
       <div className="flex h-full w-full flex-col">
         <header>
@@ -61,7 +65,11 @@ type BookCardCompactProps = {
 function BookCardCompact({ title, author, imageUrl }: BookCardCompactProps) {
   return (
     <div className="flex h-[130px] gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 transition-colors hover:border-gray-06">
-      <img src={imageUrl} alt="" className="h-[94px] w-[64px] rounded" />
+      <img
+        src={imageUrl}
+        alt={title}
+        className="max-h-[94px] min-w-[64px] rounded object-cover"
+      />
 
       <div className="flex h-full flex-col">
         <header>
