@@ -4,6 +4,7 @@ import { Link } from '@ui/Link';
 import { exhaustive } from 'exhaustive';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 type Provider = 'google' | 'github' | 'visitor';
 
@@ -12,6 +13,8 @@ type Props = {
 };
 
 export function SigninButton({ provider }: Props) {
+  const router = useRouter();
+
   const { text, iconUrl, onClick } = exhaustive(provider, {
     github: () => ({
       iconUrl: '/svg/github.svg',
@@ -26,7 +29,7 @@ export function SigninButton({ provider }: Props) {
     visitor: () => ({
       iconUrl: '/svg/logo.svg',
       text: 'Acessar como visitante',
-      onClick: false as const,
+      onClick: () => router.push('/dashboard'),
     }),
   });
 
