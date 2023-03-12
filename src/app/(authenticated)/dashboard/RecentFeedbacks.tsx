@@ -84,7 +84,7 @@ function FeedbackCard({ author, book, feedback, createdAt }: FeedbackCardProps) 
     <div className="flex flex-col gap-8 rounded-lg bg-gray-07 p-6">
       <header className="flex justify-between">
         <div className="flex gap-4">
-          <Avatar imageUrl={author.imageUrl} />
+          <Avatar imageUrl={author.imageUrl} name={author.name} />
           <div>
             <Text size="md" className="text-gray-01">
               {author.name}

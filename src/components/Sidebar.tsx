@@ -34,7 +34,9 @@ async function BaseSidebar() {
       <footer className="mt-auto flex items-center justify-center gap-3 whitespace-nowrap">
         {session && session.user ? (
           <>
-            {session.user.image && <Avatar imageUrl={session.user.image} />}
+            {session.user.image && session.user.name && (
+              <Avatar name={session.user.name} imageUrl={session.user.image} />
+            )}
             <Text size="sm" className="text-gray-02">
               {session.user.name}
             </Text>
