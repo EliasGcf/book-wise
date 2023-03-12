@@ -41,6 +41,10 @@ module.exports = {
         'gradient-horizontal': 'linear-gradient(90deg, #7FD1CC 0%, #9694F5 100%)',
         'gradient-vertical': 'linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)',
       },
+
+      padding: {
+        18: '4.5rem',
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/line-clamp')],
