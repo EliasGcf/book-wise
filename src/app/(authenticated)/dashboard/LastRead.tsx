@@ -1,3 +1,5 @@
+'use client';
+
 import { CaretRight } from '@ui/icons';
 import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
