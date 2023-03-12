@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import * as Dialog from '@radix-ui/react-dialog';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
@@ -64,7 +65,7 @@ type BookCardCompactProps = {
 
 function BookCardCompact({ title, author, imageUrl }: BookCardCompactProps) {
   return (
-    <div className="flex h-[130px] gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 transition-colors hover:border-gray-06">
+    <Dialog.Trigger className="flex h-[130px] gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 transition-colors hover:border-gray-06">
       <img
         src={imageUrl}
         alt={title}
@@ -72,18 +73,18 @@ function BookCardCompact({ title, author, imageUrl }: BookCardCompactProps) {
       />
 
       <div className="flex h-full flex-col">
-        <header>
+        <header className="text-left">
           <Title size="xs" className="text-gray-01 line-clamp-2">
             {title}
           </Title>
-          <Text size="sm" className="text-gray-04">
+          <Text as="span" size="sm" className="text-gray-04">
             {author}
           </Text>
         </header>
 
         <Stars votes={3} className="mt-auto" />
       </div>
-    </div>
+    </Dialog.Trigger>
   );
 }
 

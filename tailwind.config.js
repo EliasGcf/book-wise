@@ -28,6 +28,8 @@ module.exports = {
       danger: {
         light: '#F75A68',
       },
+
+      black: '#000',
     },
 
     extend: {
