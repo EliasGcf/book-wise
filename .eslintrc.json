@@ -3,6 +3,15 @@
   "extends": ["@eliasgcf/eslint-config-next", "plugin:tailwindcss/recommended"],
   "rules": {
     "jsx-a11y/anchor-is-valid": "off",
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "arrowParens": "always",
+        "singleQuote": true,
+        "printWidth": 90,
+        "trailingComma": "all"
+      }
+    ]
   }
 }
