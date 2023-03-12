@@ -22,7 +22,7 @@ export default function Search() {
         <Input placeholder="Buscar livro ou autor" className="max-w-md" />
       </header>
 
-      <div className="mt-10 flex flex-col gap-12 overflow-hidden">
+      <div className="mt-5 flex flex-col gap-12 overflow-hidden">
         <Tags />
 
         <div className="grid grid-cols-1 gap-5 overflow-y-auto lg:grid-cols-2 xl:grid-cols-3">
