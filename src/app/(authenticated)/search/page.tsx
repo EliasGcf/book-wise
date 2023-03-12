@@ -38,7 +38,6 @@ export default function Search() {
                 author="George Orwell"
               />
             ))}
-
             <BookDetailDialog />
           </div>
         </Dialog.Root>

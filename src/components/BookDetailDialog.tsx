@@ -9,9 +9,9 @@ import { Stars } from '@components/Stars';
 export function BookDetailDialog() {
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 bg-black/60" />
+      <Dialog.Overlay className="fixed inset-0 bg-black/60 data-[state=open]:animate-in data-[state=open]:fade-in" />
 
-      <Dialog.Content className="fixed inset-y-0 right-0 flex h-screen w-[660px] flex-col bg-gray-08 py-6 px-12">
+      <Dialog.Content className="fixed inset-y-0 right-0 flex h-screen w-[660px] flex-col bg-gray-08 py-6 px-12 data-[state=open]:animate-in data-[state=open]:slide-in-from-right">
         <Dialog.Close className="ml-auto h-fit">
           <X size={24} className="text-gray-04" weight="bold" />
         </Dialog.Close>
