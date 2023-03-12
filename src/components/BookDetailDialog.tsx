@@ -1,9 +1,12 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable jsx-a11y/alt-text */
 import * as Dialog from '@radix-ui/react-dialog';
 import { BookmarkSimple, BookOpen, X } from '@ui/icons';
+import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
+import { Avatar } from '@components/Avatar';
 import { Stars } from '@components/Stars';
 
 export function BookDetailDialog() {
@@ -11,7 +14,7 @@ export function BookDetailDialog() {
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 bg-black/60 data-[state=open]:animate-in data-[state=open]:fade-in" />
 
-      <Dialog.Content className="fixed inset-y-0 right-0 flex h-screen w-[660px] flex-col bg-gray-08 py-6 px-12 data-[state=open]:animate-in data-[state=open]:slide-in-from-right">
+      <Dialog.Content className="fixed inset-y-0 right-0 flex h-screen w-[660px] flex-col overflow-y-auto bg-gray-08 py-6 px-12 data-[state=open]:animate-in data-[state=open]:slide-in-from-right">
         <Dialog.Close className="ml-auto h-fit">
           <X size={24} className="text-gray-04" weight="bold" />
         </Dialog.Close>
@@ -72,7 +75,58 @@ export function BookDetailDialog() {
             </div>
           </div>
         </div>
+
+        <section>
+          <header className="mt-10 mb-4 flex items-center justify-between">
+            <Text size="sm" className="text-gray-02">
+              Avaliações
+            </Text>
+
+            <Link
+              size="md"
+              as="button"
+              className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
+            >
+              Ver todas
+            </Link>
+          </header>
+
+          <ul className="flex flex-col gap-3">
+            <FeedbackCard />
+            <FeedbackCard />
+            <FeedbackCard />
+            <FeedbackCard />
+          </ul>
+        </section>
       </Dialog.Content>
     </Dialog.Portal>
+  );
+}
+
+function FeedbackCard() {
+  return (
+    <li className="flex flex-col gap-5 rounded-lg bg-gray-07 p-6">
+      <header className="flex justify-between">
+        <div className="flex gap-4">
+          <Avatar imageUrl="https://github.com/eliasgcf.png" name="Elias Gabriel" />
+          <div>
+            <Text size="md" className="text-gray-01">
+              Elias Gabriel
+            </Text>
+            <Text size="sm" className="text-gray-04">
+              {new Date().toLocaleDateString()}
+            </Text>
+          </div>
+        </div>
+
+        <Stars votes={4} />
+      </header>
+
+      <Text size="sm" className="text-gray-03">
+        Nec tempor nunc in egestas. Euismod nisi eleifend at et in sagittis. Penatibus id
+        vestibulum imperdiet a at imperdiet lectus leo. Sit porta eget nec vitae sit
+        vulputate eget
+      </Text>
+    </li>
   );
 }
