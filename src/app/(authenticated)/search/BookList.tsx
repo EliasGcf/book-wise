@@ -1,11 +1,16 @@
 'use client';
 
 import * as Dialog from '@radix-ui/react-dialog';
+import { DefaultSession } from 'next-auth';
 
 import { BookCard } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
 
-export function BookList() {
+type BookListProps = {
+  user?: DefaultSession['user'];
+};
+
+export function BookList({ user }: BookListProps) {
   return (
     <Dialog.Root>
       <div className="grid grid-cols-1 gap-5 overflow-y-auto lg:grid-cols-2 xl:grid-cols-3">
@@ -19,7 +24,7 @@ export function BookList() {
           />
         ))}
 
-        <BookDetailDialog />
+        <BookDetailDialog user={user} />
       </div>
     </Dialog.Root>
   );

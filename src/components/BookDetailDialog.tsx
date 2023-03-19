@@ -5,13 +5,19 @@ import { BookmarkSimple, BookOpen, X } from '@ui/icons';
 import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
+import { DefaultSession } from 'next-auth';
 
 import { Avatar } from '@components/Avatar';
 import { DialogOverlay } from '@components/DialogOverlay';
+import { FeedbackForm } from '@components/FeedbackForm';
 import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
 
-export function BookDetailDialog() {
+type BookDetailDialogProps = {
+  user?: DefaultSession['user'];
+};
+
+export function BookDetailDialog({ user }: BookDetailDialogProps) {
   return (
     <Dialog.Portal>
       <DialogOverlay />
@@ -84,22 +90,25 @@ export function BookDetailDialog() {
               Avaliações
             </Text>
 
-            <Dialog.Root>
-              <Dialog.Trigger>
-                <Link
-                  size="md"
-                  as="button"
-                  className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
-                >
-                  Avaliar
-                </Link>
-              </Dialog.Trigger>
+            {!user && (
+              <Dialog.Root>
+                <Dialog.Trigger>
+                  <Link
+                    size="md"
+                    as="button"
+                    className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
+                  >
+                    Avaliar
+                  </Link>
+                </Dialog.Trigger>
 
-              <SigninDialog />
-            </Dialog.Root>
+                <SigninDialog />
+              </Dialog.Root>
+            )}
           </header>
 
           <ul className="flex flex-col gap-3">
+            {user && <FeedbackForm user={user} />}
             <FeedbackCard />
             <FeedbackCard />
             <FeedbackCard />

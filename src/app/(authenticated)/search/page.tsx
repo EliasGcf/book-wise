@@ -1,12 +1,15 @@
 import { Binoculars } from '@ui/icons';
 import { Title } from '@ui/Title';
+import { getServerSession } from 'next-auth';
 
 import { BookList } from '@app/(authenticated)/search/BookList';
 import { Tags } from '@app/(authenticated)/search/Tags';
 
 import { Input } from '@components/Form/Input';
 
-export default function Search() {
+export default async function Search() {
+  const session = await getServerSession();
+
   return (
     <div className="flex flex-col overflow-hidden">
       <header className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
@@ -22,7 +25,7 @@ export default function Search() {
 
       <div className="mt-5 flex flex-col gap-12 overflow-hidden">
         <Tags />
-        <BookList />
+        <BookList user={session?.user} />
       </div>
     </div>
   );
