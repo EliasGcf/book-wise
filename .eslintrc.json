@@ -5,7 +5,7 @@
     "jsx-a11y/anchor-is-valid": "off",
     "@next/next/no-img-element": "off",
     "react/button-has-type": [
-      true,
+      "error",
       {
         "button": true,
         "submit": true,
