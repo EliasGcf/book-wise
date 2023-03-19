@@ -12,6 +12,7 @@ import { DialogOverlay } from '@components/DialogOverlay';
 import { FeedbackForm } from '@components/FeedbackForm';
 import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
+import { dayjs } from '@libs/dayjs';
 
 type BookDetailDialogProps = {
   user?: DefaultSession['user'];
@@ -131,7 +132,7 @@ function FeedbackCard() {
               Elias Gabriel
             </Text>
             <Text size="sm" className="text-gray-04">
-              {new Date().toLocaleDateString()}
+              {dayjs(new Date()).fromNow()}
             </Text>
           </div>
         </div>

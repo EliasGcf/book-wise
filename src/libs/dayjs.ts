@@ -1,0 +1,11 @@
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+import dayjs from 'dayjs';
+
+import 'dayjs/locale/pt-br';
+
+dayjs.locale('pt-br');
+
+dayjs.extend(relativeTime);
+
+export { dayjs };

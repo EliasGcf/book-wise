@@ -4,6 +4,7 @@ import { Title } from '@ui/Title';
 
 import { Avatar } from '@components/Avatar';
 import { Stars } from '@components/Stars';
+import { dayjs } from '@libs/dayjs';
 
 export function RecentFeedbacks() {
   return (
@@ -90,7 +91,7 @@ function FeedbackCard({ author, book, feedback, createdAt }: FeedbackCardProps) 
               {author.name}
             </Text>
             <Text size="sm" className="text-gray-04">
-              {createdAt.toLocaleDateString()}
+              {dayjs(createdAt).fromNow()}
             </Text>
           </div>
         </div>
