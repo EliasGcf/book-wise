@@ -1,26 +1,48 @@
 'use client';
 
 import * as PrimitiveAvatar from '@radix-ui/react-avatar';
+import { twMerge } from 'tailwind-merge';
+import { wx } from 'windstitch';
 
 type AvatarProps = {
-  imageUrl: string;
+  imageUrl?: string | null;
   name: string;
+  size?: 'sm' | 'lg';
 };
 
-export function Avatar({ imageUrl, name }: AvatarProps) {
+const avatarContainer = wx({
+  className: 'rounded-full bg-gradient-vertical p-px',
+
+  variants: {
+    size: {
+      sm: 'h-10 w-10',
+      lg: 'h-18 w-18',
+    },
+  },
+
+  defaultVariants: {
+    size: 'sm',
+  },
+});
+
+export function Avatar({ imageUrl, name, size }: AvatarProps) {
   const initials = name
     .split(' ')
     .slice(0, 2)
     .map((word) => word[0])
     .join('');
 
+  console.log(avatarContainer('lg'));
+
   return (
-    <PrimitiveAvatar.Root className="h-10 w-10 rounded-full bg-gradient-vertical p-px">
-      <PrimitiveAvatar.Image
-        alt={name}
-        src={imageUrl}
-        className="h-full w-full rounded-full"
-      />
+    <PrimitiveAvatar.Root className={twMerge(avatarContainer({ size }))}>
+      {imageUrl && (
+        <PrimitiveAvatar.Image
+          alt={name}
+          src={imageUrl}
+          className="h-full w-full rounded-full"
+        />
+      )}
 
       <PrimitiveAvatar.Fallback
         delayMs={600}

@@ -45,6 +45,14 @@ module.exports = {
       padding: {
         18: '4.5rem',
       },
+
+      height: {
+        18: '4.5rem',
+      },
+
+      width: {
+        18: '4.5rem',
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/line-clamp')],
