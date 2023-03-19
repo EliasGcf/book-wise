@@ -32,8 +32,6 @@ export function Avatar({ imageUrl, name, size }: AvatarProps) {
     .map((word) => word[0])
     .join('');
 
-  console.log(avatarContainer('lg'));
-
   return (
     <PrimitiveAvatar.Root className={twMerge(avatarContainer({ size }))}>
       {imageUrl && (

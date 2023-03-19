@@ -7,13 +7,11 @@ import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 import { DefaultSession } from 'next-auth';
 
-import { Avatar } from '@components/Avatar';
 import { DialogOverlay } from '@components/DialogOverlay';
+import { FeedbackCard } from '@components/FeedbackCard';
 import { FeedbackForm } from '@components/FeedbackForm';
 import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
-import { dayjs } from '@libs/dayjs';
-import { FeedbackCard } from '@components/FeedbackCard';
 
 type BookDetailDialogProps = {
   user?: DefaultSession['user'];

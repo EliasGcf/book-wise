@@ -1,9 +1,11 @@
-import { Avatar } from '@components/Avatar';
-import { Stars } from '@components/Stars';
-import { dayjs } from '@libs/dayjs';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 import clsx from 'clsx';
+
+import { Avatar } from '@components/Avatar';
+import { Stars } from '@components/Stars';
+
+import { dayjs } from '@libs/dayjs';
 
 type FeedbackCardProps = {
   author: {
