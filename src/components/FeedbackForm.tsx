@@ -3,6 +3,7 @@ import { Title } from '@ui/Title';
 import { DefaultSession } from 'next-auth';
 
 import { Avatar } from '@components/Avatar';
+import { Textarea } from '@components/Form/Textarea';
 import { Stars } from '@components/Stars';
 
 type FeedbackFormProps = {
@@ -24,14 +25,11 @@ export function FeedbackForm({ user }: FeedbackFormProps) {
         <Stars votes={0} size={28} />
       </header>
 
-      <textarea
-        className="mt-6 h-40 resize-none rounded border border-gray-05 bg-gray-08 py-3 px-5 text-gray-02 outline-none transition-colors placeholder:text-gray-04 focus:border-green-02"
-        placeholder="Escreva sua avaliação"
-      />
+      <Textarea maxLength={450} />
 
       <footer className="mt-3 flex justify-end gap-2">
         <button
-          type="button"
+          type="reset"
           className="rounded bg-gray-06 p-2 transition-colors hover:bg-gray-05"
         >
           <X size={24} className="text-purple-01" />

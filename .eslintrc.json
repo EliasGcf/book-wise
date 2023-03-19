@@ -4,6 +4,14 @@
   "rules": {
     "jsx-a11y/anchor-is-valid": "off",
     "@next/next/no-img-element": "off",
+    "react/button-has-type": [
+      true,
+      {
+        "button": true,
+        "submit": true,
+        "reset": true
+      }
+    ],
     "prettier/prettier": [
       "error",
       {

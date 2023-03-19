@@ -65,7 +65,7 @@ type BookCardCompactProps = {
 
 function BookCardCompact({ title, author, imageUrl }: BookCardCompactProps) {
   return (
-    <Dialog.Trigger className="flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 transition-colors hover:border-gray-06">
+    <Dialog.Trigger className="flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 outline-none transition-colors hover:border-gray-06 focus:border-gray-06">
       <img
         src={imageUrl}
         alt={title}
