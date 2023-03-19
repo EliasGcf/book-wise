@@ -26,7 +26,7 @@ async function BaseSidebar() {
       </header>
 
       <nav className="mt-16 flex flex-col gap-4">
-        <NavLink href="/dashboard" icon={<ChartLineUp size={24} />} title="Início" />
+        <NavLink href="/" icon={<ChartLineUp size={24} />} title="Início" />
         <NavLink href="/search" icon={<Binoculars size={24} />} title="Explorar" />
         {session && <NavLink href="/profile" icon={<User size={24} />} title="Perfil" />}
       </nav>

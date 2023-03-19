@@ -2,7 +2,7 @@
 
 import { Link } from '@ui/Link';
 import NextLink from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { wx } from 'windstitch';
 
 const navLink = wx({
@@ -27,16 +27,12 @@ type NavLinkProps = {
 };
 
 export function NavLink({ href, icon, title }: NavLinkProps) {
-  const activeSegment = useSelectedLayoutSegment();
+  const pathname = usePathname();
 
-  const segment = href.split('/')[1] || null;
+  const isActive = pathname === href;
 
   return (
-    <Link
-      href={href}
-      as={NextLink}
-      className={navLink({ active: segment === activeSegment })}
-    >
+    <Link href={href} as={NextLink} className={navLink({ active: isActive })}>
       {icon}
       {title}
     </Link>

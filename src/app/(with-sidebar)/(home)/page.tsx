@@ -2,9 +2,9 @@ import { ChartLineUp } from '@ui/icons';
 import { Title } from '@ui/Title';
 import { getServerSession } from 'next-auth';
 
-import { LastRead } from '@app/(authenticated)/dashboard/LastRead';
-import { PopularBooks } from '@app/(authenticated)/dashboard/PopularBooks';
-import { RecentFeedbacks } from '@app/(authenticated)/dashboard/RecentFeedbacks';
+import { LastRead } from '@app/(with-sidebar)/(home)/LastRead';
+import { PopularBooks } from '@app/(with-sidebar)/(home)/PopularBooks';
+import { RecentFeedbacks } from '@app/(with-sidebar)/(home)/RecentFeedbacks';
 
 export default async function Dashboard() {
   const session = await getServerSession();

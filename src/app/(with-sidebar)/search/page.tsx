@@ -2,8 +2,8 @@ import { Binoculars } from '@ui/icons';
 import { Title } from '@ui/Title';
 import { getServerSession } from 'next-auth';
 
-import { BookList } from '@app/(authenticated)/search/BookList';
-import { Tags } from '@app/(authenticated)/search/Tags';
+import { BookList } from '@app/(with-sidebar)/search/BookList';
+import { Tags } from '@app/(with-sidebar)/search/Tags';
 
 import { Input } from '@components/Form/Input';
 
