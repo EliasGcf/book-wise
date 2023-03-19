@@ -13,6 +13,7 @@ import { FeedbackForm } from '@components/FeedbackForm';
 import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
 import { dayjs } from '@libs/dayjs';
+import { FeedbackCard } from '@components/FeedbackCard';
 
 type BookDetailDialogProps = {
   user?: DefaultSession['user'];
@@ -110,41 +111,33 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
 
           <ul className="flex flex-col gap-3">
             {user && <FeedbackForm user={user} />}
-            <FeedbackCard />
-            <FeedbackCard />
-            <FeedbackCard />
-            <FeedbackCard />
+            <FeedbackCard
+              author={{
+                name: 'Elias Gabriel',
+                imageUrl: 'https://github.com/eliasgcf.png',
+              }}
+              createdAt={new Date()}
+              feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
+            />
+            <FeedbackCard
+              author={{
+                name: 'Elias Gabriel',
+                imageUrl: 'https://github.com/eliasgcf.png',
+              }}
+              createdAt={new Date()}
+              feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
+            />
+            <FeedbackCard
+              author={{
+                name: 'Elias Gabriel',
+                imageUrl: 'https://github.com/eliasgcf.png',
+              }}
+              createdAt={new Date()}
+              feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
+            />
           </ul>
         </section>
       </Dialog.Content>
     </Dialog.Portal>
-  );
-}
-
-function FeedbackCard() {
-  return (
-    <li className="flex flex-col gap-5 rounded-lg bg-gray-07 p-6">
-      <header className="flex justify-between">
-        <div className="flex gap-4">
-          <Avatar imageUrl="https://github.com/eliasgcf.png" name="Elias Gabriel" />
-          <div>
-            <Text size="md" className="text-gray-01">
-              Elias Gabriel
-            </Text>
-            <Text size="sm" className="text-gray-04">
-              {dayjs(new Date()).fromNow()}
-            </Text>
-          </div>
-        </div>
-
-        <Stars votes={4} />
-      </header>
-
-      <Text size="sm" className="text-gray-03">
-        Nec tempor nunc in egestas. Euismod nisi eleifend at et in sagittis. Penatibus id
-        vestibulum imperdiet a at imperdiet lectus leo. Sit porta eget nec vitae sit
-        vulputate eget
-      </Text>
-    </li>
   );
 }
