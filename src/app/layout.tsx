@@ -9,7 +9,7 @@ const nunito = Nunito_Sans({
 });
 
 export const metadata = {
-  title: 'RocketBooks',
+  title: 'BookWise',
   icons: [{ type: 'image/png', url: '/favicon.png' }],
 };
 

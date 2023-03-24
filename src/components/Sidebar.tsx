@@ -15,7 +15,7 @@ async function BaseSidebar() {
 
   return (
     <aside className="m-5 flex w-fit flex-col rounded-xl bg-[url('/svg/sidebar-background.svg')] bg-cover p-10 pb-6">
-      <header>
+      <header className="flex justify-center">
         <Image
           src="/svg/logo-with-name.svg"
           alt=""
