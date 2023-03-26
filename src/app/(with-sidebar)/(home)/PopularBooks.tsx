@@ -10,7 +10,7 @@ import { BookCard } from '@components/BookCard';
 export function PopularBooks() {
   return (
     <Dialog.Root>
-      <aside className="max-w-[608px] xl:max-w-xs">
+      <aside className="">
         <header className="mb-4 flex items-center justify-between">
           <Text size="sm" className="text-gray-01">
             Livros populares
@@ -26,7 +26,7 @@ export function PopularBooks() {
           </Link>
         </header>
 
-        <ul className="flex flex-col gap-3">
+        <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-1">
           <li>
             <BookCard.Compact
               imageUrl="https://m.media-amazon.com/images/I/91BsZhxCRjL.jpg"
