@@ -29,7 +29,7 @@ export function SigninButton({ provider }: Props) {
     visitor: () => ({
       iconUrl: '/svg/logo.svg',
       text: 'Acessar como visitante',
-      onClick: () => router.push('/dashboard'),
+      onClick: () => router.push('/'),
     }),
   });
 
