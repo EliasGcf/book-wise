@@ -6,6 +6,7 @@ const handler = NextAuth({
     GithubProvider({
       clientId: String(process.env.OAUTH_GITHUB_ID),
       clientSecret: String(process.env.OAUTH_GITHUB_SECRET),
+      checks: ['pkce'],
     }),
   ],
   pages: {
