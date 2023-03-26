@@ -9,7 +9,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div
         className={twMerge(
-          'flex h-12 w-full items-center rounded border border-gray-05 bg-gray-08 px-5 focus-within:border-green-02 justify-between transition-colors',
+          'flex min-h-[3rem] h-12 w-full items-center rounded border border-gray-05 bg-gray-08 px-5 focus-within:border-green-02 justify-between transition-colors',
           className,
         )}
       >

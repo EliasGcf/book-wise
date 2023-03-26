@@ -4,6 +4,8 @@ import { Title } from '@ui/Title';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
+import { UserBookList } from '@app/(with-sidebar)/profile/UserBookList';
+
 import { Avatar } from '@components/Avatar';
 import { Input } from '@components/Form/Input';
 
@@ -24,8 +26,10 @@ export default async function Search() {
       </header>
 
       <div className="mt-10 flex flex-col-reverse overflow-y-auto xl:flex-row xl:justify-between">
-        <div className="flex w-full max-w-[624px] flex-col">
+        <div className="flex w-full flex-col xl:max-w-[624px]">
           <Input placeholder="Buscar livro avaliado" />
+
+          <UserBookList />
         </div>
 
         <aside className="flex flex-col items-center border-l border-gray-07">
