@@ -8,7 +8,6 @@ specifiers:
   '@radix-ui/react-avatar': ^1.0.2
   '@radix-ui/react-dialog': ^1.0.3
   '@radix-ui/react-toggle-group': ^1.0.3
-  '@tailwindcss/line-clamp': ^0.4.2
   '@types/node': 18.14.2
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -36,7 +35,6 @@ dependencies:
   '@radix-ui/react-avatar': 1.0.2_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-dialog': 1.0.3_zula6vjvt3wdocc4mwcxqa6nzi
   '@radix-ui/react-toggle-group': 1.0.3_biqbaboplfbrettd7655fr4n2y
-  '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.3.0
   clsx: 1.2.1
   dayjs: 1.11.7
   exhaustive: 1.1.1
@@ -835,14 +833,6 @@ packages:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
     dependencies:
       tslib: 2.5.0
-    dev: false
-
-  /@tailwindcss/line-clamp/0.4.2_tailwindcss@3.3.0:
-    resolution: {integrity: sha512-HFzAQuqYCjyy/SX9sLGB1lroPzmcnWv1FHkIpmypte10hptf4oPUfucryMKovZh2u0uiS9U5Ty3GghWfEJGwVw==}
-    peerDependencies:
-      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
-    dependencies:
-      tailwindcss: 3.3.0_postcss@8.4.21
     dev: false
 
   /@tsconfig/node10/1.0.9:
