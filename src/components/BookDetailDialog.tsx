@@ -22,7 +22,7 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
     <Dialog.Portal>
       <DialogOverlay />
 
-      <Dialog.Content className="fixed inset-y-0 right-0 flex h-screen w-[660px] flex-col overflow-y-auto bg-gray-08 py-6 px-12 data-[state=open]:animate-in data-[state=open]:slide-in-from-right">
+      <Dialog.Content className="fixed inset-y-0 right-0 flex h-screen w-[660px] flex-col overflow-y-auto bg-gray-08 px-12 py-6 data-[state=open]:animate-in data-[state=open]:slide-in-from-right">
         <Dialog.Close className="ml-auto h-fit">
           <X size={24} className="text-gray-04" weight="bold" />
         </Dialog.Close>
@@ -85,7 +85,7 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
         </div>
 
         <section>
-          <header className="mt-10 mb-4 flex items-center justify-between">
+          <header className="mb-4 mt-10 flex items-center justify-between">
             <Text size="sm" className="text-gray-02">
               Avaliações
             </Text>

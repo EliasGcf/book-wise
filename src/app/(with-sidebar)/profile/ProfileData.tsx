@@ -11,7 +11,7 @@ interface ProfileDataProps {
 
 export function ProfileData({ session }: ProfileDataProps) {
   return (
-    <aside className="mb-6 flex flex-col items-center border-b border-gray-07 xl:mb-0 xl:border-l xl:border-b-0">
+    <aside className="mb-6 flex flex-col items-center border-b border-gray-07 xl:mb-0 xl:border-b-0 xl:border-l">
       <header className="flex flex-col items-center">
         <Avatar
           size="lg"
@@ -30,7 +30,7 @@ export function ProfileData({ session }: ProfileDataProps) {
 
       <div className="my-8 h-1 w-8 rounded-full bg-gradient-horizontal" />
 
-      <div className="grid grid-cols-1 gap-10 py-5 px-14 md:grid-cols-2 xl:grid-cols-1">
+      <div className="grid grid-cols-1 gap-10 px-14 py-5 md:grid-cols-2 xl:grid-cols-1">
         <div className="flex items-center gap-5">
           <BookOpen size={32} className="text-green-01" />
           <div>
