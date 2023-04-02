@@ -4,7 +4,7 @@ specifiers:
   '@commitlint/cli': ^17.5.1
   '@commitlint/config-conventional': ^17.4.4
   '@eliasgcf/eslint-config-next': ^0.0.3
-  '@phosphor-icons/react': ^2.0.6
+  '@phosphor-icons/react': ^2.0.8
   '@radix-ui/react-avatar': ^1.0.2
   '@radix-ui/react-dialog': ^1.0.3
   '@radix-ui/react-toggle-group': ^1.0.3
@@ -16,7 +16,7 @@ specifiers:
   dayjs: ^1.11.7
   eslint: 8.35.0
   eslint-config-next: 13.2.1
-  eslint-plugin-tailwindcss: ^3.10.1
+  eslint-plugin-tailwindcss: ^3.10.3
   exhaustive: ^1.1.1
   husky: ^8.0.3
   next: 13.2.4
@@ -24,14 +24,14 @@ specifiers:
   postcss: ^8.4.21
   react: 18.2.0
   react-dom: 18.2.0
-  tailwind-merge: ^1.10.0
-  tailwindcss: ^3.3.0
+  tailwind-merge: ^1.11.0
+  tailwindcss: ^3.3.1
   tailwindcss-animate: ^1.0.5
   typescript: 4.9.5
   windstitch: ^0.3.0
 
 dependencies:
-  '@phosphor-icons/react': 2.0.6_biqbaboplfbrettd7655fr4n2y
+  '@phosphor-icons/react': 2.0.8_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-avatar': 1.0.2_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-dialog': 1.0.3_zula6vjvt3wdocc4mwcxqa6nzi
   '@radix-ui/react-toggle-group': 1.0.3_biqbaboplfbrettd7655fr4n2y
@@ -42,8 +42,8 @@ dependencies:
   next-auth: 0.0.0-pr.6777.7f1745f6_ld2jel3hspngo3u5lti2kgl2sq
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  tailwind-merge: 1.10.0
-  tailwindcss-animate: 1.0.5_tailwindcss@3.3.0
+  tailwind-merge: 1.11.0
+  tailwindcss-animate: 1.0.5_tailwindcss@3.3.1
   windstitch: 0.3.0_react@18.2.0
 
 devDependencies:
@@ -56,10 +56,10 @@ devDependencies:
   autoprefixer: 10.4.14_postcss@8.4.21
   eslint: 8.35.0
   eslint-config-next: 13.2.1_ycpbpc6yetojsgtrx3mwntkhsu
-  eslint-plugin-tailwindcss: 3.10.1_tailwindcss@3.3.0
+  eslint-plugin-tailwindcss: 3.10.3_tailwindcss@3.3.1
   husky: 8.0.3
   postcss: 8.4.21
-  tailwindcss: 3.3.0_postcss@8.4.21
+  tailwindcss: 3.3.1_postcss@8.4.21
   typescript: 4.9.5
 
 packages:
@@ -526,8 +526,8 @@ packages:
     resolution: {integrity: sha512-003xWiCuvePbLaPHT+CRuaV4GlyCAVm6XYSbBZDHoWZGn1mNkVKFaDbGJjjxmEFvizUwlCoM6O18FCBMMky2zQ==}
     dev: false
 
-  /@phosphor-icons/react/2.0.6_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-vT5Tv+isibcRO1ATPW+cZs2w46n512SfShRX9kqZbETht8ME11CT387APBbcW9EAeBFEGM6buoYxP+0/IJJRKg==}
+  /@phosphor-icons/react/2.0.8_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-VWACI+MkRGpol4htOcVtWKaDCosrcuCg8toJfPS0osgVjxM8i/KoSZSPxQvG5XYPCI8iyJoHKRpSfzOISAXFyg==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>= 16.8'
@@ -1943,15 +1943,15 @@ packages:
       string.prototype.matchall: 4.0.8
     dev: true
 
-  /eslint-plugin-tailwindcss/3.10.1_tailwindcss@3.3.0:
-    resolution: {integrity: sha512-NLPZ6b6nd/8CgGNMQ6NDiPUfBLQpSGu/u9RyX3MCZOwzNs2dFt1OamNAiRuo3Ixh7Gv4t5UcAcdNt8z74UDJkA==}
+  /eslint-plugin-tailwindcss/3.10.3_tailwindcss@3.3.1:
+    resolution: {integrity: sha512-yDJDs0R6AHT1quc9cCB5mpg5s5hBH0yE5L57GYWfRQWidF3HVEVrRF+Hg/4metBJzKikTD9QPIFd6CZANarWOQ==}
     engines: {node: '>=12.13.0'}
     peerDependencies:
       tailwindcss: ^3.2.2
     dependencies:
       fast-glob: 3.2.12
       postcss: 8.4.21
-      tailwindcss: 3.3.0_postcss@8.4.21
+      tailwindcss: 3.3.1_postcss@8.4.21
     dev: true
 
   /eslint-plugin-unused-imports/2.0.0_uztrg2li4mdp4mfzjurxdo7omq:
@@ -3878,20 +3878,20 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /tailwind-merge/1.10.0:
-    resolution: {integrity: sha512-WFnDXSS4kFTZwjKg5/oZSGzBRU/l+qcbv5NVTzLUQvJ9yovDAP05h0F2+ZFW0Lw9EcgRoc2AfURUdZvnEFrXKg==}
+  /tailwind-merge/1.11.0:
+    resolution: {integrity: sha512-oG3/328Y7LrfPMfkgMNxoqEk1ZQdXBxdphf9FFrreo8q0EtVIHt3bQf2IyFhQuVt8puB57lCRBNbazGhYAyz9w==}
     dev: false
 
-  /tailwindcss-animate/1.0.5_tailwindcss@3.3.0:
+  /tailwindcss-animate/1.0.5_tailwindcss@3.3.1:
     resolution: {integrity: sha512-UU3qrOJ4lFQABY+MVADmBm+0KW3xZyhMdRvejwtXqYOL7YjHYxmuREFAZdmVG5LPe5E9CAst846SLC4j5I3dcw==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
     dependencies:
-      tailwindcss: 3.3.0_postcss@8.4.21
+      tailwindcss: 3.3.1_postcss@8.4.21
     dev: false
 
-  /tailwindcss/3.3.0_postcss@8.4.21:
-    resolution: {integrity: sha512-hOXlFx+YcklJ8kXiCAfk/FMyr4Pm9ck477G0m/us2344Vuj355IpoEDB5UmGAsSpTBmr+4ZhjzW04JuFXkb/fw==}
+  /tailwindcss/3.3.1_postcss@8.4.21:
+    resolution: {integrity: sha512-Vkiouc41d4CEq0ujXl6oiGFQ7bA3WEhUZdTgXAhtKxSy49OmKs8rEfQmupsfF0IGW8fv2iQkp1EVUuapCFrZ9g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
