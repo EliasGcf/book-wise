@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider = "zod-prisma-types"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id            String  @id @default(uuid())
+  title         String
+  slug          String  @unique
+  author        String
+  rating        Decimal
+  image_url     String
+  category_name String
+  pages_amount  Int
+  description   String
+
+  category Category @relation(fields: [category_name], references: [name])
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String @unique
+
+  books Book[]
+}

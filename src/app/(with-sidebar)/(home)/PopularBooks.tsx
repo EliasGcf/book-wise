@@ -1,5 +1,6 @@
 'use client';
 
+import { Book } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { CaretRight } from '@ui/icons';
 import { Link } from '@ui/Link';
@@ -7,7 +8,11 @@ import { Text } from '@ui/Text';
 
 import { BookCard } from '@components/BookCard';
 
-export function PopularBooks() {
+type PopularBooksProps = {
+  books: Book[];
+};
+
+export function PopularBooks({ books }: PopularBooksProps) {
   return (
     <Dialog.Root>
       <aside className="">
@@ -27,34 +32,15 @@ export function PopularBooks() {
         </header>
 
         <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-1">
-          <li>
-            <BookCard.Compact
-              imageUrl="https://m.media-amazon.com/images/I/91BsZhxCRjL.jpg"
-              title="A revolução dos bichos"
-              author="George Orwell"
-            />
-          </li>
-          <li>
-            <BookCard.Compact
-              title="14 Hábitos de Desenvolvedores Altamente produtivos"
-              author="Zeno Rocha"
-              imageUrl="https://m.media-amazon.com/images/I/41Xkqy2rMDL.jpg"
-            />
-          </li>
-          <li>
-            <BookCard.Compact
-              title="O Fim da Eternidade"
-              author="Isaac Asimov"
-              imageUrl="https://m.media-amazon.com/images/I/71tgD4z8zAL.jpg"
-            />
-          </li>
-          <li>
-            <BookCard.Compact
-              title="Entendendo Algoritmos"
-              author="Aditya Bhargava"
-              imageUrl="https://m.media-amazon.com/images/I/71Vkg7GfPFL.jpg"
-            />
-          </li>
+          {books.map((book) => (
+            <li key={book.id}>
+              <BookCard.Compact
+                imageUrl={book.image_url}
+                title={book.title}
+                author={book.author}
+              />
+            </li>
+          ))}
         </ul>
       </aside>
     </Dialog.Root>

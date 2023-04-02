@@ -48,7 +48,7 @@ function BookCardFull({
         </header>
 
         {description && (
-          <Text size="sm" as="p" className="mt-auto text-gray-03 line-clamp-2">
+          <Text size="sm" as="p" className="mt-auto line-clamp-2 text-gray-03">
             {description}
           </Text>
         )}
@@ -74,7 +74,7 @@ function BookCardCompact({ title, author, imageUrl }: BookCardCompactProps) {
 
       <div className="flex h-full flex-col">
         <header className="text-left">
-          <Title size="xs" className="text-gray-01 line-clamp-2">
+          <Title size="xs" className="line-clamp-2 text-gray-01">
             {title}
           </Title>
           <Text as="span" size="sm" className="text-gray-04">

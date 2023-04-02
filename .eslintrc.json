@@ -20,6 +20,12 @@
         "printWidth": 90,
         "trailingComma": "all"
       }
+    ],
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
     ]
   }
 }
