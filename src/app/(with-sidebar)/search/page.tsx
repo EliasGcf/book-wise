@@ -1,17 +1,12 @@
 /* eslint-disable no-use-before-define */
 import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
 
 import { SearchContent } from '@app/(with-sidebar)/search/SearchContent';
 
 export default async function Search() {
   const session = await getServerSession();
 
-  if (!session) {
-    return redirect('/login');
-  }
-
-  return <SearchContent books={BOOKS} user={session.user} />;
+  return <SearchContent books={BOOKS} user={session?.user} />;
 }
 
 const BOOKS = [
