@@ -6,12 +6,10 @@ import { LastRead } from '@app/(with-sidebar)/(home)/LastRead';
 import { PopularBooks } from '@app/(with-sidebar)/(home)/PopularBooks';
 import { RecentFeedbacks } from '@app/(with-sidebar)/(home)/RecentFeedbacks';
 
-import { prisma } from '@libs/prisma';
-
 export default async function Dashboard() {
   const session = await getServerSession();
 
-  const popularBooks = await prisma.book.findMany({ take: 4 });
+  // const popularBooks = await prisma.book.findMany({ take: 4 });
 
   return (
     <div className="flex flex-col overflow-hidden">
@@ -28,7 +26,7 @@ export default async function Dashboard() {
           <RecentFeedbacks />
         </div>
 
-        <PopularBooks books={popularBooks} />
+        <PopularBooks books={[]} />
       </div>
     </div>
   );
