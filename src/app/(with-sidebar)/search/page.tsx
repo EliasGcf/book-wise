@@ -16,7 +16,7 @@ const BOOKS = [
     author: 'Clayton Christensen',
     description: `Este livro discute a teoria da inovação disruptiva e explora como as empresas podem se adaptar para enfrentar os desafios da mudança tecnológica.`,
     stars: 4,
-    created_at: new Date('2016-09-12'),
+    created_at: new Date('2016-09-12').toISOString(),
     image_url: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
   },
   {
@@ -25,7 +25,7 @@ const BOOKS = [
     author: 'Viktor Mayer-Schönberger e Kenneth Cukier',
     description: `Este livro explora como os dados estão transformando a economia e a sociedade, e discute as implicações dessa mudança para as empresas e governos.`,
     stars: 4,
-    created_at: new Date('2013-05-14'),
+    created_at: new Date('2013-05-14').toISOString(),
     image_url: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
   },
   {
@@ -35,7 +35,7 @@ const BOOKS = [
     description:
       'Este livro explora as semelhanças entre a evolução biológica e a evolução das tecnologias, argumentando que as duas são impulsionadas por um processo de seleção natural.',
     stars: 3,
-    created_at: new Date('2003-03-01'),
+    created_at: new Date('2003-03-01').toISOString(),
     image_url: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
   },
   {
@@ -44,7 +44,7 @@ const BOOKS = [
     author: 'Yuval Noah Harari',
     description: `Este livro explora a história da humanidade, desde os primeiros humanos até os dias atuais, e discute as implicações das tecnologias modernas para o futuro da espécie.`,
     stars: 5,
-    created_at: new Date('2015-08-19'),
+    created_at: new Date('2015-08-19').toISOString(),
     image_url: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
   },
   {
@@ -53,7 +53,7 @@ const BOOKS = [
     author: 'Viktor Mayer-Schönberger e Kenneth Cukier',
     description: `Este livro explora como os dados estão transformando a economia e a sociedade, e discute as implicações dessa mudança para as empresas e governos.`,
     stars: 4,
-    created_at: new Date('2013-05-14'),
+    created_at: new Date('2013-05-14').toISOString(),
     image_url: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
   },
   {
@@ -62,7 +62,7 @@ const BOOKS = [
     author: 'Clayton Christensen',
     description: `Este livro discute a teoria da inovação disruptiva e explora como as empresas podem se adaptar para enfrentar os desafios da mudança tecnológica.`,
     stars: 4,
-    created_at: new Date('2016-09-12'),
+    created_at: new Date('2016-09-12').toISOString(),
     image_url: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
   },
 ];
