@@ -13,7 +13,7 @@ type Book = {
   author: string;
   description: string;
   stars: number;
-  created_at: Date;
+  created_at: string;
   image_url: string;
 };
 
