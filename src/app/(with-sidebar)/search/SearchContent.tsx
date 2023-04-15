@@ -37,7 +37,7 @@ export function SearchContent({ user, books }: SearchContentProps) {
 
         <Input
           value={search}
-          onChange={(e) => setSearch(e.target.value.trim())}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Buscar livro ou autor"
           className="max-w-md"
         />
