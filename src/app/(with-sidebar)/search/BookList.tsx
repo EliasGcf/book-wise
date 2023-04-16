@@ -1,7 +1,7 @@
 'use client';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { DefaultSession } from 'next-auth';
+import { Session } from 'next-auth';
 
 import { BookCard } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
@@ -14,7 +14,7 @@ type Book = {
 };
 
 export type BookListProps = {
-  user?: DefaultSession['user'];
+  user?: Session['user'];
   books: Book[];
 };
 

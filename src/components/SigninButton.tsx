@@ -37,7 +37,7 @@ export function SigninButton({ provider }: Props) {
     <button
       type="button"
       disabled={onClick === false}
-      className="flex w-full items-center gap-5 rounded-lg bg-gray-06 py-5 px-6 transition-colors enabled:hover:bg-gray-05 disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex w-full items-center gap-5 rounded-lg bg-gray-06 px-6 py-5 transition-colors enabled:hover:bg-gray-05 disabled:cursor-not-allowed disabled:opacity-50"
       onClick={onClick === false ? undefined : onClick}
     >
       <Image src={iconUrl} alt="" width={32} height={32} />

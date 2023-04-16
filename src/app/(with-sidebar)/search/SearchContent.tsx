@@ -11,7 +11,7 @@ import { Tags } from '@app/(with-sidebar)/search/Tags';
 import { Input } from '@components/Form/Input';
 
 interface SearchContentProps {
-  user: Session['user'];
+  user?: Session['user'];
   books: BookListProps['books'];
 }
 

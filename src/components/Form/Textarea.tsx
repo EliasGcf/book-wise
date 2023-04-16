@@ -18,7 +18,7 @@ export function Textarea({ maxLength }: TextareaProps) {
         maxLength={maxLength}
       />
       {maxLength && (
-        <span className="mr-2 mb-1 ml-auto text-xs text-gray-04">
+        <span className="mb-1 ml-auto mr-2 text-xs text-gray-04">
           {text.length}/{maxLength}
         </span>
       )}

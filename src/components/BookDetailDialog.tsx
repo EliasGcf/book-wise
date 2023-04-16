@@ -110,6 +110,7 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
           <ul className="flex flex-col gap-3">
             {user && <FeedbackForm user={user} />}
             <FeedbackCard
+              rating={4}
               author={{
                 name: 'Elias Gabriel',
                 imageUrl: 'https://github.com/eliasgcf.png',
@@ -118,6 +119,7 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
               feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
             />
             <FeedbackCard
+              rating={4}
               author={{
                 name: 'Elias Gabriel',
                 imageUrl: 'https://github.com/eliasgcf.png',
@@ -126,6 +128,7 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
               feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
             />
             <FeedbackCard
+              rating={4}
               author={{
                 name: 'Elias Gabriel',
                 imageUrl: 'https://github.com/eliasgcf.png',
