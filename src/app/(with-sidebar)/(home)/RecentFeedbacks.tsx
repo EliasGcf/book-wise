@@ -3,7 +3,16 @@ import { Text } from '@ui/Text';
 
 import { FeedbackCard } from '@components/FeedbackCard';
 
-export function RecentFeedbacks() {
+import { prisma } from '@libs/prisma';
+
+import { asyncComponent } from '@utils/async-component';
+
+export async function AsyncRecentFeedbacks() {
+  const feedbacks = await prisma.feedback.findMany({
+    include: { author: true, book: true },
+    orderBy: { created_at: 'desc' },
+  });
+
   return (
     <section className="flex flex-col overflow-hidden">
       <header className="mb-4 flex items-center justify-between">
@@ -13,52 +22,27 @@ export function RecentFeedbacks() {
       </header>
 
       <ul className="flex flex-col gap-3 overflow-y-auto rounded-lg">
-        <li>
-          <FeedbackCard
-            author={{
-              name: 'Elias Gabriel',
-              imageUrl: 'https://github.com/eliasgcf.png',
-            }}
-            book={{
-              imageUrl: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
-              title: 'O Hobbit',
-              author: 'J.R.R. Tolkien',
-            }}
-            createdAt={new Date()}
-            feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
-          />
-        </li>
-        <li>
-          <FeedbackCard
-            author={{
-              name: 'Elias Gabriel',
-              imageUrl: 'https://github.com/eliasgcf.png',
-            }}
-            book={{
-              imageUrl: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
-              title: 'O Hobbit',
-              author: 'J.R.R. Tolkien',
-            }}
-            createdAt={new Date()}
-            feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
-          />
-        </li>
-        <li>
-          <FeedbackCard
-            author={{
-              name: 'Elias Gabriel',
-              imageUrl: 'https://github.com/eliasgcf.png',
-            }}
-            book={{
-              imageUrl: 'https://m.media-amazon.com/images/I/91M9xPIf10L.jpg',
-              title: 'O Hobbit',
-              author: 'J.R.R. Tolkien',
-            }}
-            createdAt={new Date()}
-            feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
-          />
-        </li>
+        {feedbacks.map((feedback) => (
+          <li key={feedback.id}>
+            <FeedbackCard
+              rating={feedback.rating}
+              author={{
+                name: feedback.author.name ?? feedback.author.email ?? 'Autor sem nome',
+                imageUrl: feedback.author.image,
+              }}
+              book={{
+                imageUrl: feedback.book.image_url,
+                title: feedback.book.title,
+                author: feedback.book.author,
+              }}
+              createdAt={feedback.created_at}
+              feedback={feedback.description}
+            />
+          </li>
+        ))}
       </ul>
     </section>
   );
 }
+
+export const RecentFeedbacks = asyncComponent(AsyncRecentFeedbacks);

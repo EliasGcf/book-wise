@@ -8,17 +8,18 @@ datasource db {
 }
 
 model Book {
-  id            String  @id @default(uuid())
+  id            String @id @default(uuid())
   title         String
-  slug          String  @unique
+  slug          String @unique
   author        String
-  rating        Decimal
+  rating        Int
   image_url     String
   category_name String
   pages_amount  Int
   description   String
 
-  category Category @relation(fields: [category_name], references: [name])
+  category  Category   @relation(fields: [category_name], references: [name])
+  feedbacks Feedback[]
 }
 
 model Category {
@@ -26,4 +27,63 @@ model Category {
   name String @unique
 
   books Book[]
+}
+
+model Feedback {
+  id          String   @id @default(uuid())
+  description String
+  book_id     String
+  author_id   String
+  rating      Int
+  created_at  DateTime @default(now())
+
+  book   Book @relation(fields: [book_id], references: [id])
+  author User @relation(fields: [author_id], references: [id])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String     @id @default(cuid())
+  name          String?
+  email         String?    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime   @default(now())
+  accounts      Account[]
+  sessions      Session[]
+  feedbacks     Feedback[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

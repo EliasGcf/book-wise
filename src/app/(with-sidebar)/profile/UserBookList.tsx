@@ -1,5 +1,6 @@
 'use client';
 
+import { Book, Feedback } from '@prisma/client';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 import { useState } from 'react';
@@ -7,25 +8,24 @@ import { useState } from 'react';
 import { Input } from '@components/Form/Input';
 import { Stars } from '@components/Stars';
 
-type Book = {
-  id: number;
-  title: string;
-  author: string;
-  description: string;
-  stars: number;
+import { dayjs } from '@libs/dayjs';
+
+import { Replace } from '@shared/types/replace';
+
+type FeedbackWithBook = Feedback & {
   created_at: string;
-  image_url: string;
+  book: Book;
 };
 
 type UserBookListProps = {
-  books: Book[];
+  feedbacks: Array<Replace<FeedbackWithBook, { created_at: string }>>;
 };
 
-export function UserBookList({ books }: UserBookListProps) {
+export function UserBookList({ feedbacks }: UserBookListProps) {
   const [search, setSearch] = useState('');
 
-  const filteredBooks = books.filter((book) => {
-    return book.title.toLowerCase().includes(search.toLowerCase());
+  const filteredFeedbacks = feedbacks.filter((feedback) => {
+    return feedback.book.title.toLowerCase().includes(search.toLowerCase());
   });
 
   return (
@@ -37,16 +37,16 @@ export function UserBookList({ books }: UserBookListProps) {
       />
 
       <section className="mt-8 flex flex-col gap-6 overflow-y-auto">
-        {filteredBooks.map((book) => (
-          <div key={book.id}>
+        {filteredFeedbacks.map((feedback) => (
+          <div key={feedback.id}>
             <Text size="sm" className="mb-2 text-gray-03">
-              Há 2 dias
+              {dayjs(feedback.created_at).fromNow()}
             </Text>
 
             <div className="rounded-lg bg-gray-07 p-6">
               <div className="flex gap-6">
                 <img
-                  src="https://m.media-amazon.com/images/I/91M9xPIf10L.jpg"
+                  src={feedback.book.image_url}
                   alt=""
                   className="max-h-[134px] min-w-[98px] rounded object-cover"
                 />
@@ -54,19 +54,19 @@ export function UserBookList({ books }: UserBookListProps) {
                 <div className="flex flex-col justify-between">
                   <div>
                     <Title size="sm" as="h3" className="text-gray-01">
-                      {book.title}
+                      {feedback.book.title}
                     </Title>
                     <Text size="sm" className="text-gray-04">
-                      {book.author}
+                      {feedback.book.author}
                     </Text>
                   </div>
 
-                  <Stars votes={4} size={16} />
+                  <Stars votes={feedback.rating} size={16} />
                 </div>
               </div>
 
               <Text size="sm" className="mt-6 text-gray-03" as="p">
-                {book.description}
+                {feedback.description}
               </Text>
             </div>
           </div>

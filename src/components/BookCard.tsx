@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @next/next/no-img-element */
 import * as Dialog from '@radix-ui/react-dialog';
 import { Text } from '@ui/Text';
@@ -13,7 +15,7 @@ type BookCardFullProps = {
   stars: number;
 };
 
-function BookCardFull({
+export function BookCardFull({
   title,
   author,
   imageUrl,

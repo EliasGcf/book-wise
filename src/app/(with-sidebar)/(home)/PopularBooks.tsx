@@ -15,7 +15,7 @@ type PopularBooksProps = {
 export function PopularBooks({ books }: PopularBooksProps) {
   return (
     <Dialog.Root>
-      <aside className="">
+      <aside className="min-w-[324px]">
         <header className="mb-4 flex items-center justify-between">
           <Text size="sm" className="text-gray-01">
             Livros populares

@@ -1,3 +1,4 @@
+import { Book, Feedback } from '@prisma/client';
 import { BookmarkSimple, BookOpen, Books, UserList } from '@ui/icons';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
@@ -5,11 +6,42 @@ import { Session } from 'next-auth';
 
 import { Avatar } from '@components/Avatar';
 
+import { dayjs } from '@libs/dayjs';
+
+import { Replace } from '@shared/types/replace';
+
+import { getHighestOccurrenceAndNum } from '@utils/asdf';
+
+type FeedbackWithBook = Feedback & {
+  created_at: string;
+  book: Book;
+};
+
 interface ProfileDataProps {
   session: Session;
+  feedbacks: Array<Replace<FeedbackWithBook, { created_at: string }>>;
 }
 
-export function ProfileData({ session }: ProfileDataProps) {
+export function ProfileData({ session, feedbacks }: ProfileDataProps) {
+  const userMetrics = feedbacks.reduce(
+    (acc, feedback) => {
+      acc.pagesRead += feedback.book.pages_amount;
+      acc.booksRead += 1;
+      acc.authorsRead += 1;
+      acc.categories.push(feedback.book.category_name);
+
+      return acc;
+    },
+    {
+      pagesRead: 0,
+      booksRead: 0,
+      authorsRead: 0,
+      categories: [] as string[],
+    },
+  );
+
+  const [mostReadCategory] = getHighestOccurrenceAndNum(userMetrics.categories);
+
   return (
     <aside className="mb-6 flex flex-col items-center border-b border-gray-07 xl:mb-0 xl:border-b-0 xl:border-l">
       <header className="flex flex-col items-center">
@@ -24,7 +56,7 @@ export function ProfileData({ session }: ProfileDataProps) {
         </Title>
 
         <Text size="sm" className="text-gray-04">
-          membro desde 2023
+          membro desde {dayjs(session.user.createdAt).get('year')}
         </Text>
       </header>
 
@@ -35,7 +67,7 @@ export function ProfileData({ session }: ProfileDataProps) {
           <BookOpen size={32} className="text-green-01" />
           <div>
             <Title size="xs" as="span">
-              3853
+              {userMetrics.pagesRead}
             </Title>
             <Text size="sm" className="text-gray-03">
               Páginas lidas
@@ -47,7 +79,7 @@ export function ProfileData({ session }: ProfileDataProps) {
           <Books size={32} className="text-green-01" />
           <div>
             <Title size="xs" as="span">
-              10
+              {userMetrics.booksRead}
             </Title>
             <Text size="sm" className="text-gray-03">
               Livros avaliados
@@ -59,7 +91,7 @@ export function ProfileData({ session }: ProfileDataProps) {
           <UserList size={32} className="text-green-01" />
           <div>
             <Title size="xs" as="span">
-              8
+              {userMetrics.authorsRead}
             </Title>
             <Text size="sm" className="text-gray-03">
               Autores lidos
@@ -71,7 +103,7 @@ export function ProfileData({ session }: ProfileDataProps) {
           <BookmarkSimple size={32} className="text-green-01" />
           <div>
             <Title size="xs" as="span">
-              Computação
+              {mostReadCategory}
             </Title>
             <Text size="sm" className="text-gray-03">
               Categoria mais lida

@@ -10,7 +10,7 @@ import { dayjs } from '@libs/dayjs';
 type FeedbackCardProps = {
   author: {
     name: string;
-    imageUrl: string;
+    imageUrl?: string | null;
   };
   book?: {
     title: string;
@@ -19,9 +19,16 @@ type FeedbackCardProps = {
   };
   feedback: string;
   createdAt: Date;
+  rating: number;
 };
 
-export function FeedbackCard({ author, book, feedback, createdAt }: FeedbackCardProps) {
+export function FeedbackCard({
+  author,
+  book,
+  feedback,
+  rating,
+  createdAt,
+}: FeedbackCardProps) {
   return (
     <div
       className={clsx('flex flex-col rounded-lg bg-gray-07 p-6', {
@@ -31,7 +38,7 @@ export function FeedbackCard({ author, book, feedback, createdAt }: FeedbackCard
     >
       <header className="flex justify-between">
         <div className="flex gap-4">
-          <Avatar imageUrl={author.imageUrl} name={author.name} />
+          {author.imageUrl && <Avatar imageUrl={author.imageUrl} name={author.name} />}
           <div>
             <Text size="md" className="text-gray-01">
               {author.name}
@@ -42,7 +49,7 @@ export function FeedbackCard({ author, book, feedback, createdAt }: FeedbackCard
           </div>
         </div>
 
-        <Stars votes={4} />
+        <Stars votes={rating} />
       </header>
 
       <div className="flex gap-5">
@@ -66,7 +73,7 @@ export function FeedbackCard({ author, book, feedback, createdAt }: FeedbackCard
             </>
           )}
 
-          <Text size="sm" className="mt-auto text-gray-04 line-clamp-4">
+          <Text size="sm" className="mt-auto line-clamp-4 text-gray-04">
             {feedback}
           </Text>
         </div>

@@ -1,12 +1,13 @@
 import { Binoculars, ChartLineUp, SignIn, SignOut, User } from '@ui/icons';
 import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
-import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
 import { Avatar } from '@components/Avatar';
 import { NavLink } from '@components/NavLink';
+
+import { getServerSession } from '@libs/next-auth';
 
 import { asyncComponent } from '@utils/async-component';
 

@@ -1,7 +1,8 @@
 /* eslint-disable no-use-before-define */
-import { getServerSession } from 'next-auth';
 
 import { SearchContent } from '@app/(with-sidebar)/search/SearchContent';
+
+import { getServerSession } from '@libs/next-auth';
 
 export default async function Search() {
   const session = await getServerSession();

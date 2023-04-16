@@ -1,12 +1,16 @@
-'use client';
-
+import { Book, Feedback } from '@prisma/client';
 import { CaretRight } from '@ui/icons';
 import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
 
-import { BookCard } from '@components/BookCard';
+import { BookCardFull } from '@components/BookCard';
 
-export function LastRead() {
+type LastReadProps = {
+  book: Book;
+  feedback: Feedback;
+};
+
+export function LastRead({ book, feedback }: LastReadProps) {
   return (
     <section>
       <header className="mb-4 flex items-center justify-between">
@@ -16,7 +20,7 @@ export function LastRead() {
 
         <Link
           size="sm"
-          href="/"
+          href="/profile"
           className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
         >
           Ver todas
@@ -24,12 +28,12 @@ export function LastRead() {
         </Link>
       </header>
 
-      <BookCard.Full
-        stars={3}
-        title="Entendendo Algoritmos"
-        author="Aditya Bhargava"
-        imageUrl="https://m.media-amazon.com/images/I/71Vkg7GfPFL.jpg"
-        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, sequi nisi iste libero consectetur eum unde, ipsum, nihil totam labore praesentium distinctio maiores numquam? Distinctio explicabo incidunt totam perspiciatis facilis."
+      <BookCardFull
+        stars={feedback.rating}
+        title={book.title}
+        author={book.author}
+        imageUrl={book.image_url}
+        description={book.description}
       />
     </section>
   );
