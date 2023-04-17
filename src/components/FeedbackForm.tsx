@@ -1,13 +1,13 @@
 import { Check, X } from '@ui/icons';
 import { Title } from '@ui/Title';
-import { DefaultSession } from 'next-auth';
+import { Session } from 'next-auth';
 
 import { Avatar } from '@components/Avatar';
 import { Textarea } from '@components/Form/Textarea';
 import { Stars } from '@components/Stars';
 
 type FeedbackFormProps = {
-  user: Required<DefaultSession>['user'];
+  user: Required<Session>['user'];
 };
 
 export function FeedbackForm({ user }: FeedbackFormProps) {

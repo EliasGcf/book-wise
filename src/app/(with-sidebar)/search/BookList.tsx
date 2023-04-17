@@ -1,17 +1,11 @@
 'use client';
 
+import { Book } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 
 import { BookCard } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
-
-type Book = {
-  id: number;
-  title: string;
-  author: string;
-  image_url: string;
-};
 
 export type BookListProps = {
   user?: Session['user'];

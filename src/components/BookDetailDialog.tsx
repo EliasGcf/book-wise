@@ -5,7 +5,7 @@ import { BookmarkSimple, BookOpen, X } from '@ui/icons';
 import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
-import { DefaultSession } from 'next-auth';
+import { Session } from 'next-auth';
 
 import { DialogOverlay } from '@components/DialogOverlay';
 import { FeedbackCard } from '@components/FeedbackCard';
@@ -14,7 +14,7 @@ import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
 
 type BookDetailDialogProps = {
-  user?: DefaultSession['user'];
+  user?: Session['user'];
 };
 
 export function BookDetailDialog({ user }: BookDetailDialogProps) {

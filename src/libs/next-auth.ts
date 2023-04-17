@@ -17,7 +17,13 @@ export const nextAuthOptions: AuthOptions = {
   },
   callbacks: {
     session: async ({ session, user }) => {
-      return { ...session, user };
+      return {
+        ...session,
+        user: {
+          ...user,
+          createdAt: String(user.createdAt),
+        },
+      };
     },
   },
 };
