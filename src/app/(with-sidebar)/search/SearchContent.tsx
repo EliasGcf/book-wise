@@ -1,19 +1,20 @@
 'use client';
 
-import { Book, Category } from '@prisma/client';
+import { Category } from '@prisma/client';
 import { Binoculars } from '@ui/icons';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
 import { useState } from 'react';
 
 import { BookList } from '@app/(with-sidebar)/search/BookList';
+import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
 import { Tags } from '@app/(with-sidebar)/search/Tags';
 
 import { Input } from '@components/Form/Input';
 
 interface SearchContentProps {
   user?: Session['user'];
-  books: Book[];
+  books: BookWithFeedbacks[];
   categories: Category[];
 }
 

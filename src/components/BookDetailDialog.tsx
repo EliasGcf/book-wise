@@ -7,6 +7,8 @@ import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
 
+import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
+
 import { DialogOverlay } from '@components/DialogOverlay';
 import { FeedbackCard } from '@components/FeedbackCard';
 import { FeedbackForm } from '@components/FeedbackForm';
@@ -15,9 +17,14 @@ import { Stars } from '@components/Stars';
 
 type BookDetailDialogProps = {
   user?: Session['user'];
+  book: BookWithFeedbacks;
 };
 
-export function BookDetailDialog({ user }: BookDetailDialogProps) {
+export function BookDetailDialog({ user, book }: BookDetailDialogProps) {
+  const hasUserFeedback = book.feedbacks.some((feedback) => {
+    return feedback.author_id === user?.id;
+  });
+
   return (
     <Dialog.Portal>
       <DialogOverlay />
@@ -30,7 +37,7 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
         <div className="mt-4 rounded-lg bg-gray-07 px-8 py-6">
           <div className="flex gap-8">
             <img
-              src="https://m.media-amazon.com/images/I/91BsZhxCRjL.jpg"
+              src={book.image_url}
               alt=""
               className="max-h-[242px] min-w-[171px] rounded-lg object-cover"
             />
@@ -38,20 +45,20 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
             <div className="flex flex-col">
               <Dialog.Title asChild>
                 <Title size="sm" as="h3" className="text-gray-01">
-                  A revolução dos bichos
+                  {book.title}
                 </Title>
               </Dialog.Title>
 
               <Dialog.Description asChild>
                 <Text size="md" className="text-gray-03">
-                  George Orwell
+                  {book.author}
                 </Text>
               </Dialog.Description>
 
               <div className="mt-auto">
-                <Stars votes={4} size={20} />
+                <Stars votes={book.rating} size={20} />
                 <Text size="sm" className="mt-1 text-gray-04">
-                  4 avaliações
+                  {book.feedbacks.length} avaliações
                 </Text>
               </div>
             </div>
@@ -65,7 +72,7 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
                   Categoria
                 </Text>
                 <Title size="xs" as="span" className="text-gray-02">
-                  Computação, educação
+                  {book.category_name}
                 </Title>
               </div>
             </div>
@@ -77,7 +84,7 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
                   Páginas
                 </Text>
                 <Title size="xs" as="span" className="text-gray-02">
-                  160
+                  {book.pages_amount}
                 </Title>
               </div>
             </div>
@@ -108,34 +115,21 @@ export function BookDetailDialog({ user }: BookDetailDialogProps) {
           </header>
 
           <ul className="flex flex-col gap-3">
-            {user && <FeedbackForm user={user} />}
-            <FeedbackCard
-              rating={4}
-              author={{
-                name: 'Elias Gabriel',
-                imageUrl: 'https://github.com/eliasgcf.png',
-              }}
-              createdAt={new Date()}
-              feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
-            />
-            <FeedbackCard
-              rating={4}
-              author={{
-                name: 'Elias Gabriel',
-                imageUrl: 'https://github.com/eliasgcf.png',
-              }}
-              createdAt={new Date()}
-              feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
-            />
-            <FeedbackCard
-              rating={4}
-              author={{
-                name: 'Elias Gabriel',
-                imageUrl: 'https://github.com/eliasgcf.png',
-              }}
-              createdAt={new Date()}
-              feedback="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa laboriosam quo error consequatur voluptatem animi a nobis aperiam atque quos ut facilis quasi suscipit laudantium eligendi iure, repudiandae tempore! Fugit."
-            />
+            {user && !hasUserFeedback && <FeedbackForm user={user} book={book} />}
+
+            {book.feedbacks.map((feedback) => (
+              <li key={feedback.id}>
+                <FeedbackCard
+                  rating={feedback.rating}
+                  author={{
+                    name: feedback.author.name ?? 'Anônimo',
+                    imageUrl: feedback.author.image,
+                  }}
+                  createdAt={new Date(feedback.created_at)}
+                  feedback={feedback.description}
+                />
+              </li>
+            ))}
           </ul>
         </section>
       </Dialog.Content>

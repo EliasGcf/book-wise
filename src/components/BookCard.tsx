@@ -1,6 +1,7 @@
 'use client';
 
 /* eslint-disable @next/next/no-img-element */
+import { Book } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
@@ -60,31 +61,33 @@ export function BookCardFull({
 }
 
 type BookCardCompactProps = {
-  title: string;
-  author: string;
-  imageUrl: string;
+  book: Book;
+  onClick?: () => void;
 };
 
-function BookCardCompact({ title, author, imageUrl }: BookCardCompactProps) {
+function BookCardCompact({ book, onClick }: BookCardCompactProps) {
   return (
-    <Dialog.Trigger className="flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 outline-none transition-colors hover:border-gray-06 focus:border-gray-06">
+    <Dialog.Trigger
+      onClick={onClick}
+      className="flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 outline-none transition-colors hover:border-gray-06 focus:border-gray-06"
+    >
       <img
-        src={imageUrl}
-        alt={title}
+        src={book.image_url}
+        alt={book.title}
         className="max-h-[94px] min-w-[64px] rounded object-cover"
       />
 
       <div className="flex h-full flex-col">
         <header className="text-left">
           <Title size="xs" className="line-clamp-2 text-gray-01">
-            {title}
+            {book.title}
           </Title>
           <Text as="span" size="sm" className="text-gray-04">
-            {author}
+            {book.author}
           </Text>
         </header>
 
-        <Stars votes={3} className="mt-auto" />
+        <Stars votes={book.rating} className="mt-auto" />
       </div>
     </Dialog.Trigger>
   );

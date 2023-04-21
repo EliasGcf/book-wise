@@ -1,20 +1,51 @@
+'use client';
+
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { Star } from '@ui/icons';
-import { twMerge } from 'tailwind-merge';
+
+import { tw } from '@utils/tw';
 
 type StarsProps = {
   votes: number;
   size?: number;
   className?: string;
+  disabled?: boolean;
+  isClickable?: boolean;
+  onChange?: (value: number) => void;
 };
 
-export function Stars({ votes, className, size = 16 }: StarsProps) {
+export function Stars({
+  votes,
+  className,
+  size = 16,
+  disabled = false,
+  isClickable = false,
+  onChange,
+}: StarsProps) {
+  function handleItemClick(value: string) {
+    if (onChange) {
+      onChange(Number(value));
+    }
+  }
+
   return (
-    <div className={twMerge('flex gap-1 text-purple-01', className)}>
-      <Star weight={votes >= 1 ? 'fill' : 'regular'} size={size} />
-      <Star weight={votes >= 2 ? 'fill' : 'regular'} size={size} />
-      <Star weight={votes >= 3 ? 'fill' : 'regular'} size={size} />
-      <Star weight={votes >= 4 ? 'fill' : 'regular'} size={size} />
-      <Star weight={votes >= 5 ? 'fill' : 'regular'} size={size} />
-    </div>
+    <ToggleGroup.Root
+      type="single"
+      defaultValue={votes ? String(votes) : '0'}
+      className={tw('flex gap-1 text-purple-01', className)}
+      disabled={disabled}
+      onValueChange={handleItemClick}
+    >
+      {[1, 2, 3, 4, 5].map((value) => (
+        <ToggleGroup.Item
+          value={String(value)}
+          asChild={!isClickable}
+          key={value}
+          className="data-[disabled]:opacity-40"
+        >
+          <Star weight={votes >= value ? 'fill' : 'regular'} size={size} />
+        </ToggleGroup.Item>
+      ))}
+    </ToggleGroup.Root>
   );
 }
