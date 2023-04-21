@@ -34,11 +34,7 @@ export function PopularBooks({ books }: PopularBooksProps) {
         <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-1">
           {books.map((book) => (
             <li key={book.id}>
-              <BookCard.Compact
-                imageUrl={book.image_url}
-                title={book.title}
-                author={book.author}
-              />
+              <BookCard.Compact book={book} />
             </li>
           ))}
         </ul>
