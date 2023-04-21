@@ -28,7 +28,7 @@ async function seedBooks() {
         category_name: 'Fantasia',
         description: `Verdadeiro clássico moderno, concebido por um dos mais influentes escritores do século XX, A revolução dos bichos é uma fábula sobre o poder. Narra a insurreição dos animais de uma granja contra seus donos. Progressivamente, porém, a revolução degenera numa tirania ainda mais opressiva que a dos humanos.`,
         pages_amount: 152,
-        rating: 4,
+        rating: 0,
         image_url: 'https://m.media-amazon.com/images/I/91BsZhxCRjL.jpg',
       },
       {
@@ -38,7 +38,7 @@ async function seedBooks() {
         category_name: 'Computação',
         description: `Você pode aprender os framework mais populares, usar as melhores linguagens de programação e trabalhar nas maiores empresas de tecnologia, mas se você cultivar maus hábitos, vai ser difícil se tornar um desenvolvedor de ponta.`,
         pages_amount: 135,
-        rating: 4,
+        rating: 0,
         image_url: 'https://m.media-amazon.com/images/I/41Xkqy2rMDL.jpg',
       },
       {
@@ -48,7 +48,7 @@ async function seedBooks() {
         image_url: 'https://m.media-amazon.com/images/I/71tgD4z8zAL.jpg',
         description: `De forma leve e bem-humorada, Asimov realiza questionamentos ainda bastante contemporâneos, como o comodismo do ser humano, sua evolução perante as outras espécies e a busca incessante do controle sobre a vida dos outros.`,
         pages_amount: 256,
-        rating: 4,
+        rating: 0,
         category_name: 'Ficção científica',
       },
       {
@@ -59,7 +59,7 @@ async function seedBooks() {
         description: `O livro Entendendo Algoritmos apresenta uma abordagem agradável para esse tópico essencial da ciência da computação. Nele, você aprenderá como aplicar algoritmos comuns nos problemas de programação enfrentados diariamente.`,
         image_url: 'https://m.media-amazon.com/images/I/71Vkg7GfPFL.jpg',
         pages_amount: 264,
-        rating: 5,
+        rating: 0,
       },
       {
         title: 'Código limpo',
@@ -69,7 +69,7 @@ async function seedBooks() {
         description: `Código limpo é um livro que ensina a escrever códigos que são fáceis de entender, de se manter e de se adaptar. O autor Robert C. Martin, também conhecido como Uncle Bob, apresenta uma série de princípios e boas práticas que ajudam a escrever códigos mais limpos e mais fáceis de se trabalhar.`,
         image_url: 'https://m.media-amazon.com/images/I/41IRFCLk-kL.jpg',
         pages_amount: 425,
-        rating: 5,
+        rating: 0,
       },
       {
         title: 'O poder do hábito',
@@ -79,7 +79,7 @@ async function seedBooks() {
         description: `O poder do hábito é um livro que mostra como os hábitos podem ser usados para mudar a vida. O autor Charles Duhigg apresenta uma série de histórias de pessoas que conseguiram mudar seus hábitos e, com isso, mudar suas vidas.`,
         image_url: 'https://m.media-amazon.com/images/I/81XTXQEVPlL.jpg',
         pages_amount: 408,
-        rating: 4,
+        rating: 0,
       },
     ],
   });

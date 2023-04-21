@@ -4,7 +4,7 @@ import { Book } from '@prisma/client';
 import { Check, CircleNotch, X } from '@ui/icons';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { Avatar } from '@components/Avatar';
 import { Textarea } from '@components/Form/Textarea';
@@ -13,11 +13,13 @@ import { Stars } from '@components/Stars';
 type FeedbackFormProps = {
   user: Required<Session>['user'];
   book: Book;
+  onSubmit?: () => void;
 };
 
-export function FeedbackForm({ user, book }: FeedbackFormProps) {
+export function FeedbackForm({ user, book, onSubmit }: FeedbackFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rating, setRating] = useState(0);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -32,6 +34,10 @@ export function FeedbackForm({ user, book }: FeedbackFormProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...body, rating }),
       });
+
+      setRating(0);
+      if (descriptionRef.current) descriptionRef.current.value = '';
+      if (onSubmit) onSubmit();
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log('handleSubmit ~ error:', error);
@@ -63,7 +69,12 @@ export function FeedbackForm({ user, book }: FeedbackFormProps) {
         />
       </header>
 
-      <Textarea maxLength={450} name="description" disabled={isSubmitting} />
+      <Textarea
+        ref={descriptionRef}
+        maxLength={450}
+        name="description"
+        disabled={isSubmitting}
+      />
 
       <footer className="mt-3 flex justify-end gap-2">
         <button

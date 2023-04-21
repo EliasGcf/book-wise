@@ -25,13 +25,29 @@ export async function POST(
   const { rating, description } = bodySchema.parse(body);
   const { bookId } = paramsSchema.parse(params);
 
+  const book = await prisma.book.findUnique({
+    where: { id: bookId },
+    include: { feedbacks: true },
+  });
+
+  if (!book) return new Response(undefined, { status: 404 });
+
   await prisma.feedback.create({
     data: {
       description,
       rating,
       author_id: session.user.id,
-      book_id: bookId,
+      book_id: book.id,
     },
+  });
+
+  const totalRating = book.feedbacks.reduce((acc, feedback) => acc + feedback.rating, 0);
+
+  const newRating = (totalRating + rating) / (book.feedbacks.length + 1);
+
+  await prisma.book.update({
+    where: { id: book.id },
+    data: { rating: newRating },
   });
 
   return new Response(undefined, { status: 201 });
