@@ -30,11 +30,7 @@ export async function AsyncRecentFeedbacks() {
                 name: feedback.author.name ?? feedback.author.email ?? 'Autor sem nome',
                 imageUrl: feedback.author.image,
               }}
-              book={{
-                imageUrl: feedback.book.image_url,
-                title: feedback.book.title,
-                author: feedback.book.author,
-              }}
+              book={feedback.book}
               createdAt={feedback.created_at}
               feedback={feedback.description}
             />

@@ -2,6 +2,7 @@
 
 import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
@@ -15,7 +16,12 @@ export type BookListProps = {
 };
 
 export function BookList({ user, books }: BookListProps) {
-  const [selectedBook, setSelectedBook] = useState<BookWithFeedbacks | null>(null);
+  const searchParams = useSearchParams();
+  const bookId = searchParams.get('bookId');
+
+  const [selectedBook, setSelectedBook] = useState<BookWithFeedbacks | null>(
+    bookId ? books.find((book) => book.id === bookId) ?? null : null,
+  );
 
   const isDialogOpen = !!selectedBook;
 

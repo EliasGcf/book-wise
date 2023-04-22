@@ -1,5 +1,8 @@
+import { Book } from '@prisma/client';
+import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
+import NextLink from 'next/link';
 
 import { Avatar } from '@components/Avatar';
 import { Stars } from '@components/Stars';
@@ -13,11 +16,7 @@ type FeedbackCardProps = {
     name: string;
     imageUrl?: string | null;
   };
-  book?: {
-    title: string;
-    imageUrl: string;
-    author: string;
-  };
+  book?: Book;
   feedback: string;
   createdAt: Date;
   rating: number;
@@ -57,19 +56,27 @@ export function FeedbackCard({
 
       <div className="flex gap-5">
         {book && (
+          <Link as={NextLink} href={`/search?bookId=${book.id}`}>
           <img
-            src={book.imageUrl}
+              src={book.image_url}
             alt={book.title}
             className="max-h-[152px] min-w-[108px] rounded object-cover"
           />
+          </Link>
         )}
 
         <div className="flex flex-col">
           {book && (
             <>
+              <Link
+                as={NextLink}
+                href={`/search?bookId=${book.id}`}
+                className="underline-offset-2 hover:underline"
+              >
               <Title as="h3" size="xs" className="text-gray-01">
                 {book.title}
               </Title>
+              </Link>
               <Text size="sm" className="text-gray-04">
                 {book.author}
               </Text>
