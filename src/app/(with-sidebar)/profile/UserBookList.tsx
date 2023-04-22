@@ -35,7 +35,7 @@ export function UserBookList({ feedbacks }: UserBookListProps) {
     <div className="flex w-full flex-col xl:max-w-[624px]">
       <Input
         value={search}
-        onChange={(e) => setSearch(e.target.value.trim())}
+        onChange={(e) => setSearch(e.target.value)}
         placeholder="Buscar livro avaliado"
       />
 
