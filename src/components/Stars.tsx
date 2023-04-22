@@ -18,7 +18,7 @@ export function Stars({
   votes,
   className,
   size = 16,
-  disabled = false,
+  disabled = true,
   isClickable = false,
   onChange,
 }: StarsProps) {
@@ -41,7 +41,7 @@ export function Stars({
           value={String(value)}
           asChild={!isClickable}
           key={value}
-          className="data-[disabled]:opacity-40"
+          className={tw({ 'data-[disabled]:opacity-40': isClickable })}
         >
           <Star weight={votes >= value ? 'fill' : 'regular'} size={size} />
         </ToggleGroup.Item>
