@@ -34,7 +34,7 @@ export default async function Dashboard() {
       </header>
 
       <div className="mt-10 flex flex-col-reverse gap-10 overflow-y-auto xl:flex-row xl:justify-between xl:gap-16">
-        <div className="flex flex-col gap-10 xl:max-w-[608px]">
+        <div className="flex w-full flex-col gap-10 xl:max-w-[608px]">
           {lastFeedback && <LastRead feedback={lastFeedback} book={lastFeedback.book} />}
           <RecentFeedbacks />
         </div>
