@@ -25,7 +25,10 @@ export function UserBookList({ feedbacks }: UserBookListProps) {
   const [search, setSearch] = useState('');
 
   const filteredFeedbacks = feedbacks.filter((feedback) => {
-    return feedback.book.title.toLowerCase().includes(search.toLowerCase());
+    return (
+      feedback.book.title.toLowerCase().includes(search.toLowerCase()) ||
+      feedback.book.author.toLowerCase().includes(search.toLowerCase())
+    );
   });
 
   return (
