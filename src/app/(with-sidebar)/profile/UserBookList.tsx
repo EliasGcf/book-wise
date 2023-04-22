@@ -39,7 +39,7 @@ export function UserBookList({ feedbacks }: UserBookListProps) {
       <section className="mt-8 flex flex-col gap-6 overflow-y-auto">
         {filteredFeedbacks.map((feedback) => (
           <div key={feedback.id}>
-            <Text size="sm" className="mb-2 text-gray-03">
+            <Text size="sm" className="mb-2 text-gray-03 first-letter:capitalize">
               {dayjs(feedback.created_at).fromNow()}
             </Text>
 

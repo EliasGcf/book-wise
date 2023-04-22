@@ -45,7 +45,7 @@ export function FeedbackCard({
             <Text size="md" className="text-gray-01">
               {author.name}
             </Text>
-            <Text size="sm" className="text-gray-04">
+            <Text size="sm" className="text-gray-04 first-letter:capitalize">
               {dayjs(createdAt).fromNow()}
             </Text>
           </div>
@@ -57,11 +57,11 @@ export function FeedbackCard({
       <div className="flex gap-5">
         {book && (
           <Link as={NextLink} href={`/search?bookId=${book.id}`}>
-          <img
+            <img
               src={book.image_url}
-            alt={book.title}
-            className="max-h-[152px] min-w-[108px] rounded object-cover"
-          />
+              alt={book.title}
+              className="max-h-[152px] min-w-[108px] rounded object-cover"
+            />
           </Link>
         )}
 
@@ -73,9 +73,9 @@ export function FeedbackCard({
                 href={`/search?bookId=${book.id}`}
                 className="underline-offset-2 hover:underline"
               >
-              <Title as="h3" size="xs" className="text-gray-01">
-                {book.title}
-              </Title>
+                <Title as="h3" size="xs" className="text-gray-01">
+                  {book.title}
+                </Title>
               </Link>
               <Text size="sm" className="text-gray-04">
                 {book.author}
