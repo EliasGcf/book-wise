@@ -50,7 +50,7 @@ export function UserBookList({ feedbacks }: UserBookListProps) {
               <div className="flex gap-6">
                 <img
                   src={feedback.book.image_url}
-                  alt=""
+                  alt={feedback.book.title}
                   className="max-h-[134px] min-w-[98px] rounded object-cover"
                 />
 
