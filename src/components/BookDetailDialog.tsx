@@ -15,6 +15,8 @@ import { FeedbackForm } from '@components/FeedbackForm';
 import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
 
+import { tw } from '@utils/tw';
+
 type BookDetailDialogProps = {
   user?: Session['user'];
   book?: BookWithFeedbacks | null;
@@ -130,6 +132,7 @@ export function BookDetailDialog({ user, book, onSubmit }: BookDetailDialogProps
                   }}
                   createdAt={new Date(feedback.created_at)}
                   feedback={feedback.description}
+                  className={tw({ 'bg-gray-06': user?.id === feedback.author_id })}
                 />
               </li>
             ))}

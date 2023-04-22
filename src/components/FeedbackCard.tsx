@@ -1,11 +1,12 @@
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
-import clsx from 'clsx';
 
 import { Avatar } from '@components/Avatar';
 import { Stars } from '@components/Stars';
 
 import { dayjs } from '@libs/dayjs';
+
+import { tw } from '@utils/tw';
 
 type FeedbackCardProps = {
   author: {
@@ -20,6 +21,7 @@ type FeedbackCardProps = {
   feedback: string;
   createdAt: Date;
   rating: number;
+  className?: string;
 };
 
 export function FeedbackCard({
@@ -28,10 +30,11 @@ export function FeedbackCard({
   feedback,
   rating,
   createdAt,
+  className,
 }: FeedbackCardProps) {
   return (
     <div
-      className={clsx('flex flex-col rounded-lg bg-gray-07 p-6', {
+      className={tw('flex flex-col rounded-lg bg-gray-07 p-6', className, {
         'gap-8': !!book,
         'gap-5': !book,
       })}
