@@ -1,8 +1,7 @@
 import { Binoculars, ChartLineUp, SignIn, SignOut, User } from '@ui/icons';
-import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
 import Image from 'next/image';
-import NextLink from 'next/link';
+import Link from 'next/link';
 
 import { Avatar } from '@components/Avatar';
 import { NavLink } from '@components/NavLink';
@@ -41,19 +40,20 @@ async function BaseSidebar() {
             <Text size="sm" className="text-gray-02">
               {session.user.name}
             </Text>
-            <NextLink href="/api/auth/signout" className="text-danger-light">
+            <Link href="/api/auth/signout" className="text-danger-light">
               <SignOut size={20} />
-            </NextLink>
+            </Link>
           </>
         ) : (
-          <Link
-            as={NextLink}
+          <Text
+            variant="link"
+            as={Link}
             href="/login"
             className="flex w-full items-center justify-center gap-3 text-gray-02 transition-opacity hover:opacity-70"
           >
             Fazer login
             <SignIn size={20} className="text-green-01" />
-          </Link>
+          </Text>
         )}
       </footer>
     </aside>

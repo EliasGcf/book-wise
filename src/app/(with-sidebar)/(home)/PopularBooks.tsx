@@ -3,9 +3,8 @@
 import { Book } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { CaretRight } from '@ui/icons';
-import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
-import NextLink from 'next/link';
+import Link from 'next/link';
 
 import { BookCard } from '@components/BookCard';
 
@@ -22,8 +21,9 @@ export function PopularBooks({ books }: PopularBooksProps) {
             Livros populares
           </Text>
 
-          <Link
-            as={NextLink}
+          <Text
+            variant="link"
+            as={Link}
             size="sm"
             href="/search"
             className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
@@ -31,19 +31,20 @@ export function PopularBooks({ books }: PopularBooksProps) {
           >
             Ver todos
             <CaretRight size={16} />
-          </Link>
+          </Text>
         </header>
 
         <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-1">
           {books.map((book) => (
             <li key={book.id}>
-              <Link
-                as={NextLink}
+              <Text
+                variant="link"
+                as={Link}
                 href={`/search?bookId=${book.id}`}
                 title={`Ver mais feedbacks sobre o livro: ${book.title}`}
               >
                 <BookCard.Compact book={book} />
-              </Link>
+              </Text>
             </li>
           ))}
         </ul>

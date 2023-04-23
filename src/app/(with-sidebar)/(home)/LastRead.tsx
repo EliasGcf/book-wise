@@ -1,8 +1,7 @@
 import { Book, Feedback } from '@prisma/client';
 import { CaretRight } from '@ui/icons';
-import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
-import NextLink from 'next/link';
+import Link from 'next/link';
 
 import { BookCardFull } from '@components/BookCard';
 
@@ -19,8 +18,9 @@ export function LastRead({ book, feedback }: LastReadProps) {
           Sua última leitura
         </Text>
 
-        <Link
-          as={NextLink}
+        <Text
+          variant="link"
+          as={Link}
           size="sm"
           href="/profile"
           className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
@@ -28,11 +28,12 @@ export function LastRead({ book, feedback }: LastReadProps) {
         >
           Ver todas
           <CaretRight size={16} />
-        </Link>
+        </Text>
       </header>
 
-      <Link
-        as={NextLink}
+      <Text
+        variant="link"
+        as={Link}
         href={`/search?bookId=${book.id}`}
         title={`Ver mais feedbacks sobre o livro: ${book.title}`}
       >
@@ -43,7 +44,7 @@ export function LastRead({ book, feedback }: LastReadProps) {
           imageUrl={book.image_url}
           description={book.description}
         />
-      </Link>
+      </Text>
     </section>
   );
 }

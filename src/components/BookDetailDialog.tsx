@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import * as Dialog from '@radix-ui/react-dialog';
 import { BookmarkSimple, BookOpen, X } from '@ui/icons';
-import { Link } from '@ui/Link';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
@@ -103,13 +102,13 @@ export function BookDetailDialog({ user, book, onSubmit }: BookDetailDialogProps
             {!user && (
               <Dialog.Root>
                 <Dialog.Trigger>
-                  <Link
-                    size="md"
+                  <Text
+                    variant="link"
                     as="button"
-                    className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
+                    className="text-purple-01 transition-opacity hover:opacity-70"
                   >
                     Avaliar
-                  </Link>
+                  </Text>
                 </Dialog.Trigger>
 
                 <SigninDialog />

@@ -1,6 +1,6 @@
 'use client';
 
-import { Link } from '@ui/Link';
+import { Text } from '@ui/Text';
 import { exhaustive } from 'exhaustive';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
@@ -41,9 +41,9 @@ export function SigninButton({ provider }: Props) {
       onClick={onClick === false ? undefined : onClick}
     >
       <Image src={iconUrl} alt="" width={32} height={32} />
-      <Link size="lg" as="span">
+      <Text variant="link" size="lg" as="span">
         {text}
-      </Link>
+      </Text>
     </button>
   );
 }

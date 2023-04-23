@@ -1,7 +1,7 @@
 'use client';
 
-import { Link } from '@ui/Link';
-import NextLink from 'next/link';
+import { Text } from '@ui/Text';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { wx } from 'windstitch';
 
@@ -32,9 +32,9 @@ export function NavLink({ href, icon, title }: NavLinkProps) {
   const isActive = pathname === href;
 
   return (
-    <Link href={href} as={NextLink} className={navLink({ active: isActive })}>
+    <Text variant="link" href={href} as={Link} className={navLink({ active: isActive })}>
       {icon}
       {title}
-    </Link>
+    </Text>
   );
 }
