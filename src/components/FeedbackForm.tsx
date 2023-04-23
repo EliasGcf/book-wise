@@ -5,6 +5,7 @@ import { Check, CircleNotch, X } from '@ui/icons';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
 import { useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { Avatar } from '@components/Avatar';
 import { Textarea } from '@components/Form/Textarea';
@@ -23,6 +24,7 @@ export function FeedbackForm({ user, book, onSubmit }: FeedbackFormProps) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
@@ -34,6 +36,8 @@ export function FeedbackForm({ user, book, onSubmit }: FeedbackFormProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...body, rating }),
       });
+
+      toast('Avaliação enviada com sucesso!', { icon: '✅', position: 'top-left' });
 
       setRating(0);
       if (descriptionRef.current) descriptionRef.current.value = '';
