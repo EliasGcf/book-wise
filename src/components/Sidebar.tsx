@@ -1,10 +1,11 @@
-import { Binoculars, ChartLineUp, SignIn, SignOut, User } from '@ui/icons';
+import { Binoculars, ChartLineUp, SignIn, User } from '@ui/icons';
 import { Text } from '@ui/Text';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Avatar } from '@components/Avatar';
 import { NavLink } from '@components/NavLink';
+import { SignOutDialog } from '@components/SignOutDialog';
 
 import { getServerSession } from '@libs/next-auth';
 
@@ -40,9 +41,8 @@ async function BaseSidebar() {
             <Text size="sm" className="text-gray-02">
               {session.user.name}
             </Text>
-            <Link href="/api/auth/signout" className="text-danger-light">
-              <SignOut size={20} />
-            </Link>
+
+            <SignOutDialog />
           </>
         ) : (
           <Text
