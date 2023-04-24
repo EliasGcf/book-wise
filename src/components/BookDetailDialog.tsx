@@ -18,12 +18,12 @@ import { tw } from '@utils/tw';
 
 type BookDetailDialogProps = {
   user?: Session['user'];
-  book?: BookWithFeedbacks | null;
+  book: BookWithFeedbacks;
   onSubmit?: () => void;
 };
 
 export function BookDetailDialog({ user, book, onSubmit }: BookDetailDialogProps) {
-  const hasUserFeedback = book?.feedbacks.some((feedback) => {
+  const hasUserFeedback = book.feedbacks.some((feedback) => {
     return feedback.author_id === user?.id;
   });
 
@@ -39,7 +39,7 @@ export function BookDetailDialog({ user, book, onSubmit }: BookDetailDialogProps
         <div className="mt-4 rounded-lg bg-gray-07 px-8 py-6">
           <div className="flex gap-8">
             <img
-              src={book?.image_url}
+              src={book.image_url}
               alt=""
               className="max-h-[242px] min-w-[171px] rounded-lg object-cover"
             />
@@ -47,20 +47,20 @@ export function BookDetailDialog({ user, book, onSubmit }: BookDetailDialogProps
             <div className="flex flex-col">
               <Dialog.Title asChild>
                 <Title size="sm" as="h3" className="text-gray-01">
-                  {book?.title}
+                  {book.title}
                 </Title>
               </Dialog.Title>
 
               <Dialog.Description asChild>
                 <Text size="md" className="text-gray-03">
-                  {book?.author}
+                  {book.author}
                 </Text>
               </Dialog.Description>
 
               <div className="mt-auto">
-                <Stars votes={book?.rating ?? 0} size={20} />
+                <Stars votes={book.rating ?? 0} size={20} />
                 <Text size="sm" className="mt-1 text-gray-04">
-                  {book?.feedbacks.length} avaliações
+                  {book.feedbacks.length} avaliações
                 </Text>
               </div>
             </div>
@@ -74,7 +74,7 @@ export function BookDetailDialog({ user, book, onSubmit }: BookDetailDialogProps
                   Categoria
                 </Text>
                 <Title size="xs" as="span" className="text-gray-02">
-                  {book?.category_name}
+                  {book.category_name}
                 </Title>
               </div>
             </div>
@@ -86,7 +86,7 @@ export function BookDetailDialog({ user, book, onSubmit }: BookDetailDialogProps
                   Páginas
                 </Text>
                 <Title size="xs" as="span" className="text-gray-02">
-                  {book?.pages_amount}
+                  {book.pages_amount}
                 </Title>
               </div>
             </div>
@@ -121,7 +121,7 @@ export function BookDetailDialog({ user, book, onSubmit }: BookDetailDialogProps
               <FeedbackForm onSubmit={onSubmit} user={user} book={book} />
             )}
 
-            {book?.feedbacks.map((feedback) => (
+            {book.feedbacks.map((feedback) => (
               <li key={feedback.id}>
                 <FeedbackCard
                   rating={feedback.rating}
