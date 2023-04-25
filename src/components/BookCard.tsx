@@ -69,6 +69,7 @@ function BookCardCompact({ book, onClick }: BookCardCompactProps) {
   return (
     <Dialog.Trigger
       onClick={onClick}
+      title={`Ver mais feedbacks sobre o livro: ${book.title}`}
       className="flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 outline-none transition-colors hover:border-gray-06 focus:border-gray-06"
     >
       <img

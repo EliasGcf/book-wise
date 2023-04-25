@@ -9,18 +9,28 @@ import { getServerSession } from '@libs/next-auth';
 import { prisma } from '@libs/prisma';
 
 export default async function Dashboard() {
-  const session = await getServerSession();
-
-  const popularBooks = await prisma.book.findMany({
-    take: 4,
-    orderBy: { feedbacks: { _count: 'desc' } },
-    where: { feedbacks: { some: {} } },
-  });
+  const [session, popularBooks] = await Promise.all([
+    getServerSession(),
+    prisma.book.findMany({
+      take: 4,
+      orderBy: { feedbacks: { _count: 'desc' } },
+      where: { feedbacks: { some: {} } },
+      include: { feedbacks: { include: { author: true } } },
+    }),
+  ]);
 
   const lastFeedback = session
     ? await prisma.feedback.findFirst({
         where: { author_id: session.user.id },
-        include: { book: true },
+        include: {
+          book: {
+            include: {
+              feedbacks: {
+                include: { author: true },
+              },
+            },
+          },
+        },
       })
     : null;
 
@@ -35,11 +45,33 @@ export default async function Dashboard() {
 
       <div className="mt-10 flex flex-col-reverse gap-10 overflow-y-auto xl:flex-row xl:justify-between xl:gap-16">
         <div className="flex w-full flex-col gap-10 xl:max-w-[608px]">
-          {lastFeedback && <LastRead feedback={lastFeedback} book={lastFeedback.book} />}
+          {lastFeedback && (
+            <LastRead
+              user={session?.user}
+              feedback={lastFeedback}
+              book={{
+                ...lastFeedback.book,
+                feedbacks: lastFeedback.book.feedbacks.map((f) => ({
+                  ...f,
+                  created_at: f.created_at.toISOString(),
+                })),
+              }}
+            />
+          )}
           <RecentFeedbacks />
         </div>
 
-        <PopularBooks books={popularBooks} />
+        <PopularBooks
+          user={session?.user}
+          books={popularBooks.map((book) => ({
+            ...book,
+            feedbacks: book.feedbacks.map((feedback) => ({
+              ...feedback,
+              created_at: feedback.created_at.toISOString(),
+              author: { ...feedback.author, createdAt: undefined },
+            })),
+          }))}
+        />
       </div>
     </div>
   );

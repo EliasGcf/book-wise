@@ -3,13 +3,25 @@ import { Text } from '@ui/Text';
 
 import { FeedbackCard } from '@components/FeedbackCard';
 
+import { getServerSession } from '@libs/next-auth';
 import { prisma } from '@libs/prisma';
 
 import { asyncComponent } from '@utils/async-component';
 
 export async function AsyncRecentFeedbacks() {
+  const session = await getServerSession();
+
   const feedbacks = await prisma.feedback.findMany({
-    include: { author: true, book: true },
+    include: {
+      author: true,
+      book: {
+        include: {
+          feedbacks: {
+            include: { author: true },
+          },
+        },
+      },
+    },
     orderBy: { created_at: 'desc' },
   });
 
@@ -25,14 +37,20 @@ export async function AsyncRecentFeedbacks() {
         {feedbacks.map((feedback) => (
           <li key={feedback.id}>
             <FeedbackCard
-              rating={feedback.rating}
-              author={{
-                name: feedback.author.name ?? feedback.author.email ?? 'Autor sem nome',
-                imageUrl: feedback.author.image,
+              user={session?.user}
+              author={{ ...feedback.author, createdAt: undefined }}
+              book={{
+                ...feedback.book,
+                feedbacks: feedback.book.feedbacks.map((f) => ({
+                  ...f,
+                  created_at: f.created_at.toISOString(),
+                  author: { ...f.author, createdAt: undefined },
+                })),
               }}
-              book={feedback.book}
-              createdAt={feedback.created_at}
-              feedback={feedback.description}
+              feedback={{
+                ...feedback,
+                created_at: feedback.created_at.toISOString(),
+              }}
             />
           </li>
         ))}

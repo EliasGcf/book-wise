@@ -1,16 +1,35 @@
-import { Book, Feedback } from '@prisma/client';
+'use client';
+
+import { Book, Feedback, User } from '@prisma/client';
+import * as Dialog from '@radix-ui/react-dialog';
 import { CaretRight } from '@ui/icons';
 import { Text } from '@ui/Text';
+import { Session } from 'next-auth';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { BookCardFull } from '@components/BookCard';
+import { BookDetailDialog } from '@components/BookDetailDialog';
 
-type LastReadProps = {
-  book: Book;
-  feedback: Feedback;
+import { Replace } from '@shared/types/replace';
+
+type FeedbackWithAuthor = Replace<Feedback, { created_at: string }> & {
+  author: Replace<User, { createdAt?: Date }>;
 };
 
-export function LastRead({ book, feedback }: LastReadProps) {
+export type BookWithFeedbacks = Book & {
+  feedbacks: FeedbackWithAuthor[];
+};
+
+type LastReadProps = {
+  book: BookWithFeedbacks;
+  feedback: Feedback;
+  user?: Session['user'];
+};
+
+export function LastRead({ book, feedback, user }: LastReadProps) {
+  const router = useRouter();
+
   return (
     <section>
       <header className="mb-4 flex items-center justify-between">
@@ -31,20 +50,17 @@ export function LastRead({ book, feedback }: LastReadProps) {
         </Text>
       </header>
 
-      <Text
-        variant="link"
-        as={Link}
-        href={`/search?bookId=${book.id}`}
-        title={`Ver mais feedbacks sobre o livro: ${book.title}`}
-      >
-        <BookCardFull
-          stars={feedback.rating}
-          title={book.title}
-          author={book.author}
-          imageUrl={book.image_url}
-          description={book.description}
-        />
-      </Text>
+      <BookDetailDialog book={book} user={user} onSubmit={router.refresh}>
+        <Dialog.Trigger className="flex text-left">
+          <BookCardFull
+            stars={feedback.rating}
+            title={book.title}
+            author={book.author}
+            imageUrl={book.image_url}
+            description={book.description}
+          />
+        </Dialog.Trigger>
+      </BookDetailDialog>
     </section>
   );
 }

@@ -30,6 +30,8 @@ module.exports = {
       },
 
       black: '#000',
+
+      transparent: 'transparent',
     },
 
     extend: {

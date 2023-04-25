@@ -1,6 +1,5 @@
 'use client';
 
-import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -27,17 +26,18 @@ export function BookList({ user, books }: BookListProps) {
     }
   }
 
-  function handleFormSubmit() {
-    router.refresh();
-  }
-
   return (
     <div className="grid grid-cols-1 gap-5 overflow-y-auto lg:grid-cols-2 xl:grid-cols-3">
       {books.map((book) => (
-        <Dialog.Root onOpenChange={handleDialogChange} defaultOpen={book.id === bookId}>
+        <BookDetailDialog
+          onOpenChange={handleDialogChange}
+          defaultOpen={book.id === bookId}
+          onSubmit={router.refresh}
+          book={book}
+          user={user}
+        >
           <BookCard.Compact key={book.id} book={book} />
-          <BookDetailDialog onSubmit={handleFormSubmit} book={book} user={user} />
-        </Dialog.Root>
+        </BookDetailDialog>
       ))}
     </div>
   );

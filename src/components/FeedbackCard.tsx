@@ -1,35 +1,47 @@
-import { Book } from '@prisma/client';
+'use client';
+
+import { Book, Feedback, User } from '@prisma/client';
+import * as Dialog from '@radix-ui/react-dialog';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
-import Link from 'next/link';
+import { Session } from 'next-auth';
+import { useRouter } from 'next/navigation';
 
 import { Avatar } from '@components/Avatar';
+import { BookDetailDialog } from '@components/BookDetailDialog';
 import { Stars } from '@components/Stars';
 
 import { dayjs } from '@libs/dayjs';
 
+import { Replace } from '@shared/types/replace';
+
 import { tw } from '@utils/tw';
 
+type FeedbackWithAuthor = Replace<Feedback, { created_at: string }> & {
+  author: Replace<User, { createdAt?: Date }>;
+};
+
+export type BookWithFeedbacks = Book & {
+  feedbacks: FeedbackWithAuthor[];
+};
+
 type FeedbackCardProps = {
-  author: {
-    name: string;
-    imageUrl?: string | null;
-  };
-  book?: Book;
-  feedback: string;
-  createdAt: Date;
-  rating: number;
+  author: Replace<User, { createdAt?: Date }>;
+  book?: BookWithFeedbacks;
+  feedback: Replace<Feedback, { created_at: string }>;
   className?: string;
+  user?: Session['user'];
 };
 
 export function FeedbackCard({
   author,
   book,
   feedback,
-  rating,
-  createdAt,
   className,
+  user,
 }: FeedbackCardProps) {
+  const router = useRouter();
+
   return (
     <div
       className={tw('flex flex-col rounded-lg bg-gray-07 p-6', className, {
@@ -39,44 +51,49 @@ export function FeedbackCard({
     >
       <header className="flex justify-between">
         <div className="flex gap-4">
-          {author.imageUrl && <Avatar imageUrl={author.imageUrl} name={author.name} />}
+          {author.image && (
+            <Avatar imageUrl={author.image} name={author.name ?? 'Anônimo'} />
+          )}
           <div>
             <Text size="md" className="text-gray-01">
               {author.name}
             </Text>
             <Text size="sm" className="text-gray-04 first-letter:capitalize">
-              {dayjs(createdAt).fromNow()}
+              {dayjs(feedback.created_at).fromNow()}
             </Text>
           </div>
         </div>
 
-        <Stars votes={rating} />
+        <Stars votes={feedback.rating} />
       </header>
 
       <div className="flex gap-5">
         {book && (
-          <Text variant="link" as={Link} href={`/search?bookId=${book.id}`}>
-            <img
-              src={book.image_url}
-              alt={book.title}
-              className="max-h-[152px] min-w-[108px] rounded object-cover"
-            />
-          </Text>
+          <BookDetailDialog onSubmit={router.refresh} user={user} book={book}>
+            <Dialog.Trigger>
+              <img
+                src={book.image_url}
+                alt={book.title}
+                className="max-h-[152px] min-w-[108px] rounded object-cover"
+              />
+            </Dialog.Trigger>
+          </BookDetailDialog>
         )}
 
         <div className="flex flex-col">
           {book && (
             <>
-              <Text
-                variant="link"
-                as={Link}
-                href={`/search?bookId=${book.id}`}
-                className="underline-offset-2 hover:underline"
-              >
-                <Title as="h3" size="xs" className="text-gray-01">
-                  {book.title}
-                </Title>
-              </Text>
+              <BookDetailDialog onSubmit={router.refresh} user={user} book={book}>
+                <Dialog.Trigger className="flex text-left">
+                  <Title
+                    as="h3"
+                    size="xs"
+                    className="text-gray-01 underline-offset-2 hover:underline"
+                  >
+                    {book.title}
+                  </Title>
+                </Dialog.Trigger>
+              </BookDetailDialog>
               <Text size="sm" className="text-gray-04">
                 {book.author}
               </Text>
@@ -84,7 +101,7 @@ export function FeedbackCard({
           )}
 
           <Text size="sm" className="mt-auto line-clamp-4 text-gray-04">
-            {feedback}
+            {feedback.description}
           </Text>
         </div>
       </div>
