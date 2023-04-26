@@ -43,7 +43,7 @@ export async function POST(
 
   const totalRating = book.feedbacks.reduce((acc, feedback) => acc + feedback.rating, 0);
 
-  const newRating = (totalRating + rating) / (book.feedbacks.length + 1);
+  const newRating = Math.trunc((totalRating + rating) / (book.feedbacks.length + 1));
 
   await prisma.book.update({
     where: { id: book.id },
