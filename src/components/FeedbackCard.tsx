@@ -5,6 +5,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { Avatar } from '@components/Avatar';
@@ -41,6 +42,7 @@ export function FeedbackCard({
   user,
 }: FeedbackCardProps) {
   const router = useRouter();
+  const authorIsUser = author.id === user?.id;
 
   return (
     <div
@@ -52,10 +54,21 @@ export function FeedbackCard({
       <header className="flex justify-between">
         <div className="flex gap-4">
           {author.image && (
-            <Avatar imageUrl={author.image} name={author.name ?? 'Anônimo'} />
+            <Avatar
+              imageUrl={author.image}
+              name={author.name ?? 'Anônimo'}
+              userId={!authorIsUser ? author.id : undefined}
+            />
           )}
           <div>
-            <Text size="md" className="text-gray-01">
+            <Text
+              size="md"
+              as={!authorIsUser ? Link : undefined}
+              href={`/profile/${author.id}`}
+              className={tw('text-gray-01', {
+                'underline-offset-2 hover:underline': !authorIsUser,
+              })}
+            >
               {author.name}
             </Text>
             <Text size="sm" className="text-gray-04 first-letter:capitalize">

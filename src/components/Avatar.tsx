@@ -1,6 +1,7 @@
 'use client';
 
 import * as PrimitiveAvatar from '@radix-ui/react-avatar';
+import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { wx } from 'windstitch';
 
@@ -8,6 +9,7 @@ type AvatarProps = {
   imageUrl?: string | null;
   name: string;
   size?: 'sm' | 'lg';
+  userId?: string | null;
 };
 
 const avatarContainer = wx({
@@ -25,7 +27,9 @@ const avatarContainer = wx({
   },
 });
 
-export function Avatar({ imageUrl, name, size }: AvatarProps) {
+export function Avatar({ imageUrl, name, size, userId }: AvatarProps) {
+  const LinkOrDiv = userId ? Link : 'div';
+
   const initials = name
     .split(' ')
     .slice(0, 2)
@@ -33,21 +37,23 @@ export function Avatar({ imageUrl, name, size }: AvatarProps) {
     .join('');
 
   return (
-    <PrimitiveAvatar.Root className={twMerge(avatarContainer({ size }))}>
-      {imageUrl && (
-        <PrimitiveAvatar.Image
-          alt={name}
-          src={imageUrl}
-          className="h-full w-full rounded-full"
-        />
-      )}
+    <LinkOrDiv href={`/profile/${userId}`} className="flex">
+      <PrimitiveAvatar.Root className={twMerge(avatarContainer({ size }))}>
+        {imageUrl && (
+          <PrimitiveAvatar.Image
+            alt={name}
+            src={imageUrl}
+            className="h-full w-full rounded-full"
+          />
+        )}
 
-      <PrimitiveAvatar.Fallback
-        delayMs={600}
-        className="flex h-full w-full items-center justify-center font-bold uppercase text-gray-07"
-      >
-        {initials}
-      </PrimitiveAvatar.Fallback>
-    </PrimitiveAvatar.Root>
+        <PrimitiveAvatar.Fallback
+          delayMs={600}
+          className="flex h-full w-full items-center justify-center font-bold uppercase text-gray-07"
+        >
+          {initials}
+        </PrimitiveAvatar.Fallback>
+      </PrimitiveAvatar.Root>
+    </LinkOrDiv>
   );
 }

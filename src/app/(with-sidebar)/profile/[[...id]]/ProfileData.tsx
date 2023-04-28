@@ -2,7 +2,7 @@ import { Book, Feedback } from '@prisma/client';
 import { BookmarkSimple, BookOpen, Books, UserList } from '@ui/icons';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
-import { Session } from 'next-auth';
+import { User } from 'next-auth';
 
 import { Avatar } from '@components/Avatar';
 
@@ -18,11 +18,11 @@ type FeedbackWithBook = Feedback & {
 };
 
 interface ProfileDataProps {
-  session: Session;
+  user: User;
   feedbacks: Array<Replace<FeedbackWithBook, { created_at: string }>>;
 }
 
-export function ProfileData({ session, feedbacks }: ProfileDataProps) {
+export function ProfileData({ user, feedbacks }: ProfileDataProps) {
   const userMetrics = feedbacks.reduce(
     (acc, feedback) => {
       acc.pagesRead += feedback.book.pages_amount;
@@ -45,18 +45,14 @@ export function ProfileData({ session, feedbacks }: ProfileDataProps) {
   return (
     <aside className="mb-6 flex flex-col items-center border-b border-gray-07 xl:mb-0 xl:border-b-0 xl:border-l">
       <header className="flex flex-col items-center">
-        <Avatar
-          size="lg"
-          imageUrl={session.user?.image}
-          name={session.user?.name ?? '??'}
-        />
+        <Avatar size="lg" imageUrl={user.image} name={user.name ?? '??'} />
 
         <Title size="md" as="h2" className="mt-5 text-gray-01">
-          {session.user?.name}
+          {user.name}
         </Title>
 
         <Text size="sm" className="text-gray-04">
-          membro desde {dayjs(session.user.createdAt).get('year')}
+          membro desde {dayjs(user.createdAt).get('year')}
         </Text>
       </header>
 

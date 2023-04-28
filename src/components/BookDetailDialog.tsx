@@ -133,6 +133,7 @@ export function BookDetailDialog({
                   <FeedbackCard
                     author={feedback.author}
                     feedback={feedback}
+                    user={user}
                     className={tw({ 'bg-gray-06': user?.id === feedback.author_id })}
                   />
                 </li>
