@@ -45,7 +45,7 @@ export default async function Search({ params }: SearchProps) {
 
   const feedbacks = await prisma.feedback.findMany({
     where: { author_id: user.id },
-    include: { book: true },
+    include: { book: { include: { feedbacks: { include: { author: true } } } } },
   });
 
   return (
@@ -59,9 +59,21 @@ export default async function Search({ params }: SearchProps) {
 
       <div className="mt-10 flex flex-col-reverse overflow-y-auto xl:flex-row xl:justify-between">
         <UserBookList
+          user={user}
           feedbacks={feedbacks.map((feedback) => ({
             ...feedback,
             created_at: feedback.created_at.toISOString(),
+            book: {
+              ...feedback.book,
+              feedbacks: feedback.book.feedbacks.map((f) => ({
+                ...f,
+                created_at: f.created_at.toISOString(),
+                author: {
+                  ...f.author,
+                  createdAt: undefined,
+                },
+              })),
+            },
           }))}
         />
         <ProfileData

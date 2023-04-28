@@ -1,10 +1,14 @@
 'use client';
 
-import { Book, Feedback } from '@prisma/client';
+import { Book, Feedback, User } from '@prisma/client';
+import * as Dialog from '@radix-ui/react-dialog';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
+import { Session } from 'next-auth';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { BookDetailDialog } from '@components/BookDetailDialog';
 import { Input } from '@components/Form/Input';
 import { Stars } from '@components/Stars';
 
@@ -12,17 +16,28 @@ import { dayjs } from '@libs/dayjs';
 
 import { Replace } from '@shared/types/replace';
 
+type FeedbackWithAuthor = Replace<Feedback, { created_at: string }> & {
+  author: Replace<User, { createdAt?: Date }>;
+};
+
+type BookWithFeedbacks = Book & {
+  feedbacks: FeedbackWithAuthor[];
+};
+
 type FeedbackWithBook = Feedback & {
   created_at: string;
-  book: Book;
+  book: BookWithFeedbacks;
 };
 
 type UserBookListProps = {
+  user?: Session['user'];
   feedbacks: Array<Replace<FeedbackWithBook, { created_at: string }>>;
 };
 
-export function UserBookList({ feedbacks }: UserBookListProps) {
+export function UserBookList({ feedbacks, user }: UserBookListProps) {
   const [search, setSearch] = useState('');
+
+  const router = useRouter();
 
   const filteredFeedbacks = feedbacks.filter((feedback) => {
     return (
@@ -48,17 +63,38 @@ export function UserBookList({ feedbacks }: UserBookListProps) {
 
             <div className="rounded-lg bg-gray-07 p-6">
               <div className="flex gap-6">
-                <img
-                  src={feedback.book.image_url}
-                  alt={feedback.book.title}
-                  className="max-h-[134px] min-w-[98px] rounded object-cover"
-                />
+                <BookDetailDialog
+                  onSubmit={router.refresh}
+                  user={user}
+                  book={feedback.book}
+                >
+                  <Dialog.Trigger>
+                    <img
+                      src={feedback.book.image_url}
+                      alt={feedback.book.title}
+                      className="max-h-[134px] min-w-[98px] rounded object-cover"
+                    />
+                  </Dialog.Trigger>
+                </BookDetailDialog>
 
                 <div className="flex flex-col justify-between">
                   <div>
-                    <Title size="sm" as="h3" className="text-gray-01">
-                      {feedback.book.title}
-                    </Title>
+                    <BookDetailDialog
+                      onSubmit={router.refresh}
+                      user={user}
+                      book={feedback.book}
+                    >
+                      <Dialog.Trigger className="flex text-left">
+                        <Title
+                          size="sm"
+                          as="h3"
+                          className="text-gray-01 underline-offset-2 hover:underline"
+                        >
+                          {feedback.book.title}
+                        </Title>
+                      </Dialog.Trigger>
+                    </BookDetailDialog>
+
                     <Text size="sm" className="text-gray-04">
                       {feedback.book.author}
                     </Text>
