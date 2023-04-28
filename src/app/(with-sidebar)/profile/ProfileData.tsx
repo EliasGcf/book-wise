@@ -10,7 +10,7 @@ import { dayjs } from '@libs/dayjs';
 
 import { Replace } from '@shared/types/replace';
 
-import { getHighestOccurrenceAndNum } from '@utils/asdf';
+import { getHighestOccurrenceAndNum } from '@utils/get-highest-occurrence-and-num';
 
 type FeedbackWithBook = Feedback & {
   created_at: string;

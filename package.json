@@ -36,7 +36,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
-    "@eliasgcf/eslint-config-next": "^0.0.3",
+    "@eliasgcf/eslint-config-next": "^0.0.4",
     "@types/node": "18.15.13",
     "@types/react": "18.0.38",
     "@types/react-dom": "18.0.11",
