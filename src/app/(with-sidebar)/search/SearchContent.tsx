@@ -4,6 +4,7 @@ import { Category } from '@prisma/client';
 import { Binoculars } from '@ui/icons';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import { BookList } from '@app/(with-sidebar)/search/BookList';
@@ -19,11 +20,15 @@ interface SearchContentProps {
 }
 
 export function SearchContent({ user, books, categories }: SearchContentProps) {
-  // const router = useRouter();
-  // const pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [search, setSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const defaultSearch = searchParams.get('search') ?? '';
+  const defaultCategory = searchParams.get('category') ?? '';
+
+  const [search, setSearch] = useState(defaultSearch);
+  const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
 
   const filteredBooks = books.filter((book) => {
     const titleMatch = book.title.toLowerCase().includes(search.toLowerCase());
@@ -37,6 +42,30 @@ export function SearchContent({ user, books, categories }: SearchContentProps) {
 
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
+
+    const query = new URLSearchParams(searchParams);
+
+    if (event.target.value) {
+      query.set('search', event.target.value);
+    } else {
+      query.delete('search');
+    }
+
+    router.push(`${pathname}?${query.toString()}`);
+  }
+
+  function handleSelectCategory(category: string) {
+    setSelectedCategory(category);
+
+    const query = new URLSearchParams(searchParams);
+
+    if (category) {
+      query.set('category', category);
+    } else {
+      query.delete('category');
+    }
+
+    router.push(`${pathname}?${query.toString()}`);
   }
 
   return (
@@ -58,7 +87,11 @@ export function SearchContent({ user, books, categories }: SearchContentProps) {
       </header>
 
       <div className="mt-5 flex flex-col gap-12 overflow-hidden">
-        <Tags categories={categories} onChange={setSelectedCategory} />
+        <Tags
+          categories={categories}
+          onChange={handleSelectCategory}
+          value={selectedCategory}
+        />
         <BookList books={filteredBooks} user={user} />
       </div>
     </div>

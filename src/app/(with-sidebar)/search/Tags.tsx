@@ -7,12 +7,13 @@ import { tw } from '@utils/tw';
 
 type TagsProps = {
   categories: Category[];
+  value?: string;
   onChange?: (value: string) => void;
 };
 
-export function Tags({ categories, onChange }: TagsProps) {
+export function Tags({ categories, value, onChange }: TagsProps) {
   return (
-    <ToggleGroup.Root type="single" onValueChange={onChange}>
+    <ToggleGroup.Root type="single" value={value} onValueChange={onChange}>
       {categories.map((category) => (
         <ToggleGroup.Item
           key={category.id}
