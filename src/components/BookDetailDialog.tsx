@@ -3,6 +3,7 @@ import { BookmarkSimple, BookOpen, X } from '@ui/icons';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
+import Link from 'next/link';
 
 import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
 
@@ -59,7 +60,12 @@ export function BookDetailDialog({
                 </Dialog.Title>
 
                 <Dialog.Description asChild>
-                  <Text size="md" className="text-gray-03">
+                  <Text
+                    size="md"
+                    className="text-gray-03 underline-offset-2 hover:underline"
+                    as={Link}
+                    href={`/search?search=${book.author}`}
+                  >
                     {book.author}
                   </Text>
                 </Dialog.Description>
@@ -80,7 +86,12 @@ export function BookDetailDialog({
                   <Text size="sm" className="text-gray-02">
                     Categoria
                   </Text>
-                  <Title size="xs" as="span" className="text-gray-02">
+                  <Title
+                    size="xs"
+                    className="text-gray-02 underline-offset-2 hover:underline"
+                    as={Link}
+                    href={`/search?category=${book.category_name}`}
+                  >
                     {book.category_name}
                   </Title>
                 </div>

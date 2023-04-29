@@ -107,7 +107,12 @@ export function FeedbackCard({
                   </Title>
                 </Dialog.Trigger>
               </BookDetailDialog>
-              <Text size="sm" className="text-gray-04">
+              <Text
+                size="sm"
+                className="text-gray-04 underline-offset-2 hover:underline"
+                as={Link}
+                href={`/search?search=${book.author}`}
+              >
                 {book.author}
               </Text>
             </>

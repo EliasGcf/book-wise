@@ -5,6 +5,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -95,7 +96,12 @@ export function UserBookList({ feedbacks, user }: UserBookListProps) {
                       </Dialog.Trigger>
                     </BookDetailDialog>
 
-                    <Text size="sm" className="text-gray-04">
+                    <Text
+                      size="sm"
+                      className="text-gray-04 underline-offset-2 hover:underline"
+                      as={Link}
+                      href={`/search?search=${feedback.book.author}`}
+                    >
                       {feedback.book.author}
                     </Text>
                   </div>

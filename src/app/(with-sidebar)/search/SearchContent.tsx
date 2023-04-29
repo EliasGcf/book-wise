@@ -5,7 +5,7 @@ import { Binoculars } from '@ui/icons';
 import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { BookList } from '@app/(with-sidebar)/search/BookList';
 import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
@@ -29,6 +29,11 @@ export function SearchContent({ user, books, categories }: SearchContentProps) {
 
   const [search, setSearch] = useState(defaultSearch);
   const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
+
+  useEffect(() => {
+    setSearch(defaultSearch);
+    setSelectedCategory(defaultCategory);
+  }, [defaultCategory, defaultSearch]);
 
   const filteredBooks = books.filter((book) => {
     const titleMatch = book.title.toLowerCase().includes(search.toLowerCase());
