@@ -1,47 +1,26 @@
 import { User as UserIcon } from '@ui/icons';
 import { Title } from '@ui/Title';
-import { User } from 'next-auth';
 import { redirect } from 'next/navigation';
 
-import { ProfileData } from '@app/(with-sidebar)/profile/[[...id]]/ProfileData';
-import { UserBookList } from '@app/(with-sidebar)/profile/[[...id]]/UserBookList';
+import { ProfileData } from '@app/(with-sidebar)/profile/[id]/ProfileData';
+import { UserBookList } from '@app/(with-sidebar)/profile/[id]/UserBookList';
 
-import { getServerSession } from '@libs/next-auth';
 import { prisma } from '@libs/prisma';
 
-type SearchProps = {
+type ProfileProps = {
   params: {
-    id?: string[];
+    id: string;
   };
 };
 
-export default async function Search({ params }: SearchProps) {
-  let user: User;
+export default async function Profile({ params }: ProfileProps) {
+  const userId = params.id;
 
-  if (params.id) {
-    if (params.id.length > 1) return redirect('/404');
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
 
-    const userId = params.id.at(0);
-
-    const findUser = await prisma.user.findUnique({
-      where: { id: userId },
-    });
-
-    if (!findUser) return redirect('/404');
-
-    user = {
-      ...findUser,
-      createdAt: findUser?.createdAt.toISOString() ?? '',
-    };
-  } else {
-    const session = await getServerSession();
-
-    if (!session || !session.user) {
-      return redirect('/login');
-    }
-
-    user = session.user;
-  }
+  if (!user) return redirect('/404');
 
   const feedbacks = await prisma.feedback.findMany({
     where: { author_id: user.id },
@@ -59,7 +38,7 @@ export default async function Search({ params }: SearchProps) {
 
       <div className="mt-10 flex flex-col-reverse overflow-y-auto xl:flex-row xl:justify-between">
         <UserBookList
-          user={user}
+          user={{ ...user, createdAt: user.createdAt.toISOString() }}
           feedbacks={feedbacks.map((feedback) => ({
             ...feedback,
             created_at: feedback.created_at.toISOString(),
@@ -81,7 +60,7 @@ export default async function Search({ params }: SearchProps) {
             ...feedback,
             created_at: feedback.created_at.toISOString(),
           }))}
-          user={user}
+          user={{ ...user, createdAt: user.createdAt.toISOString() }}
         />
       </div>
     </div>
