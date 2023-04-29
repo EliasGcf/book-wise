@@ -48,12 +48,20 @@ export default async function Dashboard() {
           {lastFeedback && (
             <LastRead
               user={session?.user}
-              feedback={lastFeedback}
+              feedback={{
+                author_id: lastFeedback.author_id,
+                book_id: lastFeedback.book_id,
+                rating: lastFeedback.rating,
+                created_at: lastFeedback.created_at.toISOString(),
+                description: lastFeedback.description,
+                id: lastFeedback.id,
+              }}
               book={{
                 ...lastFeedback.book,
                 feedbacks: lastFeedback.book.feedbacks.map((f) => ({
                   ...f,
                   created_at: f.created_at.toISOString(),
+                  author: { ...f.author, createdAt: undefined },
                 })),
               }}
             />

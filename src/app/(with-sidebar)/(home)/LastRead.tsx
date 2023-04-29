@@ -23,7 +23,7 @@ export type BookWithFeedbacks = Book & {
 
 type LastReadProps = {
   book: BookWithFeedbacks;
-  feedback: Feedback;
+  feedback: Replace<Feedback, { created_at: string }>;
   user?: Session['user'];
 };
 

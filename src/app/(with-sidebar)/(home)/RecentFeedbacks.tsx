@@ -48,8 +48,12 @@ export async function AsyncRecentFeedbacks() {
                 })),
               }}
               feedback={{
-                ...feedback,
+                author_id: feedback.author_id,
+                book_id: feedback.book_id,
+                rating: feedback.rating,
                 created_at: feedback.created_at.toISOString(),
+                description: feedback.description,
+                id: feedback.id,
               }}
             />
           </li>
