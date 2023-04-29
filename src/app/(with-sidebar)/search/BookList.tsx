@@ -30,6 +30,7 @@ export function BookList({ user, books }: BookListProps) {
     <div className="grid grid-cols-1 gap-5 overflow-y-auto lg:grid-cols-2 xl:grid-cols-3">
       {books.map((book) => (
         <BookDetailDialog
+          key={book.id}
           onOpenChange={handleDialogChange}
           defaultOpen={book.id === bookId}
           onSubmit={router.refresh}
