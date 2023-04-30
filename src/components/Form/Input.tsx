@@ -1,6 +1,7 @@
-import { MagnifyingGlass } from '@ui/icons';
 import { forwardRef, InputHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
+
+import { MagnifyingGlass } from '@ui/icons';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 

@@ -3,10 +3,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { Book } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
-import { Text } from '@ui/Text';
-import { Title } from '@ui/Title';
 
 import { Stars } from '@components/Stars';
+
+import { Text } from '@ui/Text';
+import { Title } from '@ui/Title';
 
 type BookCardFullProps = {
   title: string;

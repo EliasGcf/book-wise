@@ -2,14 +2,15 @@
 
 import { Book, Feedback, User } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
-import { CaretRight } from '@ui/icons';
-import { Text } from '@ui/Text';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { BookCardFull } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
+
+import { CaretRight } from '@ui/icons';
+import { Text } from '@ui/Text';
 
 import { Replace } from '@shared/types/replace';
 

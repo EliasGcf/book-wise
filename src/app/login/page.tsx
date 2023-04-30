@@ -1,9 +1,10 @@
-import { Text } from '@ui/Text';
-import { Title } from '@ui/Title';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
 import { SigninButton } from '@components/SigninButton';
+
+import { Text } from '@ui/Text';
+import { Title } from '@ui/Title';
 
 import { getServerSession } from '@libs/next-auth';
 

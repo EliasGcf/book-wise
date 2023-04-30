@@ -1,7 +1,4 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { BookmarkSimple, BookOpen, X } from '@ui/icons';
-import { Text } from '@ui/Text';
-import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 
@@ -12,6 +9,10 @@ import { FeedbackCard } from '@components/FeedbackCard';
 import { FeedbackForm } from '@components/FeedbackForm';
 import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
+
+import { BookmarkSimple, BookOpen, X } from '@ui/icons';
+import { Text } from '@ui/Text';
+import { Title } from '@ui/Title';
 
 import { tw } from '@utils/tw';
 

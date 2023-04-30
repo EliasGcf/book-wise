@@ -1,8 +1,6 @@
 'use client';
 
 import { Category } from '@prisma/client';
-import { Binoculars } from '@ui/icons';
-import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,6 +10,9 @@ import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
 import { Tags } from '@app/(with-sidebar)/search/Tags';
 
 import { Input } from '@components/Form/Input';
+
+import { Binoculars } from '@ui/icons';
+import { Title } from '@ui/Title';
 
 interface SearchContentProps {
   user?: Session['user'];

@@ -21,10 +21,23 @@
         "trailingComma": "all"
       }
     ],
-    "no-use-before-define": [
-      "error",
+    "no-use-before-define": ["error", { "functions": false }],
+    "import-helpers/order-imports": [
+      "warn",
       {
-        "functions": false
+        "newlinesBetween": "always",
+        "alphabetize": { "order": "asc", "ignoreCase": true },
+        "groups": [
+          "module",
+          "/^@app/",
+          "/^@components/",
+          "/^@ui/",
+          "/^@libs/",
+          "/^@shared/",
+          "/^@utils/",
+          ["parent", "sibling"],
+          "index"
+        ]
       }
     ]
   }

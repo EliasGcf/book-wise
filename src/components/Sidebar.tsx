@@ -1,11 +1,12 @@
-import { Binoculars, ChartLineUp, SignIn, User } from '@ui/icons';
-import { Text } from '@ui/Text';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Avatar } from '@components/Avatar';
 import { NavLink } from '@components/NavLink';
 import { SignOutDialog } from '@components/SignOutDialog';
+
+import { Binoculars, ChartLineUp, SignIn, User } from '@ui/icons';
+import { Text } from '@ui/Text';
 
 import { getServerSession } from '@libs/next-auth';
 

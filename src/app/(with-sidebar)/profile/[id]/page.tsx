@@ -1,9 +1,10 @@
-import { User as UserIcon } from '@ui/icons';
-import { Title } from '@ui/Title';
 import { redirect } from 'next/navigation';
 
 import { ProfileData } from '@app/(with-sidebar)/profile/[id]/ProfileData';
 import { UserBookList } from '@app/(with-sidebar)/profile/[id]/UserBookList';
+
+import { User as UserIcon } from '@ui/icons';
+import { Title } from '@ui/Title';
 
 import { prisma } from '@libs/prisma';
 

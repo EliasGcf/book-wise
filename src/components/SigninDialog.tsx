@@ -1,9 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { X } from '@ui/icons';
-import { Title } from '@ui/Title';
 
 import { DialogOverlay } from '@components/DialogOverlay';
 import { SigninButton } from '@components/SigninButton';
+
+import { X } from '@ui/icons';
+import { Title } from '@ui/Title';
 
 export function SigninDialog() {
   return (

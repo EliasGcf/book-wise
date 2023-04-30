@@ -1,13 +1,14 @@
 'use client';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { Check, SignOut, X } from '@ui/icons';
-import { Text } from '@ui/Text';
-import { Title } from '@ui/Title';
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
 import { DialogOverlay } from '@components/DialogOverlay';
+
+import { Check, SignOut, X } from '@ui/icons';
+import { Text } from '@ui/Text';
+import { Title } from '@ui/Title';
 
 export function SignOutDialog() {
   const [isLoading, setIsLoading] = useState(false);

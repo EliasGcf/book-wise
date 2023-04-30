@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
-import { Text } from '@ui/Text';
-
 import { FeedbackCard } from '@components/FeedbackCard';
+
+import { Text } from '@ui/Text';
 
 import { getServerSession } from '@libs/next-auth';
 import { prisma } from '@libs/prisma';

@@ -1,9 +1,9 @@
-import { ChartLineUp } from '@ui/icons';
-import { Title } from '@ui/Title';
-
 import { LastRead } from '@app/(with-sidebar)/(home)/LastRead';
 import { PopularBooks } from '@app/(with-sidebar)/(home)/PopularBooks';
 import { RecentFeedbacks } from '@app/(with-sidebar)/(home)/RecentFeedbacks';
+
+import { ChartLineUp } from '@ui/icons';
+import { Title } from '@ui/Title';
 
 import { getServerSession } from '@libs/next-auth';
 import { prisma } from '@libs/prisma';

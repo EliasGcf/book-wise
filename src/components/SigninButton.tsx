@@ -1,10 +1,11 @@
 'use client';
 
-import { Text } from '@ui/Text';
 import { exhaustive } from 'exhaustive';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
+import { Text } from '@ui/Text';
 
 type Provider = 'google' | 'github' | 'visitor';
 

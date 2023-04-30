@@ -2,8 +2,6 @@
 
 import { Book, Feedback, User } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
-import { Text } from '@ui/Text';
-import { Title } from '@ui/Title';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,6 +10,9 @@ import { useState } from 'react';
 import { BookDetailDialog } from '@components/BookDetailDialog';
 import { Input } from '@components/Form/Input';
 import { Stars } from '@components/Stars';
+
+import { Text } from '@ui/Text';
+import { Title } from '@ui/Title';
 
 import { dayjs } from '@libs/dayjs';
 
