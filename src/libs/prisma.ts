@@ -1,4 +1,12 @@
-import { PrismaClient } from '@prisma/client';
+import {
+  PrismaClient,
+  Feedback as PrismaFeedback,
+  User as PrismaUser,
+  Book as PrismaBook,
+  Category as PrismaCategory,
+} from '@prisma/client';
+
+import { Replace } from '@shared/types/replace';
 
 const globalForPrisma = global as unknown as {
   prisma: PrismaClient | undefined;
@@ -8,38 +16,156 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// prisma.$use(async (params, next) => {
-//   // Manipulate params here
-//   const result = await next(params);
+export type Feedback = Replace<PrismaFeedback, { created_at: string }>;
+export type User = Replace<PrismaUser, { createdAt: string }>;
+export type Book = PrismaBook;
+export type Category = PrismaCategory;
 
-//   if (params.model === 'Book') {
-//     if (params.action === 'findMany') {
-//       return result.map((book: Book) => ({
-//         ...book,
-//         rating: book?.rating?.toNumber(),
-//       }));
-//     }
-//     if (params.action === 'findUnique' || params.action === 'findFirst') {
-//       return {
-//         ...result,
-//         rating: result?.rating?.toNumber(),
-//       };
-//     }
-//   } else if (params.model === 'Feedback') {
-//     if (params.action === 'findMany') {
-//       return result.map((feedback: Feedback) => ({
-//         ...feedback,
-//         rating: feedback?.rating?.toNumber(),
-//       }));
-//     }
-//     if (params.action === 'findUnique' || params.action === 'findFirst') {
-//       return {
-//         ...result,
-//         rating: result?.rating?.toNumber(),
-//       };
-//     }
-//   }
+function mapUser(user: PrismaUser) {
+  return {
+    ...user,
+    createdAt: user.createdAt.toISOString(),
+  };
+}
 
-//   // See results here
-//   return result;
-// });
+function mapFeedback(feedback: PrismaFeedback) {
+  return {
+    ...feedback,
+    created_at: feedback.created_at.toISOString(),
+  };
+}
+
+export async function getUserWithFeedbacks(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      feedbacks: {
+        include: {
+          book: {
+            include: {
+              feedbacks: {
+                include: {
+                  author: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!user) return null;
+
+  return {
+    ...mapUser(user),
+    feedbacks: user.feedbacks.map((feedback) => ({
+      ...mapFeedback(feedback),
+      book: {
+        ...feedback.book,
+        feedbacks: feedback.book.feedbacks.map((f) => ({
+          ...mapFeedback(f),
+          author: mapUser(f.author),
+        })),
+      },
+    })),
+  };
+}
+
+export async function getUserLastFeedback(userId: string) {
+  const feedback = await prisma.feedback.findFirst({
+    where: { author_id: userId },
+    include: {
+      book: {
+        include: {
+          feedbacks: {
+            include: {
+              author: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!feedback) return null;
+
+  return {
+    ...mapFeedback(feedback),
+    book: {
+      ...feedback.book,
+      feedbacks: feedback.book.feedbacks.map((f) => ({
+        ...mapFeedback(f),
+        author: mapUser(f.author),
+      })),
+    },
+  };
+}
+
+export async function getPopularBooks() {
+  const books = await prisma.book.findMany({
+    take: 4,
+    orderBy: { feedbacks: { _count: 'desc' } },
+    where: { feedbacks: { some: {} } },
+    include: { feedbacks: { include: { author: true } } },
+  });
+
+  return books.map((book) => ({
+    ...book,
+    feedbacks: book.feedbacks.map((feedback) => ({
+      ...mapFeedback(feedback),
+      author: mapUser(feedback.author),
+    })),
+  }));
+}
+
+export async function getFeedbacks() {
+  const feedbacks = await prisma.feedback.findMany({
+    orderBy: { created_at: 'desc' },
+    include: {
+      author: true,
+      book: {
+        include: {
+          feedbacks: {
+            include: {
+              author: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return feedbacks.map((feedback) => ({
+    ...mapFeedback(feedback),
+    author: mapUser(feedback.author),
+    book: {
+      ...feedback.book,
+      feedbacks: feedback.book.feedbacks.map((f) => ({
+        ...mapFeedback(f),
+        author: mapUser(f.author),
+      })),
+    },
+  }));
+}
+
+export async function getBooks() {
+  const books = await prisma.book.findMany({
+    include: { feedbacks: { include: { author: true } } },
+    orderBy: { feedbacks: { _count: 'desc' } },
+  });
+
+  return books.map((book) => ({
+    ...book,
+    feedbacks: book.feedbacks.map((feedback) => ({
+      ...mapFeedback(feedback),
+      author: mapUser(feedback.author),
+    })),
+  }));
+}
+
+export async function getCategories() {
+  const categories = await prisma.category.findMany();
+
+  return categories;
+}

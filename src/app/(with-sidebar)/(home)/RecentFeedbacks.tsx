@@ -4,26 +4,12 @@ import { FeedbackCard } from '@components/FeedbackCard';
 import { Text } from '@ui/Text';
 
 import { getServerSession } from '@libs/next-auth';
-import { prisma } from '@libs/prisma';
+import { getFeedbacks } from '@libs/prisma';
 
 import { asyncComponent } from '@utils/async-component';
 
 export async function AsyncRecentFeedbacks() {
-  const session = await getServerSession();
-
-  const feedbacks = await prisma.feedback.findMany({
-    include: {
-      author: true,
-      book: {
-        include: {
-          feedbacks: {
-            include: { author: true },
-          },
-        },
-      },
-    },
-    orderBy: { created_at: 'desc' },
-  });
+  const [session, feedbacks] = await Promise.all([getServerSession(), getFeedbacks()]);
 
   return (
     <section className="flex flex-col overflow-hidden">
@@ -38,23 +24,9 @@ export async function AsyncRecentFeedbacks() {
           <li key={feedback.id}>
             <FeedbackCard
               user={session?.user}
-              author={{ ...feedback.author, createdAt: undefined }}
-              book={{
-                ...feedback.book,
-                feedbacks: feedback.book.feedbacks.map((f) => ({
-                  ...f,
-                  created_at: f.created_at.toISOString(),
-                  author: { ...f.author, createdAt: undefined },
-                })),
-              }}
-              feedback={{
-                author_id: feedback.author_id,
-                book_id: feedback.book_id,
-                rating: feedback.rating,
-                created_at: feedback.created_at.toISOString(),
-                description: feedback.description,
-                id: feedback.id,
-              }}
+              author={feedback.author}
+              book={feedback.book}
+              feedback={feedback}
             />
           </li>
         ))}

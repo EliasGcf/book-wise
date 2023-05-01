@@ -3,10 +3,13 @@
 import { Session } from 'next-auth';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
-
 import { BookCard } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
+
+import { Book, Feedback, User } from '@libs/prisma';
+
+type FeedbackWithAuthor = Feedback & { author: User };
+type BookWithFeedbacks = Book & { feedbacks: FeedbackWithAuthor[] };
 
 export type BookListProps = {
   user?: Session['user'];

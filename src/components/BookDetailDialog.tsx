@@ -2,8 +2,6 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 
-import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
-
 import { DialogOverlay } from '@components/DialogOverlay';
 import { FeedbackCard } from '@components/FeedbackCard';
 import { FeedbackForm } from '@components/FeedbackForm';
@@ -14,7 +12,12 @@ import { BookmarkSimple, BookOpen, X } from '@ui/icons';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
+import { Book, Feedback, User } from '@libs/prisma';
+
 import { tw } from '@utils/tw';
+
+type FeedbackWithAuthor = Feedback & { author: User };
+type BookWithFeedbacks = Book & { feedbacks: FeedbackWithAuthor[] };
 
 type BookDetailDialogProps = Dialog.DialogProps & {
   user?: Session['user'];

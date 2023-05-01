@@ -1,7 +1,8 @@
 'use client';
 
-import { Category } from '@prisma/client';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
+
+import { Category } from '@libs/prisma';
 
 import { tw } from '@utils/tw';
 

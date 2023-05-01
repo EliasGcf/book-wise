@@ -6,13 +6,17 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { BookList } from '@app/(with-sidebar)/search/BookList';
-import { BookWithFeedbacks } from '@app/(with-sidebar)/search/page';
 import { Tags } from '@app/(with-sidebar)/search/Tags';
 
 import { Input } from '@components/Form/Input';
 
 import { Binoculars } from '@ui/icons';
 import { Title } from '@ui/Title';
+
+import { Book, Feedback, User } from '@libs/prisma';
+
+type FeedbackWithAuthor = Feedback & { author: User };
+type BookWithFeedbacks = Book & { feedbacks: FeedbackWithAuthor[] };
 
 interface SearchContentProps {
   user?: Session['user'];

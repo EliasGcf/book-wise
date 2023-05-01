@@ -1,4 +1,3 @@
-import { Book, Feedback } from '@prisma/client';
 import { User } from 'next-auth';
 
 import { Avatar } from '@components/Avatar';
@@ -8,19 +7,15 @@ import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
 import { dayjs } from '@libs/dayjs';
-
-import { Replace } from '@shared/types/replace';
+import { Book, Feedback } from '@libs/prisma';
 
 import { getHighestOccurrenceAndNum } from '@utils/get-highest-occurrence-and-num';
 
-type FeedbackWithBook = Feedback & {
-  created_at: string;
-  book: Book;
-};
+type FeedbackWithBook = Feedback & { book: Book };
 
 interface ProfileDataProps {
   user: User;
-  feedbacks: Array<Replace<FeedbackWithBook, { created_at: string }>>;
+  feedbacks: FeedbackWithBook[];
 }
 
 export function ProfileData({ user, feedbacks }: ProfileDataProps) {
