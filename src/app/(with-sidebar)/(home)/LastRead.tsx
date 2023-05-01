@@ -1,6 +1,5 @@
 'use client';
 
-import { Book, Feedback, User } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
@@ -12,19 +11,14 @@ import { BookDetailDialog } from '@components/BookDetailDialog';
 import { CaretRight } from '@ui/icons';
 import { Text } from '@ui/Text';
 
-import { Replace } from '@shared/types/replace';
+import { Book, Feedback, User } from '@libs/prisma';
 
-type FeedbackWithAuthor = Replace<Feedback, { created_at: string }> & {
-  author: Replace<User, { createdAt?: Date }>;
-};
-
-export type BookWithFeedbacks = Book & {
-  feedbacks: FeedbackWithAuthor[];
-};
+type FeedbackWithAuthor = Feedback & { author: User };
+type BookWithFeedbacks = Book & { feedbacks: FeedbackWithAuthor[] };
 
 type LastReadProps = {
   book: BookWithFeedbacks;
-  feedback: Replace<Feedback, { created_at: string }>;
+  feedback: Feedback;
   user?: Session['user'];
 };
 

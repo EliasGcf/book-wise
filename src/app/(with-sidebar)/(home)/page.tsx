@@ -6,33 +6,15 @@ import { ChartLineUp } from '@ui/icons';
 import { Title } from '@ui/Title';
 
 import { getServerSession } from '@libs/next-auth';
-import { prisma } from '@libs/prisma';
+import { getPopularBooks, getUserLastFeedback } from '@libs/prisma';
 
 export default async function Dashboard() {
   const [session, popularBooks] = await Promise.all([
     getServerSession(),
-    prisma.book.findMany({
-      take: 4,
-      orderBy: { feedbacks: { _count: 'desc' } },
-      where: { feedbacks: { some: {} } },
-      include: { feedbacks: { include: { author: true } } },
-    }),
+    getPopularBooks(),
   ]);
 
-  const lastFeedback = session
-    ? await prisma.feedback.findFirst({
-        where: { author_id: session.user.id },
-        include: {
-          book: {
-            include: {
-              feedbacks: {
-                include: { author: true },
-              },
-            },
-          },
-        },
-      })
-    : null;
+  const lastFeedback = session ? await getUserLastFeedback(session.user.id) : null;
 
   return (
     <div className="flex flex-col overflow-hidden">
@@ -48,38 +30,14 @@ export default async function Dashboard() {
           {lastFeedback && (
             <LastRead
               user={session?.user}
-              feedback={{
-                author_id: lastFeedback.author_id,
-                book_id: lastFeedback.book_id,
-                rating: lastFeedback.rating,
-                created_at: lastFeedback.created_at.toISOString(),
-                description: lastFeedback.description,
-                id: lastFeedback.id,
-              }}
-              book={{
-                ...lastFeedback.book,
-                feedbacks: lastFeedback.book.feedbacks.map((f) => ({
-                  ...f,
-                  created_at: f.created_at.toISOString(),
-                  author: { ...f.author, createdAt: undefined },
-                })),
-              }}
+              feedback={lastFeedback}
+              book={lastFeedback.book}
             />
           )}
           <RecentFeedbacks />
         </div>
 
-        <PopularBooks
-          user={session?.user}
-          books={popularBooks.map((book) => ({
-            ...book,
-            feedbacks: book.feedbacks.map((feedback) => ({
-              ...feedback,
-              created_at: feedback.created_at.toISOString(),
-              author: { ...feedback.author, createdAt: undefined },
-            })),
-          }))}
-        />
+        <PopularBooks user={session?.user} books={popularBooks} />
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 'use client';
 
-import { Book, Feedback, User } from '@prisma/client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
@@ -14,23 +13,17 @@ import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
 import { dayjs } from '@libs/dayjs';
-
-import { Replace } from '@shared/types/replace';
+import { Book, Feedback, User } from '@libs/prisma';
 
 import { tw } from '@utils/tw';
 
-type FeedbackWithAuthor = Replace<Feedback, { created_at: string }> & {
-  author: Replace<User, { createdAt?: Date }>;
-};
-
-export type BookWithFeedbacks = Book & {
-  feedbacks: FeedbackWithAuthor[];
-};
+type FeedbackWithAuthor = Feedback & { author: User };
+type BookWithFeedbacks = Book & { feedbacks: FeedbackWithAuthor[] };
 
 type FeedbackCardProps = {
-  author: Replace<User, { createdAt?: Date }>;
+  author: User;
   book?: BookWithFeedbacks;
-  feedback: Replace<Feedback, { created_at: string }>;
+  feedback: Feedback;
   className?: string;
   user?: Session['user'];
 };
