@@ -53,7 +53,7 @@ export function SearchContent({ user, books, categories }: SearchContentProps) {
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
 
-    const query = new URLSearchParams(searchParams);
+    const query = new URLSearchParams(searchParams.toString());
 
     if (event.target.value) {
       query.set('search', event.target.value);
@@ -67,7 +67,7 @@ export function SearchContent({ user, books, categories }: SearchContentProps) {
   function handleSelectCategory(category: string) {
     setSelectedCategory(category);
 
-    const query = new URLSearchParams(searchParams);
+    const query = new URLSearchParams(searchParams.toString());
 
     if (category) {
       query.set('category', category);
