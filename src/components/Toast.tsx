@@ -12,6 +12,12 @@ export function Toast() {
           background: '#252D4A',
           color: '#E6E8F2',
         },
+        error: {
+          icon: null,
+          style: {
+            background: '#F75A68',
+          },
+        },
       }}
     />
   );

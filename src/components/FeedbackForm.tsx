@@ -12,6 +12,8 @@ import { Stars } from '@components/Stars';
 import { Check, CircleNotch, X } from '@ui/icons';
 import { Title } from '@ui/Title';
 
+import { createFeedback } from '@utils/create-feedback';
+
 type FeedbackFormProps = {
   user: Required<Session>['user'];
   book: Book;
@@ -29,16 +31,15 @@ export function FeedbackForm({ user, book, onSubmit }: FeedbackFormProps) {
     setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
-    const body = Object.fromEntries(formData.entries());
+    const description = formData.get('description')?.toString() || '';
 
     try {
-      await fetch(`/api/books/${book.id}/feedback`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...body, rating }),
-      });
+      await createFeedback({ description, rating, bookId: book.id }, user);
 
-      toast('Avaliação enviada com sucesso!', { icon: '✅', position: 'top-left' });
+      toast.success('Avaliação enviada com sucesso!', {
+        icon: '✅',
+        position: 'top-left',
+      });
 
       setRating(0);
       if (descriptionRef.current) descriptionRef.current.value = '';
@@ -46,9 +47,10 @@ export function FeedbackForm({ user, book, onSubmit }: FeedbackFormProps) {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log('handleSubmit ~ error:', error);
-      // TODO: Show toast
-      // eslint-disable-next-line no-alert
-      alert('Erro ao enviar feedback');
+
+      toast.error('Ocorreu um erro ao enviar a avaliação!', {
+        position: 'top-left',
+      });
     } finally {
       setIsSubmitting(false);
     }
