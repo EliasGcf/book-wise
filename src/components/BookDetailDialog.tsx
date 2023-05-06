@@ -66,14 +66,16 @@ export function BookDetailDialog({
                 </Dialog.Title>
 
                 <Dialog.Description asChild>
-                  <Text
-                    size="md"
-                    className="text-gray-03 underline-offset-2 hover:underline"
-                    as={Link}
-                    href={`/search?search=${book.author}`}
-                  >
-                    {book.author}
-                  </Text>
+                  <Dialog.Close asChild>
+                    <Text
+                      size="md"
+                      className="text-gray-03 underline-offset-2 hover:underline"
+                      as={Link}
+                      href={`/search?search=${book.author}`}
+                    >
+                      {book.author}
+                    </Text>
+                  </Dialog.Close>
                 </Dialog.Description>
 
                 <div className="mt-auto">

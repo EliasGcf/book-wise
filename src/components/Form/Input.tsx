@@ -1,17 +1,16 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { forwardRef, InputHTMLAttributes } from 'react';
+import { forwardRef, InputHTMLAttributes, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { MagnifyingGlass } from '@ui/icons';
 
 type InputProps =
   | (InputHTMLAttributes<HTMLInputElement> & { setInSearchParams?: false })
-  | (InputHTMLAttributes<HTMLInputElement> & {
-      setInSearchParams: true;
-      name: string;
-    });
+  | (InputHTMLAttributes<HTMLInputElement> & { setInSearchParams: true; name: string });
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, setInSearchParams, ...rest }, ref) => {
@@ -19,7 +18,21 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
+    const [value, setValue] = useState('');
+
+    useEffect(() => {
+      if (!setInSearchParams) return;
+
+      const query = new URLSearchParams(searchParams.toString());
+
+      const valueFromSearchParams = query.get(rest.name!);
+
+      if (valueFromSearchParams) setValue(valueFromSearchParams ?? '');
+    }, [rest.name, searchParams, setInSearchParams]);
+
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+      setValue(event.target.value);
+
       if (!setInSearchParams) return;
 
       const query = new URLSearchParams(searchParams.toString());
@@ -45,6 +58,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           {...rest}
           ref={ref}
+          value={value}
           className="peer w-full bg-gray-08 text-base text-gray-02 outline-none placeholder:text-gray-04"
           onChange={handleChange}
         />
