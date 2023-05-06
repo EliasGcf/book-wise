@@ -12,10 +12,14 @@ type ProfileProps = {
   params: {
     id: string;
   };
+  searchParams: {
+    search?: string;
+  };
 };
 
-export default async function Profile({ params }: ProfileProps) {
+export default async function Profile({ params, searchParams }: ProfileProps) {
   const userId = params.id;
+  const { search } = searchParams;
 
   const user = await getUserWithFeedbacks(userId);
 
@@ -31,7 +35,7 @@ export default async function Profile({ params }: ProfileProps) {
       </header>
 
       <div className="mt-10 flex flex-col-reverse overflow-y-auto xl:flex-row xl:justify-between">
-        <UserBookList user={user} feedbacks={user.feedbacks} />
+        <UserBookList user={user} feedbacks={user.feedbacks} search={search} />
         <ProfileData feedbacks={user.feedbacks} user={user} />
       </div>
     </div>

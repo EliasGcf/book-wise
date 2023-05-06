@@ -1,8 +1,5 @@
-'use client';
-
 import { Session } from 'next-auth';
 import Link from 'next/link';
-import { useState } from 'react';
 
 import { BookDetailDialog } from '@components/BookDetailDialog';
 import { Input } from '@components/Form/Input';
@@ -21,11 +18,10 @@ type FeedbackWithBook = Feedback & { book: BookWithFeedbacks };
 type UserBookListProps = {
   user?: Session['user'];
   feedbacks: FeedbackWithBook[];
+  search?: string;
 };
 
-export function UserBookList({ feedbacks, user }: UserBookListProps) {
-  const [search, setSearch] = useState('');
-
+export function UserBookList({ feedbacks, user, search = '' }: UserBookListProps) {
   const filteredFeedbacks = feedbacks.filter((feedback) => {
     return (
       feedback.book.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -35,11 +31,7 @@ export function UserBookList({ feedbacks, user }: UserBookListProps) {
 
   return (
     <div className="flex w-full flex-col xl:max-w-[624px]">
-      <Input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Buscar livro avaliado"
-      />
+      <Input name="search" setInSearchParams placeholder="Buscar livro avaliado" />
 
       <section className="mt-8 flex flex-col gap-6 overflow-y-auto">
         {filteredFeedbacks.map((feedback) => (

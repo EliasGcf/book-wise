@@ -3,7 +3,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { forwardRef, InputHTMLAttributes, useEffect, useState } from 'react';
+import { forwardRef, InputHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { MagnifyingGlass } from '@ui/icons';
@@ -18,20 +18,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    const [value, setValue] = useState('');
-
-    useEffect(() => {
-      if (!setInSearchParams) return;
-
-      const query = new URLSearchParams(searchParams.toString());
-
-      const valueFromSearchParams = query.get(rest.name!);
-
-      if (valueFromSearchParams) setValue(valueFromSearchParams ?? '');
-    }, [rest.name, searchParams, setInSearchParams]);
+    const defaultValue = setInSearchParams
+      ? searchParams.get(rest.name!) ?? rest.defaultValue
+      : rest.defaultValue;
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-      setValue(event.target.value);
+      if (rest.onChange) rest.onChange(event);
 
       if (!setInSearchParams) return;
 
@@ -44,8 +36,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       }
 
       router.push(`${pathname}?${query.toString()}`);
-
-      if (rest.onChange) rest.onChange(event);
     }
 
     return (
@@ -58,7 +48,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           {...rest}
           ref={ref}
-          value={value}
+          defaultValue={defaultValue}
           className="peer w-full bg-gray-08 text-base text-gray-02 outline-none placeholder:text-gray-04"
           onChange={handleChange}
         />
