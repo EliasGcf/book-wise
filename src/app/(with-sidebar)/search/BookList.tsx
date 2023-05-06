@@ -1,7 +1,7 @@
 'use client';
 
 import { Session } from 'next-auth';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 import { BookCard } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
@@ -18,27 +18,22 @@ export type BookListProps = {
 
 export function BookList({ user, books }: BookListProps) {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
 
-  const bookId = searchParams.get('bookId');
+  const search = searchParams.get('search') || '';
+  const category = searchParams.get('category') || '';
 
-  function handleDialogChange(value: boolean) {
-    if (!value) {
-      if (bookId) router.push(pathname);
-    }
-  }
+  const filteredBooks = books.filter((book) => {
+    const titleMatch = book.title.toLowerCase().includes(search.toLowerCase());
+    const authorMatch = book.author.toLowerCase().includes(search.toLowerCase());
+    const categoryMatch = category ? book.category_name === category : true;
+
+    return (titleMatch || authorMatch) && categoryMatch;
+  });
 
   return (
     <div className="grid grid-cols-1 gap-5 overflow-y-auto lg:grid-cols-2 xl:grid-cols-3">
-      {books.map((book) => (
-        <BookDetailDialog
-          key={book.id}
-          onOpenChange={handleDialogChange}
-          defaultOpen={book.id === bookId}
-          book={book}
-          user={user}
-        >
+      {filteredBooks.map((book) => (
+        <BookDetailDialog key={book.id} book={book} user={user}>
           <BookCard.Compact key={book.id} book={book} />
         </BookDetailDialog>
       ))}

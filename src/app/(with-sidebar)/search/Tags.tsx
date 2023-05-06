@@ -1,6 +1,7 @@
 'use client';
 
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Category } from '@libs/prisma';
 
@@ -8,13 +9,29 @@ import { tw } from '@utils/tw';
 
 type TagsProps = {
   categories: Category[];
-  value?: string;
-  onChange?: (value: string) => void;
 };
 
-export function Tags({ categories, value, onChange }: TagsProps) {
+export function Tags({ categories }: TagsProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const value = searchParams.get('category') || '';
+
+  function handleSelectCategory(categoryName: string) {
+    const query = new URLSearchParams(searchParams.toString());
+
+    if (categoryName) {
+      query.set('category', categoryName);
+    } else {
+      query.delete('category');
+    }
+
+    router.push(`${pathname}?${query.toString()}`);
+  }
+
   return (
-    <ToggleGroup.Root type="single" value={value} onValueChange={onChange}>
+    <ToggleGroup.Root type="single" value={value} onValueChange={handleSelectCategory}>
       {categories.map((category) => (
         <ToggleGroup.Item
           key={category.id}
