@@ -3,10 +3,10 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { forwardRef, InputHTMLAttributes } from 'react';
+import { forwardRef, InputHTMLAttributes, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { MagnifyingGlass } from '@ui/icons';
+import { MagnifyingGlass, X } from '@ui/icons';
 
 type InputProps =
   | (InputHTMLAttributes<HTMLInputElement> & { setInSearchParams?: false })
@@ -18,25 +18,46 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    const defaultValue = setInSearchParams
-      ? searchParams.get(rest.name!) ?? rest.defaultValue
-      : rest.defaultValue;
+    const [value, setValue] = useState(rest.value ?? '');
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+      setValue(event.target.value);
+
       if (rest.onChange) rest.onChange(event);
 
-      if (!setInSearchParams) return;
+      if (!setInSearchParams || !rest.name) return;
 
       const query = new URLSearchParams(searchParams.toString());
 
       if (event.target.value) {
-        query.set(event.target.name, event.target.value);
+        query.set(rest.name, event.target.value);
       } else {
-        query.delete(event.target.name);
+        query.delete(rest.name);
       }
 
       router.push(`${pathname}?${query.toString()}`);
     }
+
+    function handleCleanValue() {
+      setValue('');
+
+      if (!setInSearchParams || !rest.name) return;
+
+      const query = new URLSearchParams(searchParams.toString());
+
+      if (query.get(rest.name)) {
+        query.delete(rest.name);
+        router.push(`${pathname}?${query.toString()}`);
+      }
+    }
+
+    useEffect(() => {
+      if (!setInSearchParams || !rest.name) return;
+
+      const query = new URLSearchParams(searchParams.toString());
+
+      setValue(query.get(rest.name) ?? '');
+    }, [rest.name, searchParams, setInSearchParams]);
 
     return (
       <div
@@ -48,15 +69,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           {...rest}
           ref={ref}
-          defaultValue={defaultValue}
+          value={value}
           className="peer w-full bg-gray-08 text-base text-gray-02 outline-none placeholder:text-gray-04"
           onChange={handleChange}
         />
 
-        <MagnifyingGlass
-          size={20}
-          className="text-gray-05 transition-colors peer-focus:text-green-02"
-        />
+        {value ? (
+          <button
+            type="button"
+            onClick={handleCleanValue}
+            title="Limpar"
+            className="animate-in zoom-in"
+          >
+            <X size={20} className="text-danger-light" />
+          </button>
+        ) : (
+          <MagnifyingGlass
+            size={20}
+            className="text-gray-05 transition-colors animate-in zoom-in peer-focus:text-green-02"
+          />
+        )}
       </div>
     );
   },

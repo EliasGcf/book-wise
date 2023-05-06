@@ -56,7 +56,7 @@ export function UserBookList({ feedbacks, user, search = '' }: UserBookListProps
                       <Title
                         size="sm"
                         as="h3"
-                        className="text-gray-01 underline-offset-2 hover:underline"
+                        className="text-left text-gray-01 underline-offset-2 hover:underline"
                       >
                         {feedback.book.title}
                       </Title>

@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
   // Add a delay to all requests to the database
   prisma.$use(async (params, next) => {
     // eslint-disable-next-line no-promise-executor-return
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // await new Promise((resolve) => setTimeout(resolve, 1500));
 
     return next(params);
   });

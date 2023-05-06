@@ -121,7 +121,7 @@ export function FeedbackCard({
                 <Title
                   as="h3"
                   size="xs"
-                  className="text-gray-01 underline-offset-2 hover:underline"
+                  className="text-left text-gray-01 underline-offset-2 hover:underline"
                 >
                   {book.title}
                 </Title>

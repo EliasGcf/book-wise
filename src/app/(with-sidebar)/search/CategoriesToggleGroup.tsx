@@ -12,7 +12,7 @@ type Props = {
   value?: string;
 };
 
-export function CategoriesToggleGroup({ categories, value }: Props) {
+export function CategoriesToggleGroup({ categories, value = '' }: Props) {
   const router = useRouter();
 
   const pathname = usePathname();

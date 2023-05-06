@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Suspense } from 'react';
 
 import { BookList } from '@app/(with-sidebar)/search/BookList';
@@ -7,6 +8,7 @@ import { Input } from '@components/Form/Input';
 import { Loading } from '@components/Loading';
 
 import { Binoculars } from '@ui/icons';
+import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
 import { getServerSession } from '@libs/next-auth';
@@ -30,12 +32,26 @@ export default async function Search({ searchParams }: SearchProps) {
           </Title>
         </div>
 
-        <Input
-          name="search"
-          setInSearchParams
-          className="max-w-md"
-          placeholder="Buscar livro ou autor"
-        />
+        <div className="flex w-full flex-row items-baseline justify-end gap-6">
+          {(searchParams.search || searchParams.category) && (
+            <Text
+              variant="link"
+              size="sm"
+              className="text-danger-light animate-in fade-in"
+              as={Link}
+              href="/search"
+            >
+              Limpar filtros
+            </Text>
+          )}
+
+          <Input
+            name="search"
+            setInSearchParams
+            className="max-w-md"
+            placeholder="Buscar livro ou autor"
+          />
+        </div>
       </header>
 
       <div className="mt-5 flex h-full flex-col gap-12 overflow-hidden">
