@@ -51,7 +51,7 @@ export default async function Search({ searchParams }: SearchProps) {
   );
 }
 
-export function CategoryLoading() {
+function CategoryLoading() {
   return (
     <div
       className={tw(
