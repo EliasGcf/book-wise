@@ -1,23 +1,26 @@
+import { Suspense } from 'react';
+
 import { BookList } from '@app/(with-sidebar)/search/BookList';
 import { Tags } from '@app/(with-sidebar)/search/Tags';
 
 import { Input } from '@components/Form/Input';
+import { Loading } from '@components/Loading';
 
 import { Binoculars } from '@ui/icons';
 import { Title } from '@ui/Title';
 
 import { getServerSession } from '@libs/next-auth';
-import { getBooks, getCategories } from '@libs/prisma';
+import { getCategories } from '@libs/prisma';
 
-export default async function Search() {
-  const [session, books, categories] = await Promise.all([
-    getServerSession(),
-    getBooks(),
-    getCategories(),
-  ]);
+type SearchProps = {
+  searchParams: { category?: string; search?: string };
+};
+
+export default async function Search({ searchParams }: SearchProps) {
+  const [session, categories] = await Promise.all([getServerSession(), getCategories()]);
 
   return (
-    <div className="flex flex-col overflow-hidden">
+    <div className="flex h-full flex-col overflow-hidden">
       <header className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div className="flex items-center gap-3">
           <Binoculars size={32} className="text-green-01" />
@@ -34,9 +37,12 @@ export default async function Search() {
         />
       </header>
 
-      <div className="mt-5 flex flex-col gap-12 overflow-hidden">
+      <div className="mt-5 flex h-full flex-col gap-12 overflow-hidden">
         <Tags categories={categories} />
-        <BookList books={books} user={session?.user} />
+
+        <Suspense fallback={<Loading />}>
+          <BookList user={session?.user} searchParams={searchParams} />
+        </Suspense>
       </div>
     </div>
   );
