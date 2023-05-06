@@ -1,9 +1,7 @@
-'use client';
-
 import { Session } from 'next-auth';
 import Link from 'next/link';
 
-import { BookCard } from '@components/BookCard';
+import { BookCardCompact } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
 
 import { CaretRight } from '@ui/icons';
@@ -43,9 +41,9 @@ export function PopularBooks({ books, user }: PopularBooksProps) {
 
       <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-1">
         {books.map((book) => (
-          <li key={book.id}>
+          <li key={book.id} className="flex flex-col">
             <BookDetailDialog user={user} book={book}>
-              <BookCard.Compact book={book} />
+              <BookCardCompact book={book} />
             </BookDetailDialog>
           </li>
         ))}

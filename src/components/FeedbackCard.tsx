@@ -1,6 +1,5 @@
 'use client';
 
-import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -107,13 +106,11 @@ export function FeedbackCard({
       <div className="flex gap-5">
         {book && (
           <BookDetailDialog user={user} book={book}>
-            <Dialog.Trigger>
-              <img
-                src={book.image_url}
-                alt={book.title}
-                className="max-h-[152px] min-w-[108px] rounded object-cover"
-              />
-            </Dialog.Trigger>
+            <img
+              src={book.image_url}
+              alt={book.title}
+              className="max-h-[152px] min-w-[108px] rounded object-cover"
+            />
           </BookDetailDialog>
         )}
 
@@ -121,15 +118,13 @@ export function FeedbackCard({
           {book && (
             <>
               <BookDetailDialog user={user} book={book}>
-                <Dialog.Trigger className="flex text-left">
-                  <Title
-                    as="h3"
-                    size="xs"
-                    className="text-gray-01 underline-offset-2 hover:underline"
-                  >
-                    {book.title}
-                  </Title>
-                </Dialog.Trigger>
+                <Title
+                  as="h3"
+                  size="xs"
+                  className="text-gray-01 underline-offset-2 hover:underline"
+                >
+                  {book.title}
+                </Title>
               </BookDetailDialog>
               <Text
                 size="sm"

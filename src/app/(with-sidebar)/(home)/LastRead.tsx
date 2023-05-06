@@ -1,6 +1,3 @@
-'use client';
-
-import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 
@@ -43,15 +40,13 @@ export function LastRead({ book, feedback, user }: LastReadProps) {
       </header>
 
       <BookDetailDialog book={book} user={user}>
-        <Dialog.Trigger className="flex text-left">
-          <BookCardFull
-            stars={feedback.rating}
-            title={book.title}
-            author={book.author}
-            imageUrl={book.image_url}
-            description={book.description}
-          />
-        </Dialog.Trigger>
+        <BookCardFull
+          stars={feedback.rating}
+          title={book.title}
+          author={book.author}
+          imageUrl={book.image_url}
+          description={book.description}
+        />
       </BookDetailDialog>
     </section>
   );

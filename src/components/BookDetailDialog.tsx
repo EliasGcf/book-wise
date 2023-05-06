@@ -1,3 +1,5 @@
+'use client';
+
 import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
@@ -36,7 +38,9 @@ export function BookDetailDialog({
 
   return (
     <Dialog.Root {...rest}>
-      {children}
+      <Dialog.Trigger title={`Ver feedbacks sobre o livro: ${book.title}`}>
+        {children}
+      </Dialog.Trigger>
 
       <Dialog.Portal>
         <DialogOverlay />

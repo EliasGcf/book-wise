@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { FeedbackCard } from '@components/FeedbackCard';
 
 import { Text } from '@ui/Text';

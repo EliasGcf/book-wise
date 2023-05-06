@@ -2,7 +2,6 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { Book } from '@prisma/client';
-import * as Dialog from '@radix-ui/react-dialog';
 
 import { Stars } from '@components/Stars';
 
@@ -25,7 +24,7 @@ export function BookCardFull({
   stars,
 }: BookCardFullProps) {
   return (
-    <div className="flex h-[192px] gap-6 rounded-lg border-2 border-gray-06 bg-gray-06 px-6 py-5 transition-colors hover:border-gray-05">
+    <div className="flex h-[192px] gap-6 rounded-lg border-2 border-gray-06 bg-gray-06 px-6 py-5 text-left transition-colors hover:border-gray-05">
       <img
         src={imageUrl}
         alt=""
@@ -63,16 +62,11 @@ export function BookCardFull({
 
 type BookCardCompactProps = {
   book: Book;
-  onClick?: () => void;
 };
 
-function BookCardCompact({ book, onClick }: BookCardCompactProps) {
+export function BookCardCompact({ book }: BookCardCompactProps) {
   return (
-    <Dialog.Trigger
-      onClick={onClick}
-      title={`Ver mais feedbacks sobre o livro: ${book.title}`}
-      className="flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 outline-none transition-colors hover:border-gray-06 focus:border-gray-06"
-    >
+    <div className="flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 outline-none transition-colors hover:border-gray-06 focus:border-gray-06">
       <img
         src={book.image_url}
         alt={book.title}
@@ -91,7 +85,7 @@ function BookCardCompact({ book, onClick }: BookCardCompactProps) {
 
         <Stars votes={book.rating} className="mt-auto" />
       </div>
-    </Dialog.Trigger>
+    </div>
   );
 }
 

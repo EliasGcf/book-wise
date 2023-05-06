@@ -1,6 +1,5 @@
 'use client';
 
-import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -52,27 +51,23 @@ export function UserBookList({ feedbacks, user }: UserBookListProps) {
             <div className="rounded-lg bg-gray-07 p-6">
               <div className="flex gap-6">
                 <BookDetailDialog user={user} book={feedback.book}>
-                  <Dialog.Trigger>
-                    <img
-                      src={feedback.book.image_url}
-                      alt={feedback.book.title}
-                      className="max-h-[134px] min-w-[98px] rounded object-cover"
-                    />
-                  </Dialog.Trigger>
+                  <img
+                    src={feedback.book.image_url}
+                    alt={feedback.book.title}
+                    className="max-h-[134px] min-w-[98px] rounded object-cover"
+                  />
                 </BookDetailDialog>
 
                 <div className="flex flex-col justify-between">
-                  <div>
+                  <div className="flex flex-col">
                     <BookDetailDialog user={user} book={feedback.book}>
-                      <Dialog.Trigger className="flex text-left">
-                        <Title
-                          size="sm"
-                          as="h3"
-                          className="text-gray-01 underline-offset-2 hover:underline"
-                        >
-                          {feedback.book.title}
-                        </Title>
-                      </Dialog.Trigger>
+                      <Title
+                        size="sm"
+                        as="h3"
+                        className="text-gray-01 underline-offset-2 hover:underline"
+                      >
+                        {feedback.book.title}
+                      </Title>
                     </BookDetailDialog>
 
                     <Text
