@@ -36,7 +36,6 @@ export function BookList({ user, books }: BookListProps) {
           key={book.id}
           onOpenChange={handleDialogChange}
           defaultOpen={book.id === bookId}
-          onSubmit={router.refresh}
           book={book}
           user={user}
         >

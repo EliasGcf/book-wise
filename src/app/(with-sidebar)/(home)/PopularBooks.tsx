@@ -2,7 +2,6 @@
 
 import { Session } from 'next-auth';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { BookCard } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
@@ -22,8 +21,6 @@ type PopularBooksProps = {
 };
 
 export function PopularBooks({ books, user }: PopularBooksProps) {
-  const router = useRouter();
-
   return (
     <aside className="min-w-[324px]">
       <header className="mb-4 flex items-center justify-between">
@@ -47,7 +44,7 @@ export function PopularBooks({ books, user }: PopularBooksProps) {
       <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-1">
         {books.map((book) => (
           <li key={book.id}>
-            <BookDetailDialog onSubmit={router.refresh} user={user} book={book}>
+            <BookDetailDialog user={user} book={book}>
               <BookCard.Compact book={book} />
             </BookDetailDialog>
           </li>

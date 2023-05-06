@@ -22,13 +22,11 @@ type BookWithFeedbacks = Book & { feedbacks: FeedbackWithAuthor[] };
 type BookDetailDialogProps = Dialog.DialogProps & {
   user?: Session['user'];
   book: BookWithFeedbacks;
-  onSubmit?: () => void;
 };
 
 export function BookDetailDialog({
   user,
   book,
-  onSubmit,
   children,
   ...rest
 }: BookDetailDialogProps) {
@@ -140,7 +138,7 @@ export function BookDetailDialog({
 
             <ul className="flex flex-col gap-3">
               {user && book && !hasUserFeedback && (
-                <FeedbackForm onSubmit={onSubmit} user={user} book={book} />
+                <FeedbackForm user={user} book={book} />
               )}
 
               {book.feedbacks.map((feedback) => (

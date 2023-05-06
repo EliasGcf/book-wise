@@ -3,7 +3,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { BookDetailDialog } from '@components/BookDetailDialog';
@@ -27,8 +26,6 @@ type UserBookListProps = {
 
 export function UserBookList({ feedbacks, user }: UserBookListProps) {
   const [search, setSearch] = useState('');
-
-  const router = useRouter();
 
   const filteredFeedbacks = feedbacks.filter((feedback) => {
     return (
@@ -54,11 +51,7 @@ export function UserBookList({ feedbacks, user }: UserBookListProps) {
 
             <div className="rounded-lg bg-gray-07 p-6">
               <div className="flex gap-6">
-                <BookDetailDialog
-                  onSubmit={router.refresh}
-                  user={user}
-                  book={feedback.book}
-                >
+                <BookDetailDialog user={user} book={feedback.book}>
                   <Dialog.Trigger>
                     <img
                       src={feedback.book.image_url}
@@ -70,11 +63,7 @@ export function UserBookList({ feedbacks, user }: UserBookListProps) {
 
                 <div className="flex flex-col justify-between">
                   <div>
-                    <BookDetailDialog
-                      onSubmit={router.refresh}
-                      user={user}
-                      book={feedback.book}
-                    >
+                    <BookDetailDialog user={user} book={feedback.book}>
                       <Dialog.Trigger className="flex text-left">
                         <Title
                           size="sm"

@@ -2,6 +2,7 @@
 
 import { Book } from '@prisma/client';
 import { Session } from 'next-auth';
+import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -17,12 +18,14 @@ import { createFeedback } from '@utils/create-feedback';
 type FeedbackFormProps = {
   user: Required<Session>['user'];
   book: Book;
-  onSubmit?: () => void;
 };
 
-export function FeedbackForm({ user, book, onSubmit }: FeedbackFormProps) {
+export function FeedbackForm({ user, book }: FeedbackFormProps) {
+  const router = useRouter();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [rating, setRating] = useState(0);
+
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -43,7 +46,8 @@ export function FeedbackForm({ user, book, onSubmit }: FeedbackFormProps) {
 
       setRating(0);
       if (descriptionRef.current) descriptionRef.current.value = '';
-      if (onSubmit) onSubmit();
+
+      router.refresh();
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log('handleSubmit ~ error:', error);

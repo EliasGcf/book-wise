@@ -4,17 +4,20 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 import { Avatar } from '@components/Avatar';
 import { BookDetailDialog } from '@components/BookDetailDialog';
 import { Stars } from '@components/Stars';
 
+import { Trash } from '@ui/icons';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
 import { dayjs } from '@libs/dayjs';
 import { Book, Feedback, User } from '@libs/prisma';
 
+import { deleteFeedback } from '@utils/delete-feedback';
 import { tw } from '@utils/tw';
 
 type FeedbackWithAuthor = Feedback & { author: User };
@@ -36,7 +39,22 @@ export function FeedbackCard({
   user,
 }: FeedbackCardProps) {
   const router = useRouter();
+
   const authorIsUser = author.id === user?.id;
+
+  async function handleDeleteFeedback() {
+    if (!user || !authorIsUser) return;
+
+    // TODO: Replace with a confirmation dialog
+    // eslint-disable-next-line no-alert
+    if (!window.confirm('Tem certeza que deseja excluir essa avaliação?')) return;
+
+    await deleteFeedback(feedback.id, user.id);
+
+    toast.success('Avaliação excluída com sucesso!', { position: 'top-left' });
+
+    router.refresh();
+  }
 
   return (
     <div
@@ -71,12 +89,24 @@ export function FeedbackCard({
           </div>
         </div>
 
-        <Stars votes={feedback.rating} />
+        <div className="flex h-fit gap-2">
+          {authorIsUser && (
+            <button
+              type="button"
+              title="Excluir avaliação"
+              className="text-danger-light transition-all hover:scale-125"
+              onClick={handleDeleteFeedback}
+            >
+              <Trash size={16} />
+            </button>
+          )}
+          <Stars votes={feedback.rating} />
+        </div>
       </header>
 
       <div className="flex gap-5">
         {book && (
-          <BookDetailDialog onSubmit={router.refresh} user={user} book={book}>
+          <BookDetailDialog user={user} book={book}>
             <Dialog.Trigger>
               <img
                 src={book.image_url}
@@ -90,7 +120,7 @@ export function FeedbackCard({
         <div className="flex flex-col">
           {book && (
             <>
-              <BookDetailDialog onSubmit={router.refresh} user={user} book={book}>
+              <BookDetailDialog user={user} book={book}>
                 <Dialog.Trigger className="flex text-left">
                   <Title
                     as="h3"

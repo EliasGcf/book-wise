@@ -3,7 +3,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { Session } from 'next-auth';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { BookCardFull } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
@@ -23,8 +22,6 @@ type LastReadProps = {
 };
 
 export function LastRead({ book, feedback, user }: LastReadProps) {
-  const router = useRouter();
-
   return (
     <section>
       <header className="mb-4 flex items-center justify-between">
@@ -45,7 +42,7 @@ export function LastRead({ book, feedback, user }: LastReadProps) {
         </Text>
       </header>
 
-      <BookDetailDialog book={book} user={user} onSubmit={router.refresh}>
+      <BookDetailDialog book={book} user={user}>
         <Dialog.Trigger className="flex text-left">
           <BookCardFull
             stars={feedback.rating}
