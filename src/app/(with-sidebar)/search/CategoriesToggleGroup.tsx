@@ -7,16 +7,16 @@ import { Category } from '@libs/prisma';
 
 import { tw } from '@utils/tw';
 
-type TagsProps = {
+type Props = {
   categories: Category[];
+  value?: string;
 };
 
-export function Tags({ categories }: TagsProps) {
+export function CategoriesToggleGroup({ categories, value }: Props) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
 
-  const value = searchParams.get('category') || '';
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   function handleSelectCategory(categoryName: string) {
     const query = new URLSearchParams(searchParams.toString());

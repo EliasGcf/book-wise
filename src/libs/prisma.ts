@@ -14,7 +14,17 @@ const globalForPrisma = global as unknown as {
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma;
+
+  // Add a delay to all requests to the database
+  prisma.$use(async (params, next) => {
+    // eslint-disable-next-line no-promise-executor-return
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    return next(params);
+  });
+}
 
 export type Feedback = Replace<PrismaFeedback, { created_at: string }>;
 export type User = Replace<PrismaUser, { createdAt: string }>;
