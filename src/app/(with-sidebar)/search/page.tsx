@@ -48,6 +48,7 @@ export default async function Search({ searchParams }: SearchProps) {
           <Input
             name="search"
             setInSearchParams
+            defaultValue={searchParams.search}
             className="max-w-md"
             placeholder="Buscar livro ou autor"
           />

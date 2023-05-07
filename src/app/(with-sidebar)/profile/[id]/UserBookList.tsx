@@ -21,8 +21,10 @@ type UserBookListProps = {
   search?: string;
 };
 
-export function UserBookList({ feedbacks, user, search = '' }: UserBookListProps) {
+export function UserBookList({ feedbacks, user, search }: UserBookListProps) {
   const filteredFeedbacks = feedbacks.filter((feedback) => {
+    if (!search) return true;
+
     return (
       feedback.book.title.toLowerCase().includes(search.toLowerCase()) ||
       feedback.book.author.toLowerCase().includes(search.toLowerCase())
@@ -31,7 +33,12 @@ export function UserBookList({ feedbacks, user, search = '' }: UserBookListProps
 
   return (
     <div className="flex w-full flex-col xl:max-w-[624px]">
-      <Input name="search" setInSearchParams placeholder="Buscar livro avaliado" />
+      <Input
+        name="search"
+        setInSearchParams
+        defaultValue={search}
+        placeholder="Buscar livro avaliado"
+      />
 
       <section className="mt-8 flex flex-col gap-6 overflow-y-auto">
         {filteredFeedbacks.map((feedback) => (

@@ -3,14 +3,14 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { forwardRef, InputHTMLAttributes, useEffect, useState } from 'react';
+import { ComponentProps, forwardRef, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { MagnifyingGlass, X } from '@ui/icons';
 
 type InputProps =
-  | (InputHTMLAttributes<HTMLInputElement> & { setInSearchParams?: false })
-  | (InputHTMLAttributes<HTMLInputElement> & { setInSearchParams: true; name: string });
+  | (ComponentProps<'input'> & { setInSearchParams?: false })
+  | (ComponentProps<'input'> & { setInSearchParams: true; name: string });
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, setInSearchParams, ...rest }, ref) => {
@@ -18,10 +18,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    const [value, setValue] = useState(rest.value ?? '');
+    const [value, setValue] = useState(rest.value);
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-      setValue(event.target.value);
+      setValue(event.target.value || undefined);
 
       if (rest.onChange) rest.onChange(event);
 
@@ -39,7 +39,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     }
 
     function handleCleanValue() {
-      setValue('');
+      setValue(undefined);
 
       if (!setInSearchParams || !rest.name) return;
 
@@ -74,7 +74,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           onChange={handleChange}
         />
 
-        {value ? (
+        {value || rest.defaultValue ? (
           <button
             type="button"
             onClick={handleCleanValue}
