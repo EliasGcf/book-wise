@@ -1,4 +1,5 @@
 import { FeedbackCard } from '@components/FeedbackCard';
+import { Loading } from '@components/Loading';
 
 import { Text } from '@ui/Text';
 
@@ -30,6 +31,20 @@ export async function AsyncRecentFeedbacks() {
           </li>
         ))}
       </ul>
+    </section>
+  );
+}
+
+export function RecentFeedbacksLoading() {
+  return (
+    <section className="flex flex-col overflow-hidden">
+      <header className="mb-4 flex items-center justify-between">
+        <Text size="sm" className="text-gray-01">
+          Avaliações mais recentes
+        </Text>
+      </header>
+
+      <Loading />
     </section>
   );
 }
