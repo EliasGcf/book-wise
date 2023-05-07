@@ -1,11 +1,7 @@
-import Link from 'next/link';
-
 import { BookCardCompact } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
+import { CardHeader } from '@components/CardHeader';
 import { Loading } from '@components/Loading';
-
-import { CaretRight } from '@ui/icons';
-import { Text } from '@ui/Text';
 
 import { getServerSession } from '@libs/next-auth';
 import { getPopularBooks } from '@libs/prisma';
@@ -19,24 +15,12 @@ async function AsyncPopularBooks() {
   ]);
 
   return (
-    <aside className="min-w-[324px]">
-      <header className="mb-4 flex items-center justify-between">
-        <Text size="sm" className="text-gray-01">
-          Livros populares
-        </Text>
-
-        <Text
-          variant="link"
-          as={Link}
-          size="sm"
-          href="/search"
-          className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
-          title="Ver todos os livros"
-        >
-          Ver todos
-          <CaretRight size={16} />
-        </Text>
-      </header>
+    <aside className="flex min-w-[324px] flex-col gap-4">
+      <CardHeader
+        title="Livros populares"
+        href="/search"
+        linkTitle="Ver todos os livros"
+      />
 
       <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-1">
         {popularBooks.map((book) => (
@@ -53,30 +37,14 @@ async function AsyncPopularBooks() {
 
 export function PopularBooksLoading() {
   return (
-    <aside className="min-w-[324px]">
-      <header className="mb-4 flex items-center justify-between">
-        <Text size="sm" className="text-gray-01">
-          Livros populares
-        </Text>
+    <aside className="flex min-w-[324px] flex-col gap-4">
+      <CardHeader
+        title="Livros populares"
+        href="/search"
+        linkTitle="Ver todos os livros"
+      />
 
-        <Text
-          variant="link"
-          as={Link}
-          size="sm"
-          href="/search"
-          className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
-          title="Ver todos os livros"
-        >
-          Ver todos
-          <CaretRight size={16} />
-        </Text>
-      </header>
-
-      <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-1">
-        <li className="flex flex-col">
-          <Loading />
-        </li>
-      </ul>
+      <Loading />
     </aside>
   );
 }

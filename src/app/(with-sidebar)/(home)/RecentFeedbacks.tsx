@@ -1,7 +1,6 @@
+import { CardHeader } from '@components/CardHeader';
 import { FeedbackCard } from '@components/FeedbackCard';
 import { Loading } from '@components/Loading';
-
-import { Text } from '@ui/Text';
 
 import { getServerSession } from '@libs/next-auth';
 import { getFeedbacks } from '@libs/prisma';
@@ -12,12 +11,8 @@ export async function AsyncRecentFeedbacks() {
   const [session, feedbacks] = await Promise.all([getServerSession(), getFeedbacks()]);
 
   return (
-    <section className="flex flex-col overflow-hidden">
-      <header className="mb-4 flex items-center justify-between">
-        <Text size="sm" className="text-gray-01">
-          Avaliações mais recentes
-        </Text>
-      </header>
+    <section className="flex flex-col gap-4 overflow-hidden">
+      <CardHeader title="Avaliações mais recentes" />
 
       <ul className="flex flex-col gap-3 overflow-y-auto rounded-lg">
         {feedbacks.map((feedback) => (
@@ -37,13 +32,8 @@ export async function AsyncRecentFeedbacks() {
 
 export function RecentFeedbacksLoading() {
   return (
-    <section className="flex flex-col overflow-hidden">
-      <header className="mb-4 flex items-center justify-between">
-        <Text size="sm" className="text-gray-01">
-          Avaliações mais recentes
-        </Text>
-      </header>
-
+    <section className="flex flex-col gap-4 overflow-hidden">
+      <CardHeader title="Avaliações mais recentes" />
       <Loading />
     </section>
   );

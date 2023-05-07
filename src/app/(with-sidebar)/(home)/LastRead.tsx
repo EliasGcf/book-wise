@@ -1,11 +1,7 @@
-import Link from 'next/link';
-
 import { BookCardFull } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
+import { CardHeader } from '@components/CardHeader';
 import { Loading } from '@components/Loading';
-
-import { CaretRight } from '@ui/icons';
-import { Text } from '@ui/Text';
 
 import { getServerSession } from '@libs/next-auth';
 import { getUserLastFeedback } from '@libs/prisma';
@@ -22,24 +18,12 @@ async function AsyncLastRead() {
   if (!feedback) return null;
 
   return (
-    <section>
-      <header className="mb-4 flex items-center justify-between">
-        <Text size="sm" className="text-gray-01">
-          Sua última leitura
-        </Text>
-
-        <Text
-          variant="link"
-          as={Link}
-          size="sm"
-          href={`/profile/${session.user.id}`}
-          className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
-          title="Ver todas as suas leituras"
-        >
-          Ver todas
-          <CaretRight size={16} />
-        </Text>
-      </header>
+    <section className="flex flex-col gap-4">
+      <CardHeader
+        title="Sua última leitura"
+        href={`/profile/${session.user.id}`}
+        linkTitle="Ver todas as suas leituras"
+      />
 
       <BookDetailDialog book={feedback.book} user={session.user}>
         <BookCardFull
@@ -56,24 +40,12 @@ async function AsyncLastRead() {
 
 export function LastReadLoading() {
   return (
-    <section>
-      <header className="mb-4 flex items-center justify-between">
-        <Text size="sm" className="text-gray-01">
-          Sua última leitura
-        </Text>
-
-        <Text
-          variant="link"
-          as={Link}
-          size="sm"
-          href="/profile"
-          className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
-          title="Ver todas as suas leituras"
-        >
-          Ver todas
-          <CaretRight size={16} />
-        </Text>
-      </header>
+    <section className="flex flex-col gap-4">
+      <CardHeader
+        title="Sua última leitura"
+        href="/profile"
+        linkTitle="Ver todas as suas leituras"
+      />
 
       <Loading />
     </section>
