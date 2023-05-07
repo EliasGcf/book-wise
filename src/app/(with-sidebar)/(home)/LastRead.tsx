@@ -26,13 +26,7 @@ async function AsyncLastRead() {
       />
 
       <BookDetailDialog book={feedback.book} user={session.user}>
-        <BookCardFull
-          stars={feedback.rating}
-          title={feedback.book.title}
-          author={feedback.book.author}
-          imageUrl={feedback.book.image_url}
-          description={feedback.book.description}
-        />
+        <BookCardFull book={feedback.book} />
       </BookDetailDialog>
     </section>
   );

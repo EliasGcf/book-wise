@@ -7,24 +7,14 @@ import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
 type BookCardFullProps = {
-  title: string;
-  author: string;
-  imageUrl: string;
-  description: string;
-  stars: number;
+  book: Book;
 };
 
-export function BookCardFull({
-  title,
-  author,
-  imageUrl,
-  description,
-  stars,
-}: BookCardFullProps) {
+export function BookCardFull({ book }: BookCardFullProps) {
   return (
     <div className="flex h-[192px] gap-6 rounded-lg border-2 border-gray-06 bg-gray-06 px-6 py-5 text-left transition-colors hover:border-gray-05">
       <img
-        src={imageUrl}
+        src={book.image_url}
         alt=""
         className="max-h-[152px] min-w-[108px] rounded object-cover"
       />
@@ -36,23 +26,21 @@ export function BookCardFull({
               Hoje
             </Text>
 
-            <Stars votes={stars} />
+            <Stars votes={book.rating} />
           </div>
 
           <Title size="xs" className="text-gray-01">
-            {title}
+            {book.title}
           </Title>
 
           <Text size="sm" className="text-gray-04">
-            {author}
+            {book.author}
           </Text>
         </header>
 
-        {description && (
-          <Text size="sm" as="p" className="mt-auto line-clamp-2 text-gray-03">
-            {description}
-          </Text>
-        )}
+        <Text size="sm" as="p" className="mt-auto line-clamp-2 text-gray-03">
+          {book.description}
+        </Text>
       </div>
     </div>
   );
@@ -86,8 +74,3 @@ export function BookCardCompact({ book }: BookCardCompactProps) {
     </div>
   );
 }
-
-export const BookCard = {
-  Full: BookCardFull,
-  Compact: BookCardCompact,
-};
