@@ -32,7 +32,7 @@ async function AsyncLastRead() {
           variant="link"
           as={Link}
           size="sm"
-          href="/profile"
+          href={`/profile/${session.user.id}`}
           className="flex items-center gap-2 text-purple-01 transition-opacity hover:opacity-70"
           title="Ver todas as suas leituras"
         >

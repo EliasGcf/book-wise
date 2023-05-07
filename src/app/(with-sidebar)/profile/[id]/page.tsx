@@ -27,7 +27,7 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
 
   return (
     <div className="flex flex-col overflow-hidden">
-      <header className="flex flex-col justify-between gap-4">
+      <header className="flex w-fit justify-between gap-4">
         <User size={32} className="text-green-01" />
         <Title size="lg" className="text-gray-01">
           Perfil
