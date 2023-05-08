@@ -13,7 +13,7 @@ import {
 import { ChartLineUp } from '@ui/icons';
 import { Title } from '@ui/Title';
 
-export default async function Dashboard() {
+export default function Dashboard() {
   return (
     <div className="flex flex-col overflow-hidden">
       <header className="flex items-center gap-3">

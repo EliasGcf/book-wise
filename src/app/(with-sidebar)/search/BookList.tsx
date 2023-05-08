@@ -1,5 +1,3 @@
-import { Session } from 'next-auth';
-
 import { BookCardCompact } from '@components/BookCard';
 import { BookDetailDialog } from '@components/BookDetailDialog';
 
@@ -8,11 +6,10 @@ import { getBooks } from '@libs/prisma';
 import { asyncComponent } from '@utils/async-component';
 
 export type BookListProps = {
-  user?: Session['user'];
   searchParams: { category?: string; search?: string };
 };
 
-async function AsyncBookList({ user, searchParams }: BookListProps) {
+async function AsyncBookList({ searchParams }: BookListProps) {
   const books = await getBooks();
 
   const { search = '', category = '' } = searchParams;
@@ -28,9 +25,11 @@ async function AsyncBookList({ user, searchParams }: BookListProps) {
   return (
     <div className="grid grid-cols-1 gap-5 overflow-y-auto lg:grid-cols-2 xl:grid-cols-3">
       {filteredBooks.map((book) => (
-        <BookDetailDialog key={book.id} book={book} user={user}>
-          <BookCardCompact key={book.id} book={book} />
-        </BookDetailDialog>
+        <BookDetailDialog
+          trigger={<BookCardCompact key={book.id} book={book} />}
+          key={book.id}
+          book={book}
+        />
       ))}
     </div>
   );

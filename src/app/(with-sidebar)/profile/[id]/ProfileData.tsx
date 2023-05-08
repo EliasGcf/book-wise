@@ -7,18 +7,21 @@ import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
 import { dayjs } from '@libs/dayjs';
-import { Book, Feedback } from '@libs/prisma';
+import { prisma } from '@libs/prisma';
 
+import { asyncComponent } from '@utils/async-component';
 import { getHighestOccurrenceAndNum } from '@utils/get-highest-occurrence-and-num';
-
-type FeedbackWithBook = Feedback & { book: Book };
 
 interface ProfileDataProps {
   user: User;
-  feedbacks: FeedbackWithBook[];
 }
 
-export function ProfileData({ user, feedbacks }: ProfileDataProps) {
+async function AsyncProfileData({ user }: ProfileDataProps) {
+  const feedbacks = await prisma.feedback.findMany({
+    where: { author_id: user.id },
+    include: { book: true },
+  });
+
   const userMetrics = feedbacks.reduce(
     (acc, feedback) => {
       acc.pagesRead += feedback.book.pages_amount;
@@ -106,3 +109,5 @@ export function ProfileData({ user, feedbacks }: ProfileDataProps) {
     </aside>
   );
 }
+
+export const ProfileData = asyncComponent(AsyncProfileData);

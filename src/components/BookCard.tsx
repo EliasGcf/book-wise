@@ -15,7 +15,7 @@ export function BookCardFull({ book }: BookCardFullProps) {
     <div className="flex h-[192px] gap-6 rounded-lg border-2 border-gray-06 bg-gray-06 px-6 py-5 text-left transition-colors hover:border-gray-05">
       <img
         src={book.image_url}
-        alt=""
+        alt={book.title}
         className="max-h-[152px] min-w-[108px] rounded object-cover"
       />
 

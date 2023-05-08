@@ -25,9 +25,10 @@ async function AsyncLastRead() {
         linkTitle="Ver todas as suas leituras"
       />
 
-      <BookDetailDialog book={feedback.book} user={session.user}>
-        <BookCardFull book={feedback.book} />
-      </BookDetailDialog>
+      <BookDetailDialog
+        book={feedback.book}
+        trigger={<BookCardFull book={feedback.book} />}
+      />
     </section>
   );
 }

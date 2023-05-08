@@ -1,7 +1,3 @@
-'use client';
-
-import * as Dialog from '@radix-ui/react-dialog';
-import { Session } from 'next-auth';
 import Link from 'next/link';
 
 import { DialogOverlay } from '@components/DialogOverlay';
@@ -10,36 +6,41 @@ import { FeedbackForm } from '@components/FeedbackForm';
 import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
 
-import { BookmarkSimple, BookOpen, X } from '@ui/icons';
+import * as Dialog from '@ui/Dialog';
+import { BookOpen, BookmarkSimple, X } from '@ui/icons';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
-import { Book, Feedback, User } from '@libs/prisma';
+import { getServerSession } from '@libs/next-auth';
+import { Book, prisma } from '@libs/prisma';
 
+import { asyncComponent } from '@utils/async-component';
 import { tw } from '@utils/tw';
 
-type FeedbackWithAuthor = Feedback & { author: User };
-type BookWithFeedbacks = Book & { feedbacks: FeedbackWithAuthor[] };
-
 type BookDetailDialogProps = Dialog.DialogProps & {
-  user?: Session['user'];
-  book: BookWithFeedbacks;
+  book: Book;
+  trigger: React.ReactNode;
 };
 
-export function BookDetailDialog({
-  user,
-  book,
-  children,
-  ...rest
-}: BookDetailDialogProps) {
-  const hasUserFeedback = book.feedbacks.some((feedback) => {
-    return feedback.author_id === user?.id;
+async function AsyncBookDetailDialog({ book, trigger, ...rest }: BookDetailDialogProps) {
+  const [session, feedbacks] = await Promise.all([
+    getServerSession(),
+    prisma.feedback.findMany({
+      where: { book_id: book.id },
+      include: { author: true },
+    }),
+  ]);
+
+  if (!book) return null;
+
+  const hasUserFeedback = feedbacks.some((feedback) => {
+    return feedback.author_id === session?.user.id;
   });
 
   return (
     <Dialog.Root {...rest}>
       <Dialog.Trigger title={`Ver feedbacks sobre o livro: ${book.title}`}>
-        {children}
+        {trigger}
       </Dialog.Trigger>
 
       <Dialog.Portal>
@@ -54,7 +55,7 @@ export function BookDetailDialog({
             <div className="flex gap-8">
               <img
                 src={book.image_url}
-                alt=""
+                alt={book.title}
                 className="max-h-[242px] min-w-[171px] rounded-lg object-cover"
               />
 
@@ -81,7 +82,7 @@ export function BookDetailDialog({
                 <div className="mt-auto">
                   <Stars votes={book.rating ?? 0} size={20} />
                   <Text size="sm" className="mt-1 text-gray-04">
-                    {book.feedbacks.length} avaliações
+                    {feedbacks.length} avaliações
                   </Text>
                 </div>
               </div>
@@ -125,35 +126,33 @@ export function BookDetailDialog({
                 Avaliações
               </Text>
 
-              {!user && (
-                <Dialog.Root>
-                  <Dialog.Trigger>
-                    <Text
-                      variant="link"
-                      as="button"
-                      className="text-purple-01 transition-opacity hover:opacity-70"
-                    >
-                      Avaliar
-                    </Text>
-                  </Dialog.Trigger>
-
-                  <SigninDialog />
-                </Dialog.Root>
+              {!session?.user && (
+                <SigninDialog>
+                  <Text
+                    variant="link"
+                    as="button"
+                    className="text-purple-01 transition-opacity hover:opacity-70"
+                  >
+                    Avaliar
+                  </Text>
+                </SigninDialog>
               )}
             </header>
 
             <ul className="flex flex-col gap-3">
-              {user && book && !hasUserFeedback && (
-                <FeedbackForm user={user} book={book} />
+              {session?.user && book && !hasUserFeedback && (
+                <FeedbackForm user={session?.user} book={book} />
               )}
 
-              {book.feedbacks.map((feedback) => (
+              {feedbacks.map((feedback) => (
                 <li key={feedback.id}>
                   <FeedbackCard
                     author={feedback.author}
                     feedback={feedback}
-                    user={user}
-                    className={tw({ 'bg-gray-06': user?.id === feedback.author_id })}
+                    user={session?.user}
+                    className={tw({
+                      'bg-gray-06': session?.user.id === feedback.author_id,
+                    })}
                   />
                 </li>
               ))}
@@ -164,3 +163,5 @@ export function BookDetailDialog({
     </Dialog.Root>
   );
 }
+
+export const BookDetailDialog = asyncComponent(AsyncBookDetailDialog);

@@ -6,7 +6,7 @@ import { UserBookList } from '@app/(with-sidebar)/profile/[id]/UserBookList';
 import { User } from '@ui/icons';
 import { Title } from '@ui/Title';
 
-import { getUserWithFeedbacks } from '@libs/prisma';
+import { getUser } from '@libs/prisma';
 
 type ProfileProps = {
   params: {
@@ -21,7 +21,7 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
   const userId = params.id;
   const { search } = searchParams;
 
-  const user = await getUserWithFeedbacks(userId);
+  const user = await getUser(userId);
 
   if (!user) return redirect('/404');
 
@@ -35,8 +35,8 @@ export default async function Profile({ params, searchParams }: ProfileProps) {
       </header>
 
       <div className="mt-10 flex flex-col-reverse overflow-y-auto xl:flex-row xl:justify-between">
-        <UserBookList user={user} feedbacks={user.feedbacks} search={search} />
-        <ProfileData feedbacks={user.feedbacks} user={user} />
+        <UserBookList userId={userId} search={search} />
+        <ProfileData user={user} />
       </div>
     </div>
   );

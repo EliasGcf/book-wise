@@ -61,7 +61,7 @@ export default async function Search({ searchParams }: SearchProps) {
         </Suspense>
 
         <Suspense fallback={<Loading />}>
-          <BookList user={session?.user} searchParams={searchParams} />
+          <BookList searchParams={searchParams} />
         </Suspense>
       </div>
     </div>

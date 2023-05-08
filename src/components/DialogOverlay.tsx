@@ -1,5 +1,8 @@
-import * as Dialog from '@radix-ui/react-dialog';
+'use client';
+
 import { forwardRef } from 'react';
+
+import { Dialog } from '@ui/Dialog';
 
 export const DialogOverlay = forwardRef<HTMLDivElement, Dialog.DialogOverlayProps>(() => {
   return (

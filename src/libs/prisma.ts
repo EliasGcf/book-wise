@@ -6,8 +6,6 @@ import {
   Category as PrismaCategory,
 } from '@prisma/client';
 
-import { Replace } from '@shared/types/replace';
-
 const globalForPrisma = global as unknown as {
   prisma: PrismaClient | undefined;
 };
@@ -26,8 +24,8 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-export type Feedback = Replace<PrismaFeedback, { created_at: string }>;
-export type User = Replace<PrismaUser, { createdAt: string }>;
+export type Feedback = PrismaFeedback;
+export type User = PrismaUser;
 export type Book = PrismaBook;
 export type Category = PrismaCategory;
 
@@ -45,71 +43,23 @@ function mapFeedback(feedback: PrismaFeedback) {
   };
 }
 
-export async function getUserWithFeedbacks(userId: string) {
+export async function getUser(userId: string) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: {
-      feedbacks: {
-        include: {
-          book: {
-            include: {
-              feedbacks: {
-                include: {
-                  author: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
   });
 
   if (!user) return null;
 
-  return {
-    ...mapUser(user),
-    feedbacks: user.feedbacks.map((feedback) => ({
-      ...mapFeedback(feedback),
-      book: {
-        ...feedback.book,
-        feedbacks: feedback.book.feedbacks.map((f) => ({
-          ...mapFeedback(f),
-          author: mapUser(f.author),
-        })),
-      },
-    })),
-  };
+  return mapUser(user);
 }
 
 export async function getUserLastFeedback(userId: string) {
   const feedback = await prisma.feedback.findFirst({
     where: { author_id: userId },
-    include: {
-      book: {
-        include: {
-          feedbacks: {
-            include: {
-              author: true,
-            },
-          },
-        },
-      },
-    },
+    include: { book: true },
   });
 
-  if (!feedback) return null;
-
-  return {
-    ...mapFeedback(feedback),
-    book: {
-      ...feedback.book,
-      feedbacks: feedback.book.feedbacks.map((f) => ({
-        ...mapFeedback(f),
-        author: mapUser(f.author),
-      })),
-    },
-  };
+  return feedback;
 }
 
 export async function getPopularBooks() {
@@ -117,16 +67,9 @@ export async function getPopularBooks() {
     take: 4,
     orderBy: { feedbacks: { _count: 'desc' } },
     where: { feedbacks: { some: {} } },
-    include: { feedbacks: { include: { author: true } } },
   });
 
-  return books.map((book) => ({
-    ...book,
-    feedbacks: book.feedbacks.map((feedback) => ({
-      ...mapFeedback(feedback),
-      author: mapUser(feedback.author),
-    })),
-  }));
+  return books;
 }
 
 export async function getFeedbacks() {
@@ -146,17 +89,7 @@ export async function getFeedbacks() {
     },
   });
 
-  return feedbacks.map((feedback) => ({
-    ...mapFeedback(feedback),
-    author: mapUser(feedback.author),
-    book: {
-      ...feedback.book,
-      feedbacks: feedback.book.feedbacks.map((f) => ({
-        ...mapFeedback(f),
-        author: mapUser(f.author),
-      })),
-    },
-  }));
+  return feedbacks;
 }
 
 export async function getBooks() {

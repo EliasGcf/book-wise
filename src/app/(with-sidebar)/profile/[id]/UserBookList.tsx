@@ -1,4 +1,3 @@
-import { Session } from 'next-auth';
 import Link from 'next/link';
 
 import { BookDetailDialog } from '@components/BookDetailDialog';
@@ -9,19 +8,21 @@ import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
 import { dayjs } from '@libs/dayjs';
-import { Book, Feedback, User } from '@libs/prisma';
+import { prisma } from '@libs/prisma';
 
-type FeedbackWithAuthor = Feedback & { author: User };
-type BookWithFeedbacks = Book & { feedbacks: FeedbackWithAuthor[] };
-type FeedbackWithBook = Feedback & { book: BookWithFeedbacks };
+import { asyncComponent } from '@utils/async-component';
 
 type UserBookListProps = {
-  user?: Session['user'];
-  feedbacks: FeedbackWithBook[];
+  userId: string;
   search?: string;
 };
 
-export function UserBookList({ feedbacks, user, search }: UserBookListProps) {
+async function AsyncUserBookList({ search, userId }: UserBookListProps) {
+  const feedbacks = await prisma.feedback.findMany({
+    where: { author_id: userId },
+    include: { book: true },
+  });
+
   const filteredFeedbacks = feedbacks.filter((feedback) => {
     if (!search) return true;
 
@@ -49,25 +50,31 @@ export function UserBookList({ feedbacks, user, search }: UserBookListProps) {
 
             <div className="rounded-lg bg-gray-07 p-6">
               <div className="flex gap-6">
-                <BookDetailDialog user={user} book={feedback.book}>
-                  <img
-                    src={feedback.book.image_url}
-                    alt={feedback.book.title}
-                    className="max-h-[134px] min-w-[98px] rounded object-cover"
-                  />
-                </BookDetailDialog>
+                <BookDetailDialog
+                  book={feedback.book}
+                  trigger={
+                    <img
+                      src={feedback.book.image_url}
+                      alt={feedback.book.title}
+                      className="max-h-[134px] min-w-[98px] rounded object-cover"
+                    />
+                  }
+                />
 
                 <div className="flex flex-col justify-between">
                   <div className="flex flex-col">
-                    <BookDetailDialog user={user} book={feedback.book}>
-                      <Title
-                        size="sm"
-                        as="h3"
-                        className="text-left text-gray-01 underline-offset-2 hover:underline"
-                      >
-                        {feedback.book.title}
-                      </Title>
-                    </BookDetailDialog>
+                    <BookDetailDialog
+                      book={feedback.book}
+                      trigger={
+                        <Title
+                          size="sm"
+                          as="h3"
+                          className="text-left text-gray-01 underline-offset-2 hover:underline"
+                        >
+                          {feedback.book.title}
+                        </Title>
+                      }
+                    />
 
                     <Text
                       size="sm"
@@ -93,3 +100,5 @@ export function UserBookList({ feedbacks, user, search }: UserBookListProps) {
     </div>
   );
 }
+
+export const UserBookList = asyncComponent(AsyncUserBookList);
