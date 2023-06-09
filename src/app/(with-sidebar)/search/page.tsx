@@ -11,17 +11,13 @@ import { Binoculars } from '@ui/icons';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
-import { getServerSession } from '@libs/next-auth';
-
 import { tw } from '@utils/tw';
 
 type SearchProps = {
-  searchParams: { category?: string; search?: string };
+  searchParams: { category?: string; search?: string; book: string };
 };
 
 export default async function Search({ searchParams }: SearchProps) {
-  const session = await getServerSession();
-
   return (
     <div className="flex h-full flex-col overflow-hidden">
       <header className="flex flex-col justify-between gap-4 md:flex-row md:items-center">

@@ -39,7 +39,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     }
 
     function handleCleanValue() {
-      setValue(undefined);
+      setValue('');
 
       if (!setInSearchParams || !rest.name) return;
 

@@ -6,13 +6,13 @@ import { getBooks } from '@libs/prisma';
 import { asyncComponent } from '@utils/async-component';
 
 export type BookListProps = {
-  searchParams: { category?: string; search?: string };
+  searchParams: { category?: string; search?: string; book: string };
 };
 
 async function AsyncBookList({ searchParams }: BookListProps) {
   const books = await getBooks();
 
-  const { search = '', category = '' } = searchParams;
+  const { search = '', category = '', book: bookSlug } = searchParams;
 
   const filteredBooks = books.filter((book) => {
     const titleMatch = book.title.toLowerCase().includes(search.toLowerCase());
@@ -29,6 +29,7 @@ async function AsyncBookList({ searchParams }: BookListProps) {
           trigger={<BookCardCompact key={book.id} book={book} />}
           key={book.id}
           book={book}
+          defaultOpen={bookSlug === book.slug}
         />
       ))}
     </div>

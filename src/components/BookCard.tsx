@@ -6,6 +6,8 @@ import { Stars } from '@components/Stars';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
 
+import { tw } from '@utils/tw';
+
 type BookCardFullProps = {
   book: Book;
 };
@@ -48,11 +50,17 @@ export function BookCardFull({ book }: BookCardFullProps) {
 
 type BookCardCompactProps = {
   book: Book;
+  withHoverStyle?: boolean;
 };
 
-export function BookCardCompact({ book }: BookCardCompactProps) {
+export function BookCardCompact({ book, withHoverStyle = true }: BookCardCompactProps) {
   return (
-    <div className="flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 outline-none transition-colors hover:border-gray-06 focus:border-gray-06">
+    <div
+      className={tw(
+        'flex h-[130px] w-full gap-5 rounded-lg border-2 border-gray-07 bg-gray-07 px-5 py-4 outline-none transition-colors focus:border-gray-06',
+        { 'hover:border-gray-06': withHoverStyle },
+      )}
+    >
       <img
         src={book.image_url}
         alt={book.title}

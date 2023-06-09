@@ -7,6 +7,7 @@ import { SigninDialog } from '@components/SigninDialog';
 import { Stars } from '@components/Stars';
 
 import * as Dialog from '@ui/Dialog';
+import { DialogRoot } from '@ui/Dialog';
 import { BookOpen, BookmarkSimple, X } from '@ui/icons';
 import { Text } from '@ui/Text';
 import { Title } from '@ui/Title';
@@ -38,7 +39,7 @@ async function AsyncBookDetailDialog({ book, trigger, ...rest }: BookDetailDialo
   });
 
   return (
-    <Dialog.Root {...rest}>
+    <DialogRoot {...rest}>
       <Dialog.Trigger title={`Ver feedbacks sobre o livro: ${book.title}`}>
         {trigger}
       </Dialog.Trigger>
@@ -160,7 +161,7 @@ async function AsyncBookDetailDialog({ book, trigger, ...rest }: BookDetailDialo
           </section>
         </Dialog.Content>
       </Dialog.Portal>
-    </Dialog.Root>
+    </DialogRoot>
   );
 }
 
