@@ -1,8 +1,13 @@
 'use server';
 
+import { getServerSession } from '@libs/next-auth';
 import { prisma } from '@libs/prisma';
 
-export async function deleteFeedback(feedbackId: string, userId: string) {
+export async function deleteFeedback(feedbackId: string) {
+  const session = await getServerSession();
+
+  if (!session) throw new Error('Unauthorized');
+
   const feedback = await prisma.feedback.findUnique({
     where: { id: feedbackId },
   });
@@ -11,7 +16,7 @@ export async function deleteFeedback(feedbackId: string, userId: string) {
     throw new Error('Feedback not found');
   }
 
-  if (feedback.author_id !== userId) {
+  if (feedback.author_id !== session.user.id) {
     throw new Error('You are not authorized to delete this feedback');
   }
 

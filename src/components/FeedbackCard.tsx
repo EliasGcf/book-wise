@@ -12,6 +12,7 @@ import { Title } from '@ui/Title';
 import { dayjs } from '@libs/dayjs';
 import { Book, Feedback, User } from '@libs/prisma';
 
+import { deleteFeedback } from '@utils/delete-feedback';
 import { tw } from '@utils/tw';
 
 type FeedbackCardProps = {
@@ -35,7 +36,7 @@ export function FeedbackCard({
     <div
       className={tw('flex flex-col rounded-lg bg-gray-07 p-6', className, {
         'gap-8': !!book,
-        'gap-5': !book,
+        'gap-5': !book && feedback.description.length > 0,
       })}
     >
       <header className="flex justify-between">
@@ -66,7 +67,12 @@ export function FeedbackCard({
 
         <div className="flex h-fit gap-2">
           {user && authorIsUser && (
-            <DeleteFeedbackButton user={user} feedback={feedback} author={author} />
+            <DeleteFeedbackButton
+              deleteAction={deleteFeedback}
+              user={user}
+              feedback={feedback}
+              author={author}
+            />
           )}
           <Stars votes={feedback.rating} />
         </div>

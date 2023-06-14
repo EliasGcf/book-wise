@@ -13,9 +13,10 @@ type Props = {
   user: Required<Session>['user'];
   author: User;
   feedback: Feedback;
+  deleteAction: typeof deleteFeedback;
 };
 
-export function DeleteFeedbackButton({ author, user, feedback }: Props) {
+export function DeleteFeedbackButton({ author, user, feedback, deleteAction }: Props) {
   const router = useRouter();
   const authorIsUser = author.id === user.id;
 
@@ -26,7 +27,7 @@ export function DeleteFeedbackButton({ author, user, feedback }: Props) {
     // eslint-disable-next-line no-alert
     if (!window.confirm('Tem certeza que deseja excluir essa avaliação?')) return;
 
-    await deleteFeedback(feedback.id, user.id);
+    await deleteAction(feedback.id);
 
     toast.success('Avaliação excluída com sucesso!', { position: 'top-left' });
 

@@ -16,6 +16,7 @@ import { getServerSession } from '@libs/next-auth';
 import { Book, prisma } from '@libs/prisma';
 
 import { asyncComponent } from '@utils/async-component';
+import { createFeedback } from '@utils/create-feedback';
 import { tw } from '@utils/tw';
 
 type BookDetailDialogProps = Dialog.DialogProps & {
@@ -142,7 +143,11 @@ async function AsyncBookDetailDialog({ book, trigger, ...rest }: BookDetailDialo
 
             <ul className="flex flex-col gap-3">
               {session?.user && book && !hasUserFeedback && (
-                <FeedbackForm user={session?.user} book={book} />
+                <FeedbackForm
+                  createAction={createFeedback}
+                  user={session?.user}
+                  book={book}
+                />
               )}
 
               {feedbacks.map((feedback) => (

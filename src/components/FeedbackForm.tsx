@@ -18,9 +18,10 @@ import { createFeedback } from '@utils/create-feedback';
 type FeedbackFormProps = {
   user: Required<Session>['user'];
   book: Book;
+  createAction: typeof createFeedback;
 };
 
-export function FeedbackForm({ user, book }: FeedbackFormProps) {
+export function FeedbackForm({ user, book, createAction }: FeedbackFormProps) {
   const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +38,7 @@ export function FeedbackForm({ user, book }: FeedbackFormProps) {
     const description = formData.get('description')?.toString() || '';
 
     try {
-      await createFeedback({ description, rating, bookId: book.id }, user);
+      await createAction({ description, rating, bookId: book.id });
 
       toast.success('Avaliação enviada com sucesso!', {
         icon: '✅',

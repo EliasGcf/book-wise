@@ -1,7 +1,6 @@
 'use server';
 
-import { Session } from 'next-auth';
-
+import { getServerSession } from '@libs/next-auth';
 import { prisma } from '@libs/prisma';
 
 type Data = {
@@ -10,10 +9,11 @@ type Data = {
   bookId: string;
 };
 
-export async function createFeedback(
-  { bookId, description, rating }: Data,
-  user: Required<Session>['user'],
-) {
+export async function createFeedback({ bookId, description, rating }: Data) {
+  const session = await getServerSession();
+
+  if (!session) throw new Error('Unauthorized');
+
   const book = await prisma.book.findUnique({
     where: { id: bookId },
     include: { feedbacks: true },
@@ -25,7 +25,7 @@ export async function createFeedback(
     data: {
       description,
       rating,
-      author_id: user.id,
+      author_id: session.user.id,
       book_id: book.id,
     },
   });
