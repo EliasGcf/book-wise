@@ -7,7 +7,7 @@ import { wx } from 'windstitch';
 import { Text } from '@ui/Text';
 
 const navLink = wx({
-  className: `flex w-fit cursor-pointer items-center gap-3 transition-colors hover:text-gray-01 relative h-10`,
+  className: `flex w-fit cursor-pointer items-center gap-3 transition-colors hover:text-gray-01 relative h-10 w-full`,
 
   variants: {
     active: (yes: boolean) =>
