@@ -1,11 +1,12 @@
 'use client';
 
-import { Feedback, User } from '@prisma/client';
 import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
 import { Trash } from '@ui/icons';
+
+import { Feedback, User } from '@libs/prisma';
 
 import { deleteFeedback } from '@utils/delete-feedback';
 

@@ -6,6 +6,8 @@ import {
   Category as PrismaCategory,
 } from '@prisma/client';
 
+import { Replace } from '@shared/types/replace';
+
 export type AppPrismaClient = ReturnType<typeof generatePrismaClient>;
 
 // eslint-disable-next-line import/no-mutable-exports
@@ -21,8 +23,8 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma;
 }
 
-export type Feedback = PrismaFeedback;
-export type User = PrismaUser;
+export type Feedback = Replace<PrismaFeedback, { created_at: string }>;
+export type User = Replace<PrismaUser, { createdAt: string }>;
 export type Book = PrismaBook;
 export type Category = PrismaCategory;
 
